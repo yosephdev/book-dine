@@ -1,112 +1,166 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Restaurant Booking System
 
-Welcome USER_NAME,
+## Table of Contents
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+- [User Experience](#user-experience)
+- [Project Goals](#project-goals)
+- [Agile Methodology](#agile-methodology)
+- [Target Audience](#target-audience)
+- [Design](#design)
+  * [Color Scheme](#color-scheme)
+  * [Cabin Images](#cabin-images)
+  * [Wireframes](#wireframes)
+- [Data Model](#data-model)
+  * [User Journey](#user-journey)
+  * [Database Scheme](#database-scheme)
+- [Security Features](#security-features)
+- [Features](#features)
+  * [Existing Features](#existing-features)
+  * [Features Left to Implement](#features-left-to-implement)
+- [Technologies Used](#technologies-used)
+  * [Languages Used](#languages-used)
+  * [Databases Used](#databases-used)
+  * [Frameworks Used](#frameworks-used)
+  * [Programs Used](#programs-used)
+- [Deployment and Local Development](#deployment-and-local-development)
+  * [Local Development](#local-development)
+  * [ElephantSQL Database](#elephantsql-database)
+  * [Cloudinary](#cloudinary)
+  * [Heroku Deployment](#heroku-deployment)
+- [Testing](#testing)
+- [References](#references)
+  * [Docs](#docs)
+  * [Content](#content)
+  * [Acknowledgments](#acknowledgments)
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **April 26, 2024**
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-## Gitpod Reminders
+## User Experience
+The primary goal of this project is to develop a user-friendly and efficient restaurant booking system using Django, a high-level Python web framework. The system will allow customers to easily book reservations, view available tables, and manage their bookings. It will also provide an administrative interface for restaurant staff to manage bookings, tables, and customer information.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Project Goals
+The primary goal of this project is to develop a user-friendly and efficient restaurant booking system using Django, a high-level Python web framework. The system will allow customers to easily book reservations, view available tables, and manage their bookings. It will also provide an administrative interface for restaurant staff to manage bookings, tables, and customer information.
 
-`python3 -m http.server`
+## Agile Methodology
+The project is being developed using an Agile methodology to help prioritize and organize tasks. This involves writing user stories and using Project Boards on GitHub.
 
-A blue button should appear to click: _Make Public_,
+### User Stories and Epics
+A template is created to help write user stories in a consistent format: "As a [type of user], I want [goal] so that [benefit]." Epics are also written, containing possible user stories. Based on these epics, the website features are planned and implemented.
 
-Another blue button should appear to click: _Open Browser_.
+User stories are created by looking at the epics and refined through an iterative process as the project progresses. This allows me to stay focused on delivering value to users.
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+### Project Board
+The project board on GitHub is set to public, allowing for transparency and collaboration. It is used to track the progression of tasks through the "To Do", "In Progress", and "Done" columns.
 
-A blue button should appear to click: _Make Public_,
+Labels are added to the issues to sort them based on importance, such as "high priority", "medium priority", and "low priority". This helps me prioritize the most critical tasks.
 
-Another blue button should appear to click: _Open Browser_.
+## Target Audience
+The restaurant booking system will cater to three main user groups:
+- **First time user**: First-time users will be able to easily navigate the system to find available tables, view restaurant information, and make reservations. The system will provide clear instructions and intuitive interfaces to guide them through the booking process.
+- **Registered user**: Registered users will have additional features, such as the ability to view their booking history, update their profile information, and receive notifications about upcoming reservations. They will also be able to leave reviews and ratings for the restaurant.
+- **Admin user**: Admin users, typically restaurant staff, will have access to a comprehensive management interface. They will be able to view and manage all bookings, add or remove tables, update restaurant information, and generate reports. The admin interface will be designed to be user-friendly and efficient, allowing staff to quickly access and update information as needed.
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+## Design
+### Color Scheme
+The color scheme for the restaurant booking system will be inspired by the restaurant's branding and will aim to create a warm and inviting atmosphere. The primary colors will be a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
 
-To log into the Heroku toolbelt CLI:
+### Cabin Images
+The system will feature images of the restaurant's cabins or dining areas to give users a visual representation of the available spaces. These images will be high-quality and well-lit, showcasing the unique features and ambiance of each cabin.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Wireframes
+Wireframes will be created for each page of the system, including the homepage, booking page, user profile page, and admin dashboard. These wireframes will serve as a blueprint for the user interface and will be used to ensure consistency and usability throughout the system.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+## Data Model
+### User Journey
+The user journey will be carefully mapped out to ensure a seamless and intuitive experience for all users. This will include the steps involved in making a reservation, updating a booking, and accessing the admin dashboard.
 
-------
+### Database Scheme
+The database scheme will be designed using PostgreSQL, a powerful and reliable open-source database management system. The scheme will include tables for users, bookings, tables, and restaurant details, with appropriate relationships and constraints to ensure data integrity and consistency.
 
-## Release History
+## Security Features
+The restaurant booking system will incorporate robust security features to protect user data and prevent unauthorized access. This will include:
+- Password hashing and salting to securely store user passwords
+- CSRF protection to prevent cross-site request forgery attacks
+- SSL/TLS encryption to secure communication between the client and server
+- Rate limiting to prevent brute-force attacks and denial-of-service attacks
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+## Features
+### Existing Features
+-
 
-**April 26 2024:** Update node version to 16
+### Features Left to Implement
+- User registration and authentication
+- Booking creation, update, and cancellation
+- Table management (add, edit, and remove tables)
+- Restaurant information management (update details, opening hours, etc.)
+- User profile management (update personal information, view booking history)
+- Admin dashboard for managing all bookings, tables, and user accounts
+- Integration with a payment gateway for online payments
+- Automated email notifications for booking confirmations and reminders
+- Real-time availability checks and booking conflicts prevention
+- Customizable email templates for notifications and confirmations
+- Advanced reporting and analytics features for admin users
 
-**September 20 2023:** Update Python version to 3.9.17.
+## Technologies Used
+### Languages Used
+- Python
+- HTML
+- CSS
+- JavaScript
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+### Databases Used
+- PostgreSQL
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+### Frameworks Used
+- Django
+- Bootstrap
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+### Programs Used
+- Git
+- GitHub
+- Heroku
+- Cloudinary
+- ElephantSQL
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+## Deployment and Local Development
+### Local Development
+To set up the project for local development, follow these steps:
+1. Clone the repository to your local machine
+2. Create a virtual environment and activate it
+3. Install the required dependencies using `pip install -r requirements.txt`
+4. Set up environment variables for database connection and other sensitive information
+5. Run the Django development server using `python manage.py runserver`
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### ElephantSQL Database
+The project will use ElephantSQL, a cloud-based PostgreSQL database service, for storing all application data. ElephantSQL provides a simple and reliable way to manage and scale PostgreSQL databases.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Cloudinary
+Cloudinary, a cloud-based image and video management service, will be used for storing and serving the restaurant's cabin images. Cloudinary offers easy integration with Django and provides features such as automatic image optimization and responsive delivery.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+### Heroku Deployment
+The restaurant booking system will be deployed to Heroku, a cloud platform that enables developers to build, run, and operate applications entirely in the cloud. Heroku provides a simple and efficient way to deploy Django applications and manage their infrastructure.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Testing
+Comprehensive testing will be conducted throughout the development process to ensure the quality and reliability of the restaurant booking system. This will include:
+- Unit tests for individual components and functions
+- Integration tests to verify the interaction between different modules
+- End-to-end tests to simulate real-world user scenarios
+- Usability testing with actual users to identify and address any issues with the user interface or user experience
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+## References
+### Docs
+- [Django Documentation](https://docs.djangoproject.com/)
+- [Bootstrap Documentation](https://getbootstrap.com/docs/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+### Content
+- [ElephantSQL Documentation](https://www.elephantsql.com/docs/index.html)
+- [Cloudinary Documentation](https://cloudinary.com/documentation)
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+### Acknowledgments
+I would like to acknowledge the following resources and individuals who have contributed to the development of this project:
+- The Django community for their excellent documentation and support
+- The Bootstrap community for providing a powerful and flexible CSS framework
+- The PostgreSQL community for developing a robust and reliable database management system
+- The ElephantSQL, Cloudinary, and Heroku teams for their cloud-based services and support
+- My mentor Mitko Bachvarov for his support and feedback throughout the project developemnt process
