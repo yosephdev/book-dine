@@ -44,10 +44,66 @@ The primary goal of this project is to develop a user-friendly and efficient res
 ## Agile Methodology
 The project is being developed using an Agile methodology to help prioritize and organize tasks. This involves writing user stories and using Project Boards on GitHub.
 
-### User Stories and Epics
+## User Stories and Epics
+
 A template is created to help write user stories in a consistent format: "As a [type of user], I want [goal] so that [benefit]." Epics are also written, containing possible user stories. Based on these epics, the website features are planned and implemented.
 
 User stories are created by looking at the epics and refined through an iterative process as the project progresses. This allows me to stay focused on delivering value to users.
+
+### Epics
+
+### Home Page
+- **Epic**: As a developer, I want to develop a user-friendly home page that provides navigation to different parts of the site and displays the restaurant's information.
+
+  **Potential User Stories**:
+  - As a developer, I want to design a visually appealing home page so that users find it engaging.
+  - As a developer, I want to display the restaurant's information on the home page so that users can learn more about it.
+  - As a developer, I want to provide easy navigation on the home page so that users can easily access different parts of the site.
+
+### User Registration
+- **Epic**: As a developer, I want to implement a user registration and login system that allows users to create and access their accounts.
+
+  **Potential User Stories**:
+  - As a developer, I want to create a registration form so that new users can create an account.
+  - As a developer, I want to create a login form so that registered users can access their account.
+
+### Website Admin and Bookings
+- **Epic**: As a developer, I want to develop an administrative interface for managing bookings, tables, and customer information, and a user interface for making, viewing, updating, and canceling reservations.
+
+  **Potential User Stories**:
+  - As a developer, I want to create an admin interface so that restaurant staff can manage bookings, tables, and customer information.
+  - As a developer, I want to create a user interface for reservations so that users can make, view, update, and cancel their reservations.
+
+### Maintain consistent design with responsiveness in mind
+- **Epic**: As a developer, I want to ensure that the website has a consistent design across different pages and is responsive to different screen sizes.
+
+  **Potential User Stories**:
+  - As a developer, I want to maintain a consistent design across the website so that it provides a seamless user experience.
+  - As a developer, I want to make the website responsive so that it looks good on devices of all sizes.
+
+### User Stories
+
+#### User Registration and Login
+- As a new user, I want to register so that I can make a reservation.
+- As a registered user, I want to log in so that I can access my account.
+
+#### Homepage
+- As a user, I want to see a homepage that displays the restaurant’s information and allows me to navigate to different parts of the site.
+
+#### Making a Reservation
+- As a user, I want to select a date, time, and number of guests for my reservation so that I can book a table.
+- As a user, I want to receive a confirmation after I make a reservation so that I know it was successful.
+
+#### Viewing and Updating a Reservation
+- As a user, I want to view my reservations so that I can keep track of them.
+- As a user, I want to update my reservation (change the date, time, or number of guests) so that I can make changes if my plans change.
+
+#### Canceling a Reservation
+- As a user, I want to cancel my reservation so that the table can be freed up if I can’t make it.
+
+#### Reviewing a Restaurant
+- As a user, I want to write a review about my experience at the restaurant so that other users can read it.
+- As a user, I want to read reviews from other users so that I can make an informed decision about whether to book a table.
 
 ### Project Board
 The project board on GitHub is set to public, allowing for transparency and collaboration. It is used to track the progression of tasks through the "To Do", "In Progress", and "Done" columns.
