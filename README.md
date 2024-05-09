@@ -7,12 +7,12 @@
 - [Agile Methodology](#agile-methodology)
 - [Target Audience](#target-audience)
 - [Design](#design)
-  * [Color Scheme](#color-scheme)
-  * [Cabin Images](#cabin-images)
+  * [Color Scheme](#color-scheme)  
   * [Wireframes](#wireframes)
 - [Data Model](#data-model)
   * [User Journey](#user-journey)
   * [Database Scheme](#database-scheme)
+  * [ERD Diagram](#erd-diagram)
 - [Security Features](#security-features)
 - [Features](#features)
   * [Existing Features](#existing-features)
@@ -120,9 +120,6 @@ The restaurant booking system will cater to three main user groups:
 ### Color Scheme
 The color scheme for the restaurant booking system will be inspired by the restaurant's branding and will aim to create a warm and inviting atmosphere. The primary colors will be a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
 
-### Cabin Images
-The system will feature images of the restaurant's cabins or dining areas to give users a visual representation of the available spaces. These images will be high-quality and well-lit, showcasing the unique features and ambiance of each cabin.
-
 ## Wireframes
 
 Below are wireframe examples for different sections of the booking system:
@@ -151,14 +148,16 @@ Below are wireframe examples for different sections of the booking system:
       ![Reservations Page-Desktop Wireframe](docs/wireframes/Reservations-Desktop.png)
       ![Reservations Page-Mobile Wireframe](docs/wireframes/Reservations-Mobile.png)
 
-Feel free to replace the image URLs with actual links to your wireframe images. You can host the wireframes on platforms like Imgur, Dropbox, or any other image hosting service.
-
 ## Data Model
+
 ### User Journey
 The user journey will be carefully mapped out to ensure a seamless and intuitive experience for all users. This will include the steps involved in making a reservation, updating a booking, and accessing the admin dashboard.
 
 ### Database Scheme
 The database scheme will be designed using PostgreSQL, a powerful and reliable open-source database management system. The scheme will include tables for users, bookings, tables, and restaurant details, with appropriate relationships and constraints to ensure data integrity and consistency.
+
+#### Entity Relationship Diagram (ERD)
+![Database Relational Diagram](docs/readme_images/bookdine-ERD.png)
 
 ## Security Features
 The restaurant booking system will incorporate robust security features to protect user data and prevent unauthorized access. This will include:
@@ -168,8 +167,18 @@ The restaurant booking system will incorporate robust security features to prote
 - Rate limiting to prevent brute-force attacks and denial-of-service attacks
 
 ## Features
+
 ### Existing Features
--
+
+- Docker setup for containerized development environment
+- Installation of Django framework and required dependencies
+- Integration of Django Extensions for additional development tools
+- Installation of Graphviz for generating ERD diagrams
+- Configuration of Gunicorn for serving Django applications
+- Setup of PostgreSQL database using psycopg2
+- Definition of project structure and initial file setup
+- Addition of wireframes for homepage, booking page, register page, and reservations page
+- Generation of ERD image representing the database schema
 
 ### Features Left to Implement
 - User registration and authentication
