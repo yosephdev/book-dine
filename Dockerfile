@@ -19,5 +19,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose the port the app runs on
 EXPOSE $PORT
 
-# Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "book-dine.wsgi"]
+# Run the application using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "book-dine.wsgi:application"]
