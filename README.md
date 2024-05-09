@@ -123,8 +123,35 @@ The color scheme for the restaurant booking system will be inspired by the resta
 ### Cabin Images
 The system will feature images of the restaurant's cabins or dining areas to give users a visual representation of the available spaces. These images will be high-quality and well-lit, showcasing the unique features and ambiance of each cabin.
 
-### Wireframes
-Wireframes will be created for each page of the system, including the homepage, booking page, user profile page, and admin dashboard. These wireframes will serve as a blueprint for the user interface and will be used to ensure consistency and usability throughout the system.
+## Wireframes
+
+Below are wireframe examples for different sections of the booking system:
+
+1. **Homepage Wireframe:**
+   - The homepage wireframe outlines the layout, navigation, and key elements of the landing page.
+
+      ![Homepage-Desktop Wireframe](docs/wireframes/Homepage-Desktop.png)
+      ![Homepage-Mobile Wireframe](docs/wireframes/Homepage-Mobile.png)
+
+2. **Booking Page Wireframe:**
+   - The booking page wireframe focuses on the user's reservation journey.
+
+      ![Booking Page-Desktop Wireframe](docs/wireframes/Booking-Desktop.png)
+      ![Booking Page-Mobile Wireframe](docs/wireframes/Booking-Mobile.png)
+
+3. **Register Page Wireframe:**
+   - The register page wireframe includes form fields for user registration.
+
+      ![Register Page-Desktop Wireframe](docs/wireframes/Register-Desktop.png)
+      ![Register Page-Mobile Wireframe](docs/wireframes/Register-Mobile.png)
+
+4. **Reservations Page Wireframe:**
+   - The reservations page wireframe displays booked reservations and relevant details.
+
+      ![Reservations Page-Desktop Wireframe](docs/wireframes/Reservations-Desktop.png)
+      ![Reservations Page-Mobile Wireframe](docs/wireframes/Reservations-Mobile.png)
+
+Feel free to replace the image URLs with actual links to your wireframe images. You can host the wireframes on platforms like Imgur, Dropbox, or any other image hosting service.
 
 ## Data Model
 ### User Journey
