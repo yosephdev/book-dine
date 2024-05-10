@@ -159,6 +159,16 @@ The database scheme will be designed using PostgreSQL, a powerful and reliable o
 #### Entity Relationship Diagram (ERD)
 ![Database Relational Diagram](docs/readme_images/bookdine.png)
 
+### Models
+I've introduced new models to represent key entities in the system:
+
+- **Restaurant**: Represents a restaurant with attributes such as name, location, cuisine, etc.
+- **Table**: Represents a table in a restaurant with attributes like capacity and table number.
+- **Reservation**: Represents a reservation made by a user for a specific table on a given date and time.
+- **Review**: Represents a review left by a user for a restaurant, including a rating and comments.
+
+These models are designed to capture essential data and facilitate smooth interaction within the application.
+
 ## Security Features
 The restaurant booking system will incorporate robust security features to protect user data and prevent unauthorized access. This will include:
 - Password hashing and salting to securely store user passwords
