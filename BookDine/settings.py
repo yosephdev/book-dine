@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from urllib.parse import urlparse
+import dj_database_url
 
-from env import *
+# Import the env.py file
+if os.path.isfile("env.py"):
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions', 
+    'django_extensions',
     'cloudinary_storage',
     'cloudinary',
     'crispy_forms',
-    'booking_system',     
+    'booking_system',
 ]
 
 MIDDLEWARE = [
@@ -80,21 +82,7 @@ WSGI_APPLICATION = 'BookDine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    parsed_url = urlparse(DATABASE_URL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': parsed_url.path.lstrip('/'),
-            'USER': parsed_url.username,
-            'PASSWORD': parsed_url.password,
-            'HOST': parsed_url.hostname,
-            'PORT': parsed_url.port or '5432',
-        }
-    }
-else:
-    raise ValueError("DATABASE_URL environment variable is not set.")
+DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
