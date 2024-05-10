@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+from urllib.parse import urlparse
+
+from env import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'crispy_forms',
-    'booking',     
+    'booking_system',     
 ]
 
 MIDDLEWARE = [
@@ -78,9 +80,21 @@ WSGI_APPLICATION = 'BookDine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600)
-}
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    parsed_url = urlparse(DATABASE_URL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': parsed_url.path.lstrip('/'),
+            'USER': parsed_url.username,
+            'PASSWORD': parsed_url.password,
+            'HOST': parsed_url.hostname,
+            'PORT': parsed_url.port or '5432',
+        }
+    }
+else:
+    raise ValueError("DATABASE_URL environment variable is not set.")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
