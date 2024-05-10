@@ -157,7 +157,7 @@ The user journey will be carefully mapped out to ensure a seamless and intuitive
 The database scheme will be designed using PostgreSQL, a powerful and reliable open-source database management system. The scheme will include tables for users, bookings, tables, and restaurant details, with appropriate relationships and constraints to ensure data integrity and consistency.
 
 #### Entity Relationship Diagram (ERD)
-![Database Relational Diagram](docs/readme_images/bookdine-ERD.png)
+![Database Relational Diagram](docs/readme_images/bookdine.png)
 
 ## Security Features
 The restaurant booking system will incorporate robust security features to protect user data and prevent unauthorized access. This will include:
