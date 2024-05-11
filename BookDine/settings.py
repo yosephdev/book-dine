@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'crispy_forms',
     'booking_system',
+    'accounts',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
