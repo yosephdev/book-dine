@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -24,7 +25,7 @@ class Table(models.Model):
         return f"Table {self.table_number} ({self.capacity} seats)"
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
     time = models.TimeField()
@@ -37,7 +38,7 @@ class Reservation(models.Model):
         return f"Reservation for {self.user.username} on {self.date} at {self.time}"
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
