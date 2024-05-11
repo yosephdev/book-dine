@@ -36,10 +36,22 @@
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## User Experience
-The primary goal of this project is to develop a user-friendly and efficient restaurant booking system using Django, a high-level Python web framework. The system will allow customers to easily book reservations, view available tables, and manage their bookings. It will also provide an administrative interface for restaurant staff to manage bookings, tables, and customer information.
+The primary goal of this project is to provide an exceptional user experience for both customers and restaurant staff. Customers will enjoy a seamless and intuitive process for booking reservations, viewing available tables, and managing their bookings. The system will be designed with a clean and modern interface, ensuring ease of use and accessibility across various devices.
+
+On the other hand, restaurant staff will benefit from a comprehensive administrative interface that streamlines the management of bookings, tables, and customer information. The interface will be user-friendly and efficient, allowing staff to quickly access and update relevant data, ensuring smooth operations and excellent customer service.
 
 ## Project Goals
-The primary goal of this project is to develop a user-friendly and efficient restaurant booking system using Django, a high-level Python web framework. The system will allow customers to easily book reservations, view available tables, and manage their bookings. It will also provide an administrative interface for restaurant staff to manage bookings, tables, and customer information.
+1. **Develop a user-friendly restaurant booking system**: Implement a web-based application that allows customers to easily book reservations, view available tables, and manage their bookings.
+
+2. **Provide an administrative interface**: Create a secure and comprehensive administrative interface for restaurant staff to manage bookings, tables, customer information, and other relevant data.
+
+3. **Ensure data integrity and security**: Implement robust data validation and security measures to protect customer information and ensure the integrity of the booking system.
+
+4. **Enhance customer experience**: Incorporate features that enhance the customer experience, such as email confirmations, reminders, and the ability to leave reviews or feedback.
+
+5. **Optimize for performance and scalability**: Develop the system with performance and scalability in mind, ensuring it can handle high traffic and grow with the restaurant's needs.
+
+6. **Ensure responsiveness and accessibility**: Design the user interface to be responsive and accessible across various devices and platforms, ensuring a consistent and inclusive experience for all users.
 
 ## Agile Methodology
 The project is being developed using an Agile methodology to help prioritize and organize tasks. This involves writing user stories and using Project Boards on GitHub.
