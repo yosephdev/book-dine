@@ -8,12 +8,16 @@
             <h2 class="text-center">Log In</h2>
             <form method="post">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ form.non_field_errors }}
+                {{ form.username.label_tag }} {{ form.username.errors }} {{ form.username }}
+                {{ form.password.label_tag }} {{ form.password.errors }} {{ form.password }}
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Log In</button>
                 </div>
             </form>
+            <p class="text-center">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
         </div>
     </div>
 </div>
 {% endblock %}
+
