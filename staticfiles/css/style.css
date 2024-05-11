@@ -1,0 +1,234 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Header and Navigation Styles */
+header {
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ff6347;
+}
+
+.navbar-brand .thin {
+    font-weight: 400;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #ff6347;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #ff6347;
+    border-color: #ff6347;
+}
+
+.btn-primary:hover {
+    background-color: #e65c4f;
+    border-color: #e65c4f;
+}
+
+/* Card Styles */
+.signup-form-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: #ff6347;
+    border-color: #ff6347;
+}
+
+.btn-primary:hover {
+    background-color: #e65c4f;
+    border-color: #e65c4f;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #ff6347;
+    color: #fff;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.btn-secondary {
+    color: #333;
+    border-color: #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+/* Main Content Styles */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Form Container Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+}
+
+.form-container {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form .btn {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container form .btn:hover {
+    background-color: #e65c4f;
+}
+
+.form-container p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.form-container p a {
+    color: #ff6347;
+    text-decoration: none;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-right: 1rem;
+    }
+}
+
+/* Vendor Prefixes */
+.form-container {
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Comments and Organization */
+/* Header and Navigation Styles */
+/* ... */
+
+/* Button Styles */
+/* ... */
+
+/* Card Styles */
+/* ... */
+
+/* Main Content Styles */
+/* ... */
+
+/* Form Container Styles */
+/* ... */
+
+/* Footer Styles */
+/* ... */
+
+/* Responsive Styles */
+/* ... */
+
+/* Vendor Prefixes */
+/* ... */
