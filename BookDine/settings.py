@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'crispy_forms',
-    'booking_system',
-    'accounts',
+    'booking_system',    
 ]
 
 MIDDLEWARE = [
