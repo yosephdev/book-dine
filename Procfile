@@ -1,1 +1,1 @@
-web: gunicorn book-dine.wsgi --log-file -
+web: gunicorn bookdine.wsgi --log-file -
