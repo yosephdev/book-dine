@@ -159,6 +159,8 @@ cython_debug/
 
 # Visual Studio Code
 .vscode/
+.vscode/settings.json
+
 
 # Cloudinary
 cloudinary_python.txt
