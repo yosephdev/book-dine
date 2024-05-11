@@ -22,5 +22,6 @@ class CustomUser(AbstractUser):
         """
         Meta class for CustomUser model.
         """
+        db_table = 'accounts_customuser'
         verbose_name = 'User'
         verbose_name_plural = 'Users'
