@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% block allauth_content %}{% endblock %}
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
