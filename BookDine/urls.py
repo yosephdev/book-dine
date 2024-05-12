@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),   
     path('booking_system/', booking_views.home_view, name='home'),
     path('book-table/', booking_views.book_table_view, name='book_table'), 
+    path('view-reservations/', booking_views.view_reservations_view, name='view_reservations'),
 ]
