@@ -44,7 +44,9 @@ body {
     position: relative;
     height: 80vh;
     overflow: hidden;
-    margin-top: 10px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 1rem;
 }
 
 .hero-image {
