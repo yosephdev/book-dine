@@ -80,6 +80,10 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(255, 99, 71, 0.25);
 }
 
+.form-check-input {
+    margin-top: 0.25rem;
+}
+
 .btn-primary {
     display: block;
     width: 100%;
