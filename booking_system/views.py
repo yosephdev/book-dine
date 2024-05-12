@@ -15,3 +15,16 @@ def home_view(request):
         'latest_reservations': latest_reservations,
     }
     return render(request, 'booking_system/home.html', context)
+
+def book_table_view(request):    
+    context = {       
+    }
+    return render(request, 'booking_system/book_table.html', context)
+
+def view_reservations_view(request):
+    # Get the user's reservations
+    reservations = Reservation.objects.filter(user=request.user)
+    context = {
+        'reservations': reservations,
+    }
+    return render(request, 'booking_system/view_reservations.html', context)
