@@ -54,7 +54,7 @@
                             href="{% url 'book_table' %}">Book a Table</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == view_reservations_url %}active{% endif %}"
+                        <a class="nav-link {% if request.resolver_match.url_name == 'view_reservations' %}active{% endif %}"
                             href="{% url 'view_reservations' %}">View Reservations</a>
                     </li>
                     {% if user.is_authenticated %}
@@ -73,7 +73,7 @@
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == write_review_url %}active{% endif %}"
+                        <a class="nav-link {% if request.resolver_match.url_name == 'write_review' %}active{% endif %}"
                             href="{% url 'write_review' %}">Write a Review</a>
                     </li>
                 </ul>
