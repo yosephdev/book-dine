@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'crispy_forms',
-     'crispy_forms',
     'crispy_bootstrap5',
     'booking_system',
     'accounts',
