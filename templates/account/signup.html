@@ -10,48 +10,50 @@
         <div class="col-md-8">
             <div class="signup-form-container mt-5">
                 <h2 class="text-center mb-4">{% trans "Create an Account" %}</h2>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form.username.label_tag }}
-                                {{ form.username.errors }}
-                                {{ form.username|as_crispy_field }}
+                <div class="form-container">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.username.label_tag }}
+                                    {{ form.username.errors }}
+                                    {{ form.username|as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email.errors }}
+                                    {{ form.email|as_crispy_field }}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form.email.label_tag }}
-                                {{ form.email.errors }}
-                                {{ form.email|as_crispy_field }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.password1.label_tag }}
+                                    {{ form.password1.errors }}
+                                    {{ form.password1|as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.password2.label_tag }}
+                                    {{ form.password2.errors }}
+                                    {{ form.password2|as_crispy_field }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form.password1.label_tag }}
-                                {{ form.password1.errors }}
-                                {{ form.password1|as_crispy_field }}
-                            </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">{% trans "Sign Up" %}</button>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form.password2.label_tag }}
-                                {{ form.password2.errors }}
-                                {{ form.password2|as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">{% trans "Sign Up" %}</button>
-                    </div>
-                </form>
-                <p class="text-center mt-3"> {% blocktrans trimmed %}
-                    Already have an account? <a href="{{ login_url }}">Log in</a>
-                    {% endblocktrans %}</p>
+                    </form>
+                    <p class="text-center mt-3"> {% blocktrans trimmed %}
+                        Already have an account? <a href="{{ login_url }}">Log in</a>
+                        {% endblocktrans %}</p>
+                </div>
             </div>
         </div>
     </div>
