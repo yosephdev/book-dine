@@ -42,20 +42,30 @@ body {
 /* Hero Section Styles */
 .hero-section {
     position: relative;
-    height: 500px;
-    /* Adjust the height as needed */
+    height: 80vh;
     overflow: hidden;
+    margin-top: 10px;
 }
 
 .hero-image {
+    background-image: url('https://res.cloudinary.com/decvzhwaz/image/upload/v1715513235/back_sqtuzk.jpg');
+    background-size: cover;
+    background-position: center;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("{% static 'images/hero.jpg' %}");
-    background-size: cover;
-    background-position: center;
+}
+
+.hero-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
@@ -63,8 +73,9 @@ body {
     z-index: 1;
     color: #fff;
     text-align: center;
-    padding-top: 100px;
-    /* Adjust the padding as needed */
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .hero-content h1 {
