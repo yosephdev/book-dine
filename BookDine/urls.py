@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
-from booking_system import views
+from booking_system import views as booking_views
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),   
-    path('booking_system/', views.home_view, name='home'), 
+    path('booking_system/', booking_views.home_view, name='home'),
+    path('book-table/', booking_views.book_table_view, name='book_table'), 
 ]
