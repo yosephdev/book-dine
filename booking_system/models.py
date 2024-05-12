@@ -12,6 +12,7 @@ class Restaurant(models.Model):
     opening_hours = models.CharField(max_length=100, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
+    rating = models.FloatField(default=0.0)
 
     def __str__(self):
         return self.name
