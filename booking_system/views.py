@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import Restaurant, Reservation
+from .models import Restaurant, Reservation, Review
 
 # Create your views here.
+
 
 def home_view(request):
     # Get the featured restaurants
@@ -16,10 +17,12 @@ def home_view(request):
     }
     return render(request, 'booking_system/home.html', context)
 
-def book_table_view(request):    
-    context = {       
+
+def book_table_view(request):
+    context = {
     }
     return render(request, 'booking_system/book_table.html', context)
+
 
 def view_reservations_view(request):
     # Get the user's reservations
@@ -28,3 +31,12 @@ def view_reservations_view(request):
         'reservations': reservations,
     }
     return render(request, 'booking_system/view_reservations.html', context)
+
+
+def write_review_view(request):
+    if request.method == 'POST':
+        pass
+    else:
+        context = {
+        }
+        return render(request, 'booking_system/write_review.html', context)
