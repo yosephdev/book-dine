@@ -44,11 +44,13 @@ body {
     position: relative;
     height: 80vh;
     overflow: hidden;
-    margin-top: 10px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 1rem;
 }
 
 .hero-image {
-    background-image: url('https://res.cloudinary.com/decvzhwaz/image/upload/v1715513235/back_sqtuzk.jpg');
+    background-image: url('https://res.cloudinary.com/decvzhwaz/image/upload/t_Banner 16:9/v1715513235/back_sqtuzk.jpg');
     background-size: cover;
     background-position: center;
     position: absolute;
