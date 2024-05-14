@@ -41,18 +41,17 @@ body {
 
 /* Form Styles */
 .form-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 2rem;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
 }
 
-.mb-3 {
+.form-group {
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .form-label {
@@ -81,34 +80,37 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(255, 99, 71, 0.25);
 }
 
-.form-check-input {
-    margin-top: 0.25rem;
+#div_id_remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.form-check-label {
-    margin-left: 0.5rem;
+#div_id_remember .form-check-input {
+    margin-right: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
-.signup-form-container .text-center {
-    margin-top: 1rem;
-}
 
-.btn-primary {
+/* Password Requirements List */
+#id_password1_helptext ul {
     display: block;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    color: #fff;
-    background-color: #ff6347;
-    border: none;
-    border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out;
+    list-style-type: disc;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
-.btn-primary:hover {
-    background-color: #e65c4f;
+#id_password1_helptext li {
+    display: list-item;
+    text-align: left;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: #6c757d;
 }
 
 /* Hero Section Styles */
@@ -164,9 +166,19 @@ body {
 }
 
 /* Button Styles */
+
 .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
     background-color: #ff6347;
-    border-color: #ff6347;
+    border: #ff6347;
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
@@ -222,11 +234,18 @@ body {
     padding: 1rem;
     text-align: center;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
+    padding-top: 2rem;
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+    .btn-primary {
+        display: inline-block;
+        width: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
     .hero-section {
         padding: 2rem 0;
     }
