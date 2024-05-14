@@ -11,21 +11,22 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h2>{% trans "Welcome to BookDine" %}</h2>
-            <p>{% blocktrans %}Log in to make a reservation or view your existing bookings. If you haven't created an
-                account yet, <a class="link" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h3>{% trans "Log In" %}</h3>
-            <div class="form-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-container mt-5">
+                <h2 class="text-center mb-4">{% trans "Welcome to Book|Dine" %}</h2>
+                <p class="text-center">
+                    {% blocktrans %}
+                    Log in to make a reservation or view your existing bookings. If you haven't created an
+                    account yet, <a class="link" href="{{ signup_url }}">sign up</a> first.
+                    {% endblocktrans %}
+                </p>
                 <form class="login" method="POST" action="{{ login_url }}">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button class="btn btn-primary" type="submit">{% trans "Log In" %}</button>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">{% trans "Log In" %}</button>
+                    </div>
                 </form>
             </div>
         </div>
