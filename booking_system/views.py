@@ -68,6 +68,19 @@ def view_reservations_view(request):
     return render(request, 'booking_system/view_reservations.html', context)
 
 
+def update_reservation_view(request, reservation_id):
+    reservation = get_object_or_404(
+        Reservation, id=reservation_id, user=request.user)
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('view_reservations')
+    else:
+        form = ReservationForm(instance=reservation)
+    return render(request, 'booking_system/update_reservation.html', {'form': form})
+
+
 def write_review_view(request):
     if request.method == 'POST':
         pass
