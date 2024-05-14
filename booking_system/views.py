@@ -81,6 +81,16 @@ def update_reservation_view(request, reservation_id):
     return render(request, 'booking_system/update_reservation.html', {'form': form})
 
 
+@login_required
+def cancel_reservation_view(request, reservation_id):
+    reservation = get_object_or_404(
+        Reservation, id=reservation_id, user=request.user)
+    if request.method == 'POST':
+        reservation.delete()
+        return redirect('view_reservations')
+    return render(request, 'booking_system/cancel_reservation.html', {'reservation': reservation})
+
+
 def write_review_view(request):
     if request.method == 'POST':
         pass
