@@ -251,6 +251,15 @@ h6 {
     color: var(--text-color);
 }
 
+.restaurant-link {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.restaurant-link:hover {
+    color: var(--accent-color);
+}
+
 /* Footer Styles */
 .footer {
     background-color: var(--background-color);
