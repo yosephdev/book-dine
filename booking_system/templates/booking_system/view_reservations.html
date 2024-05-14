@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4" style="color: var(--primary-color);">Your Reservations</h1>
+    {% if reservations %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Restaurant</th>
+                    <th>Table</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Guests</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.table.restaurant.name }}</td>
+                    <td>{{ reservation.table.table_number }}</td>
+                    <td>{{ reservation.date }}</td>
+                    <td>{{ reservation.time }}</td>
+                    <td>{{ reservation.number_of_guests }}</td>
+                    <td>
+                        <a href="{% url 'update_reservation' reservation.id %}" class="btn btn-primary btn-sm"
+                            style="background-color: var(--accent-color); border-color: var(--accent-color);">Update</a>
+                        <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center">You have no reservations yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    th {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
