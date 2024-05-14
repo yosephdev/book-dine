@@ -22,13 +22,13 @@ from django.urls import path, include
 from booking_system import views as booking_views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('admin/', admin.site.urls),   
-    path('booking_system/', booking_views.home_view, name='home'),
-    path('book-table/', booking_views.book_table_view, name='book_table'), 
+    path('', booking_views.home_view, name='home'),
+    path('book-table/', booking_views.book_table_view, name='book_table'),
     path('view-reservations/', booking_views.view_reservations_view, name='view_reservations'),
     path('write-review/', booking_views.write_review_view, name='write_review'),
-] 
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
