@@ -23,7 +23,9 @@ def home_view(request):
 
 
 def book_table_view(request):
+    restaurants = Restaurant.objects.all()
     context = {
+        'restaurants': restaurants,
     }
     return render(request, 'booking_system/book_table.html', context)
 
