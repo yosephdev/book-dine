@@ -131,7 +131,21 @@ The restaurant booking system will cater to three main user groups:
 ## Design
 
 ### Color Scheme
-The color scheme for the restaurant booking system will be inspired by the restaurant's branding and will aim to create a warm and inviting atmosphere. The primary colors will be a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
+
+The color scheme for the restaurant booking system aims to create a warm and inviting atmosphere. The primary colors are a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
+
+![Colour Palette](docs/readme_images/color-palette.png)
+
+  - **Primary-color (#8b6a60)**: A warm brown shade used for primary elements like buttons and headings.
+
+  - **Secondary-color (#4d7c5f)**: A natural green shade used for secondary elements like navigation and accents.
+
+  - **Accent-color (#c7a369)**: A golden shade used for highlighting important elements and adding a touch of elegance.
+
+  - **Text-color (#333333)**: A dark gray shade used for body text to ensure good readability.
+
+  - **Background-color (#f8f8f8)**: A light gray shade used for the background to create a clean and modern look.
+
 
 ## Wireframes
 
