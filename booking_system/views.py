@@ -1,5 +1,9 @@
-from django.shortcuts import render
-from .models import Restaurant, Reservation, Review
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.db.models import Q
+from .models import Restaurant, Reservation, Review, Table
+from .forms import ReservationForm
 
 # Create your views here.
 
@@ -22,6 +26,37 @@ def book_table_view(request):
     context = {
     }
     return render(request, 'booking_system/book_table.html', context)
+
+
+@login_required
+def make_reservation(request):
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            table = form.cleaned_data['table']
+            date = form.cleaned_data['date']
+            time = form.cleaned_data['time']
+
+            # Check if the table is available for the given date and time
+            existing_reservations = Reservation.objects.filter(
+                Q(table=table) &
+                Q(date=date) &
+                Q(time=time)
+            )
+
+            if existing_reservations.exists():
+                form.add_error(
+                    None, 'The selected table is not available for the chosen date and time.')
+            else:
+                reservation = form.save(commit=False)
+                reservation.user = request.user
+                reservation.save()
+                messages.success(
+                    request, 'Your reservation has been made successfully.')
+                return redirect('reservation_success')
+    else:
+        form = ReservationForm()
+    return render(request, 'booking_system/make_reservation.html', {'form': form})
 
 
 def view_reservations_view(request):
