@@ -61,13 +61,16 @@ def make_reservation(request):
     return render(request, 'booking_system/make_reservation.html', {'form': form})
 
 
+@login_required
 def view_reservations_view(request):
-    # Get the user's reservations
-    reservations = Reservation.objects.filter(user=request.user)
-    context = {
-        'reservations': reservations,
-    }
-    return render(request, 'booking_system/view_reservations.html', context)
+    if request.user.is_authenticated:
+        reservations = Reservation.objects.filter(user=request.user)
+        context = {
+            'reservations': reservations,
+        }
+        return render(request, 'booking_system/view_reservations.html', context)
+    else:
+        return redirect('account_login')
 
 
 def update_reservation_view(request, reservation_id):
