@@ -129,6 +129,7 @@ The restaurant booking system will cater to three main user groups:
 - **Admin user**: Admin users, typically restaurant staff, will have access to a comprehensive management interface. They will be able to view and manage all bookings, add or remove tables, update restaurant information, and generate reports. The admin interface will be designed to be user-friendly and efficient, allowing staff to quickly access and update information as needed.
 
 ## Design
+
 ### Color Scheme
 The color scheme for the restaurant booking system will be inspired by the restaurant's branding and will aim to create a warm and inviting atmosphere. The primary colors will be a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
 
@@ -192,28 +193,21 @@ The restaurant booking system will incorporate robust security features to prote
 
 ### Existing Features
 
-- Docker setup for containerized development environment
-- Installation of Django framework and required dependencies
-- Integration of Django Extensions for additional development tools
-- Installation of Graphviz for generating ERD diagrams
-- Configuration of Gunicorn for serving Django applications
-- Setup of PostgreSQL database using psycopg2
-- Definition of project structure and initial file setup
-- Addition of wireframes for homepage, booking page, register page, and reservations page
-- Generation of ERD image representing the database schema
+### Homepage
+- Display information about the restaurant
+- Call-to-action button for booking a table
+
+### User Authentication
+- User registration functionality
+- User login and logout functionality
+- Responsive design for optimal viewing experience on various devices
 
 ### Features Left to Implement
-- User registration and authentication
 - Booking creation, update, and cancellation
 - Table management (add, edit, and remove tables)
 - Restaurant information management (update details, opening hours, etc.)
 - User profile management (update personal information, view booking history)
 - Admin dashboard for managing all bookings, tables, and user accounts
-- Integration with a payment gateway for online payments
-- Automated email notifications for booking confirmations and reminders
-- Real-time availability checks and booking conflicts prevention
-- Customizable email templates for notifications and confirmations
-- Advanced reporting and analytics features for admin users
 
 ## Technologies Used
 ### Languages Used
@@ -237,6 +231,7 @@ The restaurant booking system will incorporate robust security features to prote
 - ElephantSQL
 
 ## Deployment and Local Development
+
 ### Local Development
 To set up the project for local development, follow these steps:
 1. Clone the repository to your local machine
