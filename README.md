@@ -193,21 +193,42 @@ The restaurant booking system will incorporate robust security features to prote
 
 ### Existing Features
 
-### Homepage
-- Display information about the restaurant
-- Call-to-action button for booking a table
+#### Homepage
+- This is the first page users see. It displays the restaurant booking system app's name, a brief description, and navigation links to:
+  - 'Book a Table'
+  - 'View Reservations'
+  - 'Login/Register'
+  - 'Reviews'
 
-### User Authentication
-- User registration functionality
-- User login and logout functionality
-- Responsive design for optimal viewing experience on various devices
+![Homepage Preview](docs/readme_images/homepage_img.png)
+
+#### Login Page
+- This page has a form for users to log in. The form has the necessary fields (like username, password, etc.).
+
+![Login Page Preview](docs/readme_images/login_page_img.png) 
+
+#### Register Page
+- This page has a form for users to register. The form has the necessary fields (like username, password, etc.).
+
+![Register Page Preview](docs/readme_images/register_page_img.png)
 
 ### Features Left to Implement
-- Booking creation, update, and cancellation
-- Table management (add, edit, and remove tables)
-- Restaurant information management (update details, opening hours, etc.)
-- User profile management (update personal information, view booking history)
-- Admin dashboard for managing all bookings, tables, and user accounts
+
+#### Admin Dashboard
+- Managing all bookings, tables, and user accounts.
+- Advanced reporting and analytics features.
+
+#### Booking Page
+- This page allows users to book a table.
+- It will have a form where users can select the date, time, and number of guests for their reservation.
+
+#### Reservations Page
+- This page displays a list of the user's current reservations.
+- Each reservation will have options to 'Edit' or 'Cancel'.
+
+#### Review Page
+- This page allows users to write a review and displays reviews from other users.
+- It will have a form for writing reviews and a list or grid layout for displaying them.
 
 ## Technologies Used
 ### Languages Used
