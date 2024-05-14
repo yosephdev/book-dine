@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -57,6 +58,18 @@ def make_reservation(request):
     else:
         form = ReservationForm()
     return render(request, 'booking_system/make_reservation.html', {'form': form})
+
+
+def restaurant_detail_view(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    tables = restaurant.tables.all()
+    reservations = Reservation.objects.filter(table__restaurant=restaurant)
+    context = {
+        'restaurant': restaurant,
+        'tables': tables,
+        'reservations': reservations,
+    }
+    return render(request, 'booking_system/restaurant_detail.html', context)
 
 
 def view_reservations_view(request):
