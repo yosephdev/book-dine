@@ -1,3 +1,17 @@
+/* Color variables */
+:root {
+    --primary-color: #8b6a60;
+    /* Brown */
+    --secondary-color: #4d7c5f;
+    /* Green */
+    --accent-color: #c7a369;
+    /* Gold */
+    --text-color: #333333;
+    /* Dark gray */
+    --background-color: #f8f8f8;
+    /* Light gray */
+}
+
 /* Reset and base styles */
 * {
     box-sizing: border-box;
