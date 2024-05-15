@@ -75,7 +75,7 @@
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'write_review' %}active{% endif %}"
-                            href="{% url 'write_review' %}">Write a Review</a>
+                            href="{% url 'write_review' 1 %}">Write a Review</a>
                     </li>
                 </ul>
             </div>
