@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from .models import Restaurant, Reservation, Review, Table
-from .forms import ReservationForm
+from .forms import ReservationForm, ReviewForm
 
 # Create your views here.
 
@@ -96,10 +96,17 @@ def cancel_reservation_view(request, reservation_id):
     return render(request, 'booking_system/cancel_reservation.html', {'reservation': reservation})
 
 
-def write_review_view(request):
+@login_required
+def write_review_view(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
     if request.method == 'POST':
-        pass
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.restaurant = restaurant
+            review.save()
+            return redirect('restaurant_detail', restaurant_id=restaurant.id)
     else:
-        context = {
-        }
-        return render(request, 'booking_system/write_review.html', context)
+        form = ReviewForm()
+    return render(request, 'booking_system/write_review.html', {'form': form, 'restaurant': restaurant})
