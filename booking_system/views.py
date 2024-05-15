@@ -32,10 +32,8 @@ def book_table_view(request):
 
 def restaurant_detail_view(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-    form = ReviewForm()
     context = {
         'restaurant': restaurant,
-        'form': form,
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
 
@@ -119,4 +117,8 @@ def write_review_view(request, restaurant_id):
             return redirect('restaurant_detail', restaurant_id=restaurant.id)
     else:
         form = ReviewForm()
-    return render(request, 'booking_system/write_review.html', {'form': form, 'restaurant': restaurant})
+        context = {
+            'restaurant': restaurant,
+            'form': form,
+        }
+    return render(request, 'booking_system/write_review.html', context)
