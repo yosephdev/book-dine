@@ -28,7 +28,7 @@ urlpatterns = [
     path('book-table/', booking_views.book_table_view, name='book_table'),
     path('view-reservations/', booking_views.view_reservations_view,
          name='view_reservations'),
-    path('write-review/', booking_views.write_review_view, name='write_review'),
+    path('restaurant/<int:restaurant_id>/write-review/', booking_views.write_review_view, name='write_review'),
     path('make-reservation/', booking_views.make_reservation,
          name='make_reservation'),
     path('reservation/<int:reservation_id>/update/',
