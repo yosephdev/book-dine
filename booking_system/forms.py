@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reservation
+from .models import Reservation, Review
 
 
 class ReservationForm(forms.ModelForm):
@@ -7,3 +7,8 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = ['table', 'date', 'time',
                   'number_of_guests', 'special_requests']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
