@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4" style="color: var(--primary-color);">Write a Review</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="{% url 'write_review' restaurant.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.rating.id_for_label }}">Rating</label>
+                            {{ form.rating }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.comment.id_for_label }}">Review</label>
+                            {{ form.comment }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .form-group label {
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
