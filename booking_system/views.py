@@ -30,6 +30,16 @@ def book_table_view(request):
     return render(request, 'booking_system/book_table.html', context)
 
 
+def restaurant_detail_view(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    form = ReviewForm()
+    context = {
+        'restaurant': restaurant,
+        'form': form,
+    }
+    return render(request, 'booking_system/restaurant_detail.html', context)
+
+
 @login_required
 def make_reservation(request):
     if request.method == 'POST':
