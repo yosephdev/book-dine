@@ -121,6 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ADMIN = 'admin'
+RESTAURANT_OWNER = 'restaurant_owner'
+CUSTOMER = 'customer'
+
+ROLES = (
+    (ADMIN, 'Admin'),
+    (RESTAURANT_OWNER, 'Restaurant Owner'),
+    (CUSTOMER, 'Customer'),
+)
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
