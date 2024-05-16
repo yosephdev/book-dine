@@ -68,6 +68,8 @@ class Reservation(models.Model):
         Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
     time = models.TimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     number_of_guests = models.IntegerField()
     special_requests = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
