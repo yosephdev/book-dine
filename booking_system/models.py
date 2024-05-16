@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 from django.utils import timezone
 from datetime import timedelta
 from datetime import time
-from django.contrib.auth.models import User
+
 
 # Create your models here.
 
