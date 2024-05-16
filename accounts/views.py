@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
+from .forms import CustomUserChangeForm
 
 # Create your views here.
 
@@ -30,3 +32,17 @@ def signup_view(request):
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
+
+
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(
+            request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    return render(request, 'accounts/profile.html', {'form': form})
