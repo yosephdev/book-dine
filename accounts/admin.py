@@ -2,15 +2,18 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.conf import settings
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser  
+from .models import CustomUser
+
 
 User = settings.AUTH_USER_MODEL
+
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ["username", "email", "phone_number", "date_of_birth", "is_staff"]
+    list_display = ["username", "email",
+                    "phone_number", "date_of_birth", "is_staff"]
     fieldsets = UserAdmin.fieldsets + (
         (None, {"fields": ("phone_number", "date_of_birth", "profile_picture")}),
     )
@@ -33,4 +36,4 @@ class CustomUserAdmin(UserAdmin):
         return False
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+
