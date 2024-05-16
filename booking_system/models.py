@@ -1,8 +1,12 @@
 from django.conf import settings
 from django.db import models
+from django.core.validators import MinValueValidator
+from django.utils import timezone
+from datetime import timedelta
 from django.contrib.auth.models import User
 
 # Create your models here.
+
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
@@ -17,17 +21,51 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.name
 
+
 class Table(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='tables')
-    capacity = models.IntegerField()
-    table_number = models.IntegerField(unique=True)
+    restaurant = models.ForeignKey(
+        'Restaurant',
+        on_delete=models.CASCADE,
+        related_name='tables'
+    )
+    capacity = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)]
+    )
+    table_number = models.PositiveIntegerField(unique=True)
+    status = models.CharField(
+        max_length=20,
+        choices=(
+            ('available', 'Available'),
+            ('reserved', 'Reserved'),
+            ('occupied', 'Occupied'),
+        ),
+        default='available'
+    )
 
     def __str__(self):
         return f"Table {self.table_number} ({self.capacity} seats)"
 
+    def is_available(self, date, start_time, duration):
+        start_datetime = timezone.datetime.combine(date, start_time)
+        end_datetime = start_datetime + duration
+
+        overlapping_reservations = Reservation.objects.filter(
+            table=self,
+            date=date,
+            time__gte=start_datetime,
+            time__lt=end_datetime
+        )
+
+        if overlapping_reservations.exists():
+            return False
+        return True
+
+
 class Reservation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
-    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='reservations')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
+    table = models.ForeignKey(
+        Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
     time = models.TimeField()
     number_of_guests = models.IntegerField()
@@ -38,9 +76,12 @@ class Reservation(models.Model):
     def __str__(self):
         return f"Reservation for {self.user.username} on {self.date} at {self.time}"
 
+
 class Review(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, related_name='reviews')
+    restaurant = models.ForeignKey(
+        Restaurant, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
