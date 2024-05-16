@@ -1,15 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.conf import settings
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser  
 
-# Register your models here.
-
+User = settings.AUTH_USER_MODEL
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    model = CustomUser
+    model = User
     list_display = ["username", "email", "phone_number", "date_of_birth", "is_staff"]
     fieldsets = UserAdmin.fieldsets + (
         (None, {"fields": ("phone_number", "date_of_birth", "profile_picture")}),
