@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils import timezone
 from datetime import timedelta
+from datetime import time
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -60,6 +61,8 @@ class Table(models.Model):
             return False
         return True
 
+def get_midnight():
+    return time(0, 0)
 
 class Reservation(models.Model):
     user = models.ForeignKey(
@@ -68,8 +71,8 @@ class Reservation(models.Model):
         Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
     time = models.TimeField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(default=get_midnight)
+    end_time = models.TimeField(default=get_midnight)
     number_of_guests = models.IntegerField()
     special_requests = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
