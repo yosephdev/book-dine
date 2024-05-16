@@ -13,6 +13,7 @@
         <div class="col-md-8 mt-3">
             <div class="form-container">
                 <h2 class="text-center mb-4">{% trans "Log Out" %}</h2>
+                {% if request.user.is_authenticated %}
                 <p class="text-center">{% trans "Are you sure you want to log out of our restaurant booking system?" %}
                 </p>
                 <form method="post" action="{{ logout_url }}">
@@ -25,6 +26,12 @@
                         <a href="{{ home_url }}" class="btn btn-secondary">{% trans "Cancel" %}</a>
                     </div>
                 </form>
+                {% else %}
+                <p class="text-center">{% trans "You are already logged out." %}</p>
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{{ home_url }}" class="btn btn-primary">{% trans "Go to Home" %}</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
