@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -24,6 +23,15 @@
                 <form class="login" method="POST" action="{{ login_url }}">
                     {% csrf_token %}
                     {{ form|crispy }}
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">{% trans "Log In" %}</button>
                     </div>
