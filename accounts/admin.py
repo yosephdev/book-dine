@@ -29,6 +29,3 @@ class CustomUserAdmin(UserAdmin):
     def has_delete_permission(self, request, obj=None):
         """Disallow the deletion of profiles via admin interface."""
         return False
-
-
-admin.site.register(CustomUser, CustomUserAdmin)
