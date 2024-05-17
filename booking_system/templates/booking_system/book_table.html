@@ -3,6 +3,17 @@
 
 {% block content %}
 <div class="container my-5">
+    <h1>Restaurants</h1>
+
+    <form method="get" action="{% url 'restaurant_list' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search restaurants..."
+                value="{{ search_query }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    {% if restaurants %}
     <h1 class="text-center mb-4 primary-color">Book a Table</h1>
     <p class="text-center mb-4">Select a restaurant to book a table:</p>
     <div class="row justify-content-center">
@@ -22,5 +33,8 @@
             </ul>
         </div>
     </div>
+    {% else %}
+    <p class="text-center">No restaurants found.</p>
+    {% endif %}
 </div>
 {% endblock %}
