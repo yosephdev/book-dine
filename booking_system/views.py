@@ -33,6 +33,19 @@ def restaurant_detail_view(request, restaurant_id):
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
 
+def restaurant_list_view(request):
+    search_query = request.GET.get('search', '')
+    restaurants = Restaurant.objects.all()
+
+    if search_query:
+        restaurants = restaurants.filter(name__icontains=search_query)
+
+    context = {
+        'restaurants': restaurants,
+        'search_query': search_query,
+    }
+    return render(request, 'booking_system/restaurant_list.html', context)
+
 
 @login_required
 def make_reservation(request):
