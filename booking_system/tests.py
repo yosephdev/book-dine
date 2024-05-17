@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
 from .models import Restaurant, Table, Reservation, Review
@@ -47,7 +47,7 @@ class TableModelTest(TestCase):
 
 class ReservationModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
+        self.user = get_user_model().objects.create_user(
             username='testuser',
             password='testpassword'
         )
@@ -78,7 +78,7 @@ class ReservationModelTest(TestCase):
 
 class ReviewModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
+        self.user = get_user_model().objects.create_user(
             username='testuser',
             password='testpassword'
         )
@@ -102,7 +102,7 @@ class ReviewModelTest(TestCase):
 
 class ViewTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
+        self.user = get_user_model().objects.create_user(
             username='testuser',
             password='testpassword'
         )
