@@ -38,13 +38,13 @@ def restaurant_list_view(request):
     restaurants = Restaurant.objects.all()
 
     if search_query:
-        restaurants = restaurants.filter(name__icontains=search_query)
+        restaurants = restaurants.filter(name__iexact=search_query)
 
     context = {
         'restaurants': restaurants,
         'search_query': search_query,
     }
-    return render(request, 'booking_system/restaurant_list.html', context)
+    return render(request, 'booking_system/book_table.html', context)
 
 
 @login_required
