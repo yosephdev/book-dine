@@ -219,12 +219,29 @@ The restaurant booking system will incorporate robust security features to prote
 #### Login Page
 - This page has a form for users to log in. The form has the necessary fields (like username, password, etc.).
 
-![Login Page Preview](docs/readme_images/login_page_img.png) 
+![Login Page Preview](docs/readme_images/login_page_img.png)
 
 #### Register Page
 - This page has a form for users to register. The form has the necessary fields (like username, password, etc.).
 
 ![Register Page Preview](docs/readme_images/register_page_img.png)
+
+### Features Partially Implemented
+
+#### Booking Page
+- This page allows users to book a table.
+- It currently has a form where users can select the date, time, and number of guests for their reservation.
+- Additional functionality to handle form submissions and confirm bookings is in progress.
+
+#### Reservations Page
+- This page displays a list of the user's current reservations.
+- Basic display of reservations is implemented.
+- Options to 'Edit' or 'Cancel' reservations are in progress.
+
+#### Review Page
+- This page allows users to write a review and displays reviews from other users.
+- The form for writing reviews is implemented.
+- Displaying reviews in a list or grid layout is in progress.
 
 ### Features Left to Implement
 
@@ -232,17 +249,8 @@ The restaurant booking system will incorporate robust security features to prote
 - Managing all bookings, tables, and user accounts.
 - Advanced reporting and analytics features.
 
-#### Booking Page
-- This page allows users to book a table.
-- It will have a form where users can select the date, time, and number of guests for their reservation.
-
-#### Reservations Page
-- This page displays a list of the user's current reservations.
-- Each reservation will have options to 'Edit' or 'Cancel'.
-
-#### Review Page
-- This page allows users to write a review and displays reviews from other users.
-- It will have a form for writing reviews and a list or grid layout for displaying them.
+#### Advanced Booking Management
+- Adding features like special requests, booking confirmation emails, and integration with calendar apps.
 
 ## Technologies Used
 ### Languages Used
