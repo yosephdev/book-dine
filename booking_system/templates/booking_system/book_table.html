@@ -3,19 +3,19 @@
 
 {% block content %}
 <div class="container my-5">
-    <h1 class="text-center mb-4" style="color: var(--primary-color);">Book a Table</h1>
+    <h1 class="text-center mb-4 primary-color">Book a Table</h1>
     <p class="text-center mb-4">Select a restaurant to book a table:</p>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <ul class="list-group">
                 {% for restaurant in restaurants %}
-                <li class="list-group-item">
-                    <a href="{% url 'restaurant_detail' restaurant.id %}" class="restaurant-link">
+                <li class="list-group-item restaurant-item">
+                    <a href="{% url 'restaurant_detail' restaurant.id %}" class="text-decoration-none">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">{{ restaurant.name }}</h5>
-                            <span class="badge badge-primary">{{ restaurant.cuisine }}</span>
+                            <span class="badge badge-primary cuisine-badge">{{ restaurant.cuisine }}</span>
                         </div>
-                        <p class="mb-0">{{ restaurant.location }}</p>
+                        <p class="mb-0 restaurant-location">{{ restaurant.location }}</p>
                     </a>
                 </li>
                 {% endfor %}
@@ -23,8 +23,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block styles %}
-
 {% endblock %}

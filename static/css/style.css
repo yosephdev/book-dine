@@ -293,6 +293,27 @@ td {
     border-color: var(--accent-color);
 }
 
+.restaurant-item {
+    transition: background-color 0.3s;
+}
+
+.restaurant-item:hover {
+    background-color: var(--background-hover);
+}
+
+.restaurant-item a {
+    color: inherit;
+}
+
+.restaurant-location {
+    color: var(--secondary-color);
+}
+
+.cuisine-badge {
+    background-color: var(--accent-color);
+
+}
+
 /* Footer Styles */
 .footer {
     background-color: var(--background-color);
