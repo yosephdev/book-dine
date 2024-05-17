@@ -278,6 +278,21 @@ td {
     vertical-align: middle;
 }
 
+/* Reservations */
+.primary-color {
+    color: var(--primary-color);
+}
+
+.custom-card {
+    background-color: var(--background-color);
+    border-color: var(--primary-color);
+}
+
+.custom-button {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
 /* Footer Styles */
 .footer {
     background-color: var(--background-color);
