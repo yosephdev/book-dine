@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 import dj_database_url
 
 # Import the env.py file
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "allauth",
-    "allauth.account",    
+    "allauth.account",
     'django_extensions',
     'cloudinary_storage',
     'cloudinary',
@@ -151,6 +152,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+MESSAGE_TAGS = {
+    messages.SUCCESS: "alert-success",
+    messages.ERROR: "alert-danger",
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -163,12 +169,15 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudinary settings
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+if CLOUDINARY_URL:
+    credentials = CLOUDINARY_URL.split('://')[1].split('@')
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': credentials[1],
+        'API_KEY': credentials[0].split(':')[0],
+        'API_SECRET': credentials[0].split(':')[1],
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
