@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Q
 from .models import Restaurant, Reservation, Review, Table
 from .forms import ReservationForm, ReviewForm
 
@@ -9,10 +8,7 @@ from .forms import ReservationForm, ReviewForm
 
 
 def home_view(request):
-    # Get the featured restaurants
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
-
-    # Get the latest reservations
     latest_reservations = Reservation.objects.order_by('-created_at')[:5]
 
     context = {
@@ -47,11 +43,10 @@ def make_reservation(request):
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
 
-            # Check if the table is available for the given date and time
             existing_reservations = Reservation.objects.filter(
-                Q(table=table) &
-                Q(date=date) &
-                Q(time=time)
+                table=table,
+                date=date,
+                time=time,
             )
 
             if existing_reservations.exists():
@@ -72,15 +67,16 @@ def make_reservation(request):
 @login_required
 def view_reservations_view(request):
     if request.user.is_authenticated:
-        reservations = Reservation.objects.filter(user=request.user)
-        context = {
-            'reservations': reservations,
-        }
-        return render(request, 'booking_system/view_reservations.html', context)
+      reservations = Reservation.objects.filter(user=request.user)
+      context = {
+          'reservations': reservations,
+      }
+      return render(request, 'booking_system/view_reservations.html', context)
     else:
         return redirect('account_login')
 
 
+@login_required
 def update_reservation_view(request, reservation_id):
     reservation = get_object_or_404(
         Reservation, id=reservation_id, user=request.user)
@@ -88,6 +84,8 @@ def update_reservation_view(request, reservation_id):
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
+            messages.success(
+                request, 'Your reservation has been updated successfully.')
             return redirect('view_reservations')
     else:
         form = ReservationForm(instance=reservation)
@@ -100,6 +98,7 @@ def cancel_reservation_view(request, reservation_id):
         Reservation, id=reservation_id, user=request.user)
     if request.method == 'POST':
         reservation.delete()
+        messages.success(request, 'Your reservation has been canceled.')
         return redirect('view_reservations')
     return render(request, 'booking_system/cancel_reservation.html', {'reservation': reservation})
 
@@ -114,11 +113,14 @@ def write_review_view(request, restaurant_id):
             review.user = request.user
             review.restaurant = restaurant
             review.save()
+            messages.success(
+                request, 'Your review has been submitted successfully.')
             return redirect('restaurant_detail', restaurant_id=restaurant.id)
     else:
         form = ReviewForm()
-        context = {
-            'restaurant': restaurant,
-            'form': form,
-        }
+
+    context = {
+        'restaurant': restaurant,
+        'form': form,
+    }
     return render(request, 'booking_system/write_review.html', context)
