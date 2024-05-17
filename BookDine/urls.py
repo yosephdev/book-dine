@@ -38,8 +38,9 @@ urlpatterns = [
          booking_views.update_reservation_view, name='update_reservation'),
     path('reservation/<int:reservation_id>/cancel/',
          booking_views.cancel_reservation_view, name='cancel_reservation'),
+    path('restaurants/', booking_views.restaurant_list_view,
+         name='restaurant_list'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
