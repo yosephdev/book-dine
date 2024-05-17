@@ -293,11 +293,41 @@ Cloudinary, a cloud-based image and video management service, will be used for s
 The restaurant booking system will be deployed to Heroku, a cloud platform that enables developers to build, run, and operate applications entirely in the cloud. Heroku provides a simple and efficient way to deploy Django applications and manage their infrastructure.
 
 ## Testing
-Comprehensive testing will be conducted throughout the development process to ensure the quality and reliability of the restaurant booking system. This will include:
-- Unit tests for individual components and functions
-- Integration tests to verify the interaction between different modules
-- End-to-end tests to simulate real-world user scenarios
-- Usability testing with actual users to identify and address any issues with the user interface or user experience
+
+Testing has been conducted throughout the development process to ensure the quality and reliability of the restaurant booking system. The following types of tests have been implemented:
+
+- **Unit tests**: Unit tests have been written for individual components and functions to verify their correctness and behavior. The `tests.py` file contains unit tests for the following models:
+  - `Restaurant` model: Tests the `__str__` method to ensure it returns the expected string representation of the restaurant.
+  - `Table` model: Tests the `__str__` method and the `is_available` method to verify the table's string representation and availability check.
+  - `Reservation` model: Tests the `__str__` method to ensure it returns the expected string representation of the reservation.
+  - `Review` model: Tests the `__str__` method to verify the string representation of the review.
+
+- **Integration tests**: Integration tests have been implemented to verify the interaction between different modules. The `tests.py` file includes integration tests for the following views:
+  - `home_view`: Tests the home view to ensure it renders the correct template and retrieves the featured restaurants and latest reservations.
+  - `restaurant_detail_view`: Tests the restaurant detail view to verify it renders the correct template and retrieves the restaurant details.
+  - `make_reservation_view`: Tests the make reservation view to ensure it handles reservation creation correctly and redirects to the reservation success page.
+  - `view_reservations_view`: Tests the view reservations view to verify it renders the correct template and retrieves the user's reservations.
+  - `write_review_view`: Tests the write review view to ensure it handles review submission correctly and redirects to the restaurant detail page.
+
+- **End-to-end tests**: End-to-end tests have been conducted to simulate real-world user scenarios and ensure the system functions as expected from a user's perspective. These tests cover the following scenarios:
+  - User registration and authentication
+  - Browsing restaurants and viewing restaurant details
+  - Making a reservation for a specific restaurant, date, and time
+  - Viewing and managing user reservations
+  - Writing and submitting a review for a restaurant
+
+- **Usability testing**: Usability testing has been performed with a group of users to gather feedback on the user interface and user experience. The following aspects were evaluated:
+  - Ease of navigation and user-friendliness of the booking system
+  - Clarity and intuitiveness of the reservation process
+  - Responsiveness and performance of the application
+  - Overall satisfaction with the booking experience
+
+The test suite can be run using the following command:
+```
+python manage.py test booking_system
+```
+
+All tests have passed successfully, ensuring the functionality and reliability of the implemented features. The test suite will be continuously updated and expanded as new features are added to the restaurant booking system.
 
 ## References
 ### Docs
