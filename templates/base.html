@@ -6,6 +6,7 @@
 {% url 'account_logout' as logout_url %}
 {% url 'book_table' as book_table_url %}
 {% url 'view_reservations' as view_reservations_url %}
+{% url 'reservation_list' as reservation_list_url %}
 {% url 'write_review' as write_review_url %}
 
 <!DOCTYPE html>
@@ -58,8 +59,8 @@
                             href="{{ book_table_url }}">Book a Table</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == view_reservations_url %}active{% endif %}"
-                            href="{{ view_reservations_url }}">View Reservations</a>
+                        <a class="nav-link {% if request.path == reservation_list_url %}active{% endif %}"
+                            href="{{ reservation_list_url }}">View Reservations</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
