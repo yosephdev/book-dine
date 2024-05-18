@@ -94,9 +94,8 @@ def view_reservations_view(request):
 
 
 @login_required
-def update_reservation_view(request, reservation_id):
-    reservation = get_object_or_404(
-        Reservation, id=reservation_id, user=request.user)
+def update_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, pk=reservation_id, user=request.user)
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
