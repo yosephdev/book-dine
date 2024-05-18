@@ -10,32 +10,19 @@ class CustomUser(AbstractUser):
     """
     Custom User model extending Django's AbstractUser.
     """
-    phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message=_(
-            "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    ADMIN = 'admin'
+    RESTAURANT_OWNER = 'restaurant_owner'
+    CUSTOMER = 'customer'
+
+    ROLES = (
+        (ADMIN, 'Admin'),
+        (RESTAURANT_OWNER, 'Restaurant Owner'),
+        (CUSTOMER, 'Customer'),
     )
-    phone_number = models.CharField(
-        _('Phone Number'),
-        max_length=15,
-        validators=[phone_regex],
-        blank=True,
-        null=True,
-        help_text=_('Enter your phone number in the format: "+999999999"')
-    )
-    date_of_birth = models.DateField(
-        _('Date of Birth'),
-        null=True,
-        blank=True,
-        help_text=_('Enter your date of birth in the format: YYYY-MM-DD')
-    )
-    profile_picture = models.ImageField(
-        _('Profile Picture'),
-        upload_to='profile_pictures',
-        blank=True,
-        null=True,
-        help_text=_('Upload your profile picture')
-    )
+
+    role = models.CharField(max_length=20, choices=ROLES, default=CUSTOMER)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
 
     def __str__(self):
         """

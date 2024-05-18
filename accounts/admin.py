@@ -5,13 +5,28 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
+    model = CustomUser
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    list_display = ['username', 'email',
-                    'phone_number', 'date_of_birth', 'is_staff']
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('phone_number', 'date_of_birth', 'profile_picture')}),
+    list_display = ('username', 'email', 'first_name',
+                    'last_name', 'role', 'is_staff')
+    list_filter = ('role', 'is_staff', 'is_superuser', 'is_active')
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('Personal info', {'fields': ('first_name',
+         'last_name', 'email', 'phone_number')}),
+        ('Permissions', {'fields': ('role', 'is_active', 'is_staff',
+         'is_superuser', 'groups', 'user_permissions')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2', 'role', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+    )
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    ordering = ('username',)
 
     def get_queryset(self, request):
         """Limit non-superusers to only see their own profile."""

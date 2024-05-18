@@ -3,16 +3,18 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from django.core.validators import RegexValidator
+from django.db import models
 from .models import CustomUser
 
 
-class CustomUserCreationForm(UserCreationForm):
+class CustomUserCreationForm(UserCreationForm):    
     phone_number = forms.CharField(
         max_length=15,
         validators=[RegexValidator(
             r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')],
         required=False
     )
+    
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
