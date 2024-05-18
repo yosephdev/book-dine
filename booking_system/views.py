@@ -26,6 +26,7 @@ def book_table_view(request):
     }
     return render(request, 'booking_system/book_table.html', context)
 
+
 @login_required
 def restaurant_detail(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
@@ -33,6 +34,7 @@ def restaurant_detail(request, restaurant_id):
         'restaurant': restaurant,
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
+
 
 def restaurant_list_view(request):
     search_query = request.GET.get('search', '')
@@ -137,12 +139,8 @@ def write_review_view(request, restaurant_id):
             return redirect('restaurant_detail', restaurant_id=restaurant_id)
     else:
         form = ReviewForm()
+    return render(request, 'booking_system/write_review.html', {'form': form, 'restaurant': restaurant})
 
-    context = {
-        'restaurant': restaurant,
-        'form': form,
-    }
-    return render(request, 'booking_system/write_review.html', context)
 
 def search_restaurants(request):
     query = request.GET.get('q', '')
