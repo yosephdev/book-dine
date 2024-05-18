@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from googlemaps import Client
+from googlemaps.exceptions import HTTPError, TransportError, ApiError
 from .models import Restaurant, Reservation, Review, Table
 from .forms import ReservationForm, ReviewForm
 
@@ -19,21 +22,45 @@ def home_view(request):
 
 
 def book_table_view(request):
-    restaurants = Restaurant.objects.all()
+    search_query = request.GET.get('search', '')
+    if search_query:
+        client = Client(key=settings.GOOGLE_PLACES_API_KEY)
+        places_results = client.places(
+            query=search_query, location='New York City, NY', radius=5000)
+        restaurants = places_results['results']
+    else:
+        restaurants = []
+
     context = {
         'restaurants': restaurants,
+        'search_query': search_query,
     }
     return render(request, 'booking_system/book_table.html', context)
 
 
-def restaurant_detail_view(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+def restaurant_detail_view(request, place_id):
+    client = Client(key=settings.GOOGLE_PLACES_API_KEY)
+    place_details = client.place(place_id=place_id, fields=[
+                                 'name', 'formatted_address', 'rating', 'user_ratings_total', 'opening_hours', 'website'])
+    restaurant = place_details['result']
+    print(restaurant)
+
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = ReservationForm()
+
     context = {
         'restaurant': restaurant,
+        'form': form,
+        'place_id': place_id,
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
 
-def restaurant_list_view(request):
+
+def restaurant_list_view(request, place_id):
     search_query = request.GET.get('search', '')
     restaurants = Restaurant.objects.all()
 
@@ -48,7 +75,7 @@ def restaurant_list_view(request):
 
 
 @login_required
-def make_reservation(request):
+def make_reservation(request, place_id):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -74,7 +101,11 @@ def make_reservation(request):
                 return redirect('reservation_success')
     else:
         form = ReservationForm()
-    return render(request, 'booking_system/make_reservation.html', {'form': form})
+    context = {
+        'form': form,
+        'place_id': place_id,
+    }
+    return render(request, 'booking_system/make_reservation.html', context)
 
 
 @login_required
@@ -117,18 +148,34 @@ def cancel_reservation_view(request, reservation_id):
 
 
 @login_required
-def write_review_view(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+def write_review_view(request, place_id):
+    try:
+        client = Client(key=settings.GOOGLE_PLACES_API_KEY)
+        place_details = client.place(place_id=place_id, fields=[
+                                     'name', 'formatted_address', 'rating', 'user_ratings_total', 'opening_hours', 'website'])
+        print(place_details)
+        restaurant = place_details['result']
+    except ApiError as e:
+        if 'Invalid \'placeid\' parameter' in str(e):
+            error_message = "The provided place ID is invalid. Please make sure you are using a valid Google Places API place ID."
+            return render(request, 'booking_system/invalid_place_id.html', {'error_message': error_message})
+        else:
+            error_message = str(e)
+            return render(request, 'booking_system/invalid_place_id.html', {'error_message': error_message})
+    except (HTTPError, TransportError) as e:
+        error_message = str(e)
+        return render(request, 'booking_system/invalid_place_id.html', {'error_message': error_message})
+
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
-            review.restaurant = restaurant
+            review.place_id = place_id
             review.save()
             messages.success(
                 request, 'Your review has been submitted successfully.')
-            return redirect('restaurant_detail', restaurant_id=restaurant.id)
+            return redirect('restaurant_detail', place_id=place_id)
     else:
         form = ReviewForm()
 
