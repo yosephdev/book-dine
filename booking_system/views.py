@@ -1,3 +1,4 @@
+import os
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -22,6 +23,8 @@ def home_view(request):
 
 
 def book_table_view(request):
+    GOOGLE_PLACES_API_KEY = os.environ.get('GOOGLE_PLACES_API_KEY')
+    client = Client(key=GOOGLE_PLACES_API_KEY)
     search_query = request.GET.get('search', '')
     if search_query:
         client = Client(key=settings.GOOGLE_PLACES_API_KEY)
