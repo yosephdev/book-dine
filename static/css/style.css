@@ -221,6 +221,19 @@ h6 {
     color: var(--text-color);
 }
 
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
 /* Main Content Styles */
 .main-bg {
     background-color: var(--background-color);
