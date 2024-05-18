@@ -11,12 +11,6 @@ django-allauth==0.62.1
 django-cloudinary-storage==0.3.0
 django-crispy-forms==2.1
 django-extensions==3.2.3
-google-api-core==2.19.0
-google-auth==2.29.0
-google-geo-type==0.3.7
-google-maps-places==0.1.14
-googleapis-common-protos==1.63.0
-googlemaps==4.10.0
 graphviz==0.20.3
 grpcio==1.63.0
 grpcio-status==1.62.2

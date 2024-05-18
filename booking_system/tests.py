@@ -163,7 +163,7 @@ def test_view_reservations_view(self):
 
 
 def test_write_review_view(self):
-    url = reverse('write_review', args=[self.restaurant.id])
+    url = reverse('write_review', args=[self.restaurant_id])
     self.client.login(username='testuser', password='testpassword')
     response = self.client.get(url)
     self.assertEqual(response.status_code, 200)
