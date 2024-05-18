@@ -33,6 +33,7 @@ def restaurant_detail_view(request, restaurant_id):
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
 
+
 def restaurant_list_view(request):
     search_query = request.GET.get('search', '')
     restaurants = Restaurant.objects.all()
