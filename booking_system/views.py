@@ -49,7 +49,7 @@ def restaurant_list_view(request):
 
 
 @login_required
-def make_reservation(request):
+def create_reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -75,8 +75,11 @@ def make_reservation(request):
                 return redirect('reservation_success')
     else:
         form = ReservationForm()
-    return render(request, 'booking_system/make_reservation.html', {'form': form})
+    return render(request, 'booking_system/create_reservation.html', {'form': form})
 
+def reservation_list(request):
+    reservations = Reservation.objects.all()
+    return render(request, 'booking_system/reservation_list.html', {'reservations': reservations})
 
 @login_required
 def view_reservations_view(request):
