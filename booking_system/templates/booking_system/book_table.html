@@ -3,30 +3,29 @@
 
 {% block content %}
 <div class="container my-5">
-    <h1>Restaurants</h1>
+    <h1>Book a Table</h1>
 
-    <form method="get" action="{% url 'restaurant_list' %}" class="mb-4">
+    <form method="get" action="{% url 'book_table' %}" class="mb-4">
         <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Search restaurants..."
-                value="{{ search_query }}">
+            <input type="text" name="search" class="form-control"
+                placeholder="Search restaurants by location, cuisine, or keyword..." value="{{ search_query }}">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
 
     {% if restaurants %}
-    <h1 class="text-center mb-4 primary-color">Book a Table</h1>
     <p class="text-center mb-4">Select a restaurant to book a table:</p>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <ul class="list-group">
                 {% for restaurant in restaurants %}
                 <li class="list-group-item restaurant-item">
-                    <a href="{% url 'restaurant_detail' restaurant.id %}" class="text-decoration-none">
+                    <a href="{% url 'restaurant_detail' restaurant.place_id %}" class="text-decoration-none">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">{{ restaurant.name }}</h5>
-                            <span class="badge badge-primary cuisine-badge">{{ restaurant.cuisine }}</span>
+                            <span class="badge badge-primary cuisine-badge">{{ restaurant.types.0 }}</span>
                         </div>
-                        <p class="mb-0 restaurant-location">{{ restaurant.location }}</p>
+                        <p class="mb-0 restaurant-location">{{ restaurant.formatted_address }}</p>
                     </a>
                 </li>
                 {% endfor %}
