@@ -32,6 +32,7 @@ urlpatterns = [
          booking_views.write_review_view, name='write_review'),
     path('restaurant/<str:restaurant_id>/', booking_views.restaurant_detail_view, name='restaurant_detail'),    
     path('reservations/create/<str:restaurant_id>', booking_views.create_reservation, name='create_reservation'),
+    path('reservations/', booking_views.reservation_list, name='reservation_list'),
     path('reservation/<int:reservation_id>/update/',
          booking_views.update_reservation_view, name='update_reservation'),
     path('reservation/<int:reservation_id>/cancel/',
