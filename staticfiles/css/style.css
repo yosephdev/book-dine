@@ -1,3 +1,17 @@
+/* Color variables */
+:root {
+    --primary-color: #8b6a60;
+    /* Brown */
+    --secondary-color: #4d7c5f;
+    /* Green */
+    --accent-color: #c7a369;
+    /* Gold */
+    --text-color: #333333;
+    /* Dark gray */
+    --background-color: #f8f8f8;
+    /* Light gray */
+}
+
 /* Reset and base styles */
 * {
     box-sizing: border-box;
@@ -5,23 +19,34 @@
     padding: 0;
 }
 
+/* Typography */
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 /* Header and Navigation Styles */
 .navbar {
-    background-color: #fff;
+    background-color: var(--background-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
     font-weight: 700;
     font-size: 1.5rem;
-    color: #ff6347;
+    color: var(--primary-color);
 }
 
 .navbar-brand .thin {
@@ -30,32 +55,41 @@ body {
 
 .nav-link {
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
     transition: color 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: #ff6347;
+    color: var(--accent-color);
+}
+
+.red-o {
+    color: var(--accent-color);
+}
+
+.brand {
+    color: var(--primary-color);
 }
 
 /* Form Styles */
 .form-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: #fff;
+    background-color: var(--background-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    margin-bottom: 3rem;
 }
 
-.mb-3 {
+.form-group {
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .form-label {
     font-weight: 600;
+    color: var(--primary-color);
 }
 
 .form-control {
@@ -64,46 +98,52 @@ body {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--background-color);
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--secondary-color);
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ff6347;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border-color: var(--accent-color);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(255, 99, 71, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(var(--accent-color), 0.25);
 }
 
-.form-check-input {
-    margin-top: 0.25rem;
+#div_id_remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.form-check-label {
-    margin-left: 0.5rem;
+#div_id_remember .form-check-input {
+    margin-right: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
-.btn-primary {
+/* Password Requirements List */
+#id_password1_helptext ul {
     display: block;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    color: #fff;
-    background-color: #ff6347;
-    border: none;
-    border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out;
+    list-style-type: disc;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
-.btn-primary:hover {
-    background-color: #e65c4f;
+#id_password1_helptext li {
+    display: list-item;
+    text-align: left;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 /* Hero Section Styles */
@@ -111,13 +151,12 @@ body {
     position: relative;
     height: 80vh;
     overflow: hidden;
-    margin: 0 auto;
-    max-width: 1200px;
     padding: 0 1rem;
+    margin: 2rem 0;
 }
 
 .hero-image {
-    background-image: url('https://res.cloudinary.com/decvzhwaz/image/upload/t_Banner 16:9/v1715513235/back_sqtuzk.jpg');
+    background-image: url('https://res.cloudinary.com/decvzhwaz/image/upload/v1715689889/book-dine-hero_ldy7od.png');
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -127,8 +166,7 @@ body {
     height: 100%;
 }
 
-.hero-image::before {
-    content: "";
+.hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -140,44 +178,65 @@ body {
 .hero-content {
     position: relative;
     z-index: 1;
-    color: #fff;
     text-align: center;
     padding: 2rem;
     max-width: 800px;
-    margin: 60px auto 0;
+    margin: 7rem auto 0;
 }
 
 .hero-content h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: var(--secondary-color);
 }
 
 .hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: var(--background-color);
 }
 
 /* Button Styles */
 .btn-primary {
-    background-color: #ff6347;
-    border-color: #ff6347;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--accent-color);
+    border: var(--accent-color);
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: #e65c4f;
-    border-color: #e65c4f;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 /* Card Styles */
 .card {
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
 }
 
 /* Main Content Styles */
 .main-bg {
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
 }
 
 .cta-section {
@@ -194,6 +253,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 2rem;
+    color: var(--primary-color);
 }
 
 .list-unstyled {
@@ -204,33 +264,105 @@ body {
 .card-title {
     font-size: 1.2rem;
     font-weight: 700;
+    color: var(--primary-color);
 }
 
 .card-text {
     font-size: 1rem;
-    color: #666;
+    color: var(--text-color);
+}
+
+.restaurant-link {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.restaurant-link:hover {
+    color: var(--accent-color);
+}
+
+/* Table Style */
+th {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+td {
+    vertical-align: middle;
+}
+
+/* Reservations */
+.primary-color {
+    color: var(--primary-color);
+}
+
+.custom-card {
+    background-color: var(--background-color);
+    border-color: var(--primary-color);
+}
+
+.custom-button {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.restaurant-item {
+    transition: background-color 0.3s;
+}
+
+.restaurant-item:hover {
+    background-color: var(--background-hover);
+}
+
+.restaurant-item a {
+    color: inherit;
+}
+
+.restaurant-location {
+    color: var(--secondary-color);
+}
+
+.cuisine-badge {
+    background-color: var(--accent-color);
+
 }
 
 /* Footer Styles */
 .footer {
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
     padding: 1rem;
     text-align: center;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 2rem;
+    color: var(--text-color);
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+    .btn-primary {
+        display: inline-block;
+        width: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
     .hero-section {
         padding: 2rem 0;
     }
 
+    .hero-content {
+        margin: 4rem auto 0;
+    }
+
     .hero-section h1 {
-        font-size: 2rem;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
     }
 
     .hero-section p {
-        font-size: 1rem;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .featured-restaurants,
