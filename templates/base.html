@@ -4,6 +4,9 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'book_table' as book_table_url %}
+{% url 'view_reservations' as view_reservations_url %}
+{% url 'write_review' as write_review_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,34 +51,34 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                            href="{% url 'home' %}">Home</a>
+                            href="{{ home_url }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == book_table_url %}active{% endif %}"
-                            href="{% url 'book_table' %}">Book a Table</a>
+                            href="{{ book_table_url }}">Book a Table</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'view_reservations' %}active{% endif %}"
-                            href="{% url 'view_reservations' %}">View Reservations</a>
+                        <a class="nav-link {% if request.path == view_reservations_url %}active{% endif %}"
+                            href="{{ view_reservations_url }}">View Reservations</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}">Logout</a>
+                            href="{{ logout_url }}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}">Register</a>
+                            href="{{ signup_url }}">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}">Login</a>
+                            href="{{ login_url }}">Login</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'write_review' %}active{% endif %}"
-                            href="{% url 'write_review' 1 %}">Write a Review</a>
+                        <a class="nav-link {% if request.path == write_review_url %}active{% endif %}"
+                            href="{{ write_review_url }}">Write a Review</a>
                     </li>
                 </ul>
             </div>
@@ -84,29 +87,27 @@
 
     <!-- Main Content -->
     <main class="flex-shrink-0 main-bg">
-        <div class="container text-center">
-            {% block content %}
-            <h1>Discover the Best Dining Experiences</h1>
-            <p>Book your table at top-rated restaurants near you.</p>
-            <div class="cta-section">
-                <a href="{% url 'book_table' %}" class="btn btn-primary">Book a Table</a>
-            </div>
-
-            <h2>Featured Restaurants</h2>
-            <ul>
-                {% for restaurant in restaurants %}
-                <li>{{ restaurant.name }}</li>
-                {% endfor %}
-            </ul>
-
-            <h2>Latest Reservations</h2>
-            <ul>
-                {% for reservation in latest_reservations %}
-                <li>{{ reservation.user.username }} at {{ reservation.restaurant.name }}</li>
-                {% endfor %}
-            </ul>
-            {% endblock %}
+        {% block content %}
+        <h1>Discover the Best Dining Experiences</h1>
+        <p>Book your table at top-rated restaurants near you.</p>
+        <div class="cta-section">
+            <a href="{{ book_table_url }}" class="btn btn-primary">Book a Table</a>
         </div>
+
+        <h2>Featured Restaurants</h2>
+        <ul>
+            {% for restaurant in restaurants %}
+            <li>{{ restaurant.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Latest Reservations</h2>
+        <ul>
+            {% for reservation in latest_reservations %}
+            <li>{{ reservation.user.username }} at {{ reservation.table.restaurant.name }}</li>
+            {% endfor %}
+        </ul>
+        {% endblock %}
     </main>
 
     <!-- Django Messages -->
