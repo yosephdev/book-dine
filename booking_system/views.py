@@ -77,9 +77,11 @@ def create_reservation(request):
         form = ReservationForm()
     return render(request, 'booking_system/create_reservation.html', {'form': form})
 
+
 def reservation_list(request):
     reservations = Reservation.objects.all()
     return render(request, 'booking_system/reservation_list.html', {'reservations': reservations})
+
 
 @login_required
 def view_reservations_view(request):
@@ -95,7 +97,8 @@ def view_reservations_view(request):
 
 @login_required
 def update_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, pk=reservation_id, user=request.user)
+    reservation = get_object_or_404(
+        Reservation, pk=reservation_id, user=request.user)
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
@@ -109,7 +112,7 @@ def update_reservation(request, reservation_id):
 
 
 @login_required
-def cancel_reservation_view(request, reservation_id):
+def cancel_reservation(request, reservation_id):
     reservation = get_object_or_404(
         Reservation, id=reservation_id, user=request.user)
     if request.method == 'POST':

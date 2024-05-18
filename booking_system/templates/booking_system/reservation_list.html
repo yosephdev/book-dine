@@ -7,6 +7,7 @@
     <li>
         {{ reservation.restaurant.name }} - {{ reservation.date }} {{ reservation.time }}
         ({{ reservation.number_of_guests }} guests)
+        <a href="{% url 'cancel_reservation' reservation.id %}">Cancel</a>
     </li>
     {% endfor %}
 </ul>
