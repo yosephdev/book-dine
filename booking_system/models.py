@@ -68,6 +68,8 @@ class Reservation(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reservations')
+    dietary_restrictions = models.TextField(blank=True, null=True)
+    childs_chair = models.BooleanField(default=False)
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
