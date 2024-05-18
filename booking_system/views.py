@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 from .models import Restaurant, Reservation, Review, Table
 from .forms import ReservationForm, ReviewForm
 
@@ -143,3 +144,16 @@ def write_review_view(request, restaurant_id):
         'form': form,
     }
     return render(request, 'booking_system/write_review.html', context)
+
+def search_restaurants(request):
+    query = request.GET.get('q', '')
+    restaurants = Restaurant.objects.filter(
+        Q(name__icontains=query) |
+        Q(cuisine__icontains=query) |
+        Q(description__icontains=query)
+    )
+    context = {
+        'restaurants': restaurants,
+        'query': query,
+    }
+    return render(request, 'booking_system/search_results.html', context)

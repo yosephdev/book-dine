@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+{% if restaurants %}
+<ul>
+    {% for restaurant in restaurants %}
+    <li>
+        <h3>{{ restaurant.name }}</h3>
+        <p>{{ restaurant.description }}</p>
+        <p>Cuisine: {{ restaurant.cuisine }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No restaurants found for the given search query.</p>
+{% endif %}
+{% endblock %}
