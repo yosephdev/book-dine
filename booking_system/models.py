@@ -67,6 +67,7 @@ def get_midnight():
 class Reservation(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations')
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reservations')
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE, related_name='reservations')
     date = models.DateField()
