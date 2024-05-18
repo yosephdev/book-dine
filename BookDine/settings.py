@@ -183,12 +183,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Cloudinary settings
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 if CLOUDINARY_URL:
-    credentials = CLOUDINARY_URL.split('://')[1].split('@')
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': credentials[1],
-        'API_KEY': credentials[0].split(':')[0],
-        'API_SECRET': credentials[0].split(':')[1],
-    }
+    try:
+        credentials = CLOUDINARY_URL.split('://')[1].split('@')
+        if len(credentials) == 2:
+            api_key_secret = credentials[0].split(':')
+            if len(api_key_secret) == 2:
+                CLOUDINARY_STORAGE = {
+                    'CLOUD_NAME': credentials[1],
+                    'API_KEY': api_key_secret[0],
+                    'API_SECRET': api_key_secret[1],
+                }
+                DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+            else:
+                print(
+                    "Invalid CLOUDINARY_URL format. Expected format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME")
+        else:
+            print(
+                "Invalid CLOUDINARY_URL format. Expected format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME")
+    except IndexError:
+        print("Invalid CLOUDINARY_URL format. Expected format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME")
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
