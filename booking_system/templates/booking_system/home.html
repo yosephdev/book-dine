@@ -28,8 +28,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ restaurant.name }}</h5>
                                 <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                <a href="{% url 'restaurant_detail' restaurant.pk %}" class="btn btn-primary">View
-                                    Details</a>
+                                {% if restaurant.place_id %}
+                                <a href="{% url 'restaurant_detail' restaurant.place_id|default:'' %}"
+                                    class="btn btn-primary">View Details</a>
+                                {% else %}
+                                <p>Unable to view restaurant details.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
@@ -43,9 +47,10 @@
                     <li class="mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name
-                                    }}</h5>
-                                <p class="card-text">{{ reservation.date }} for {{ reservation.party_size }} people</p>
+                                <h5 class="card-title">{{ reservation.user.username }} at {{
+                                    reservation.table.restaurant.name }}</h5>
+                                <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }}
+                                    people</p>
                             </div>
                         </div>
                     </li>
