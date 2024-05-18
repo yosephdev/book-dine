@@ -18,6 +18,7 @@ class Restaurant(models.Model):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     rating = models.FloatField(default=0.0)
+    place_id = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
