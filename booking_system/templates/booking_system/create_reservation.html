@@ -16,7 +16,8 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        {{ form|crispy }}
+                        {{ form.non_field_errors }}
+                        {% crispy form %}
                         <button type="submit" class="btn btn-primary custom-button btn-block rounded-pill">Make a
                             Reservation</button>
                     </form>
