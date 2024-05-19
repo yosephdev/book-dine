@@ -28,9 +28,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ restaurant.name }}</h5>
                                 <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                {% if restaurant.place_id %}
-                                <a href="{% url 'restaurant_detail' restaurant_id|default:'' %}"
-                                    class="btn btn-primary">View Details</a>
+                                {% if restaurant.id %}
+                                <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary">View
+                                    Details</a>
                                 {% else %}
                                 <p>Unable to view restaurant details.</p>
                                 {% endif %}
