@@ -51,7 +51,9 @@ def restaurant_list_view(request):
 
 
 @login_required
-def create_reservation(request):
+def create_reservation(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -59,25 +61,30 @@ def create_reservation(request):
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
 
-            existing_reservations = Reservation.objects.filter(
-                table=table,
-                date=date,
-                time=time,
-            )
-
-            if existing_reservations.exists():
+            if table.restaurant != restaurant:
                 form.add_error(
-                    None, 'The selected table is not available for the chosen date and time.')
+                    'table', 'Invalid table selection for this restaurant.')
             else:
-                reservation = form.save(commit=False)
-                reservation.user = request.user
-                reservation.save()
-                messages.success(
-                    request, 'Your reservation has been made successfully.')
-                return redirect('reservation_success')
+                existing_reservations = Reservation.objects.filter(
+                    table=table,
+                    date=date,
+                    time=time,
+                )
+
+                if existing_reservations.exists():
+                    form.add_error(
+                        None, 'The selected table is not available for the chosen date and time.')
+                else:
+                    reservation = form.save(commit=False)
+                    reservation.user = request.user
+                    reservation.save()
+                    messages.success(
+                        request, 'Your reservation has been made successfully.')
+                    return redirect('reservation_success')
     else:
         form = ReservationForm()
-    return render(request, 'booking_system/create_reservation.html', {'form': form})
+
+    return render(request, 'booking_system/create_reservation.html', {'form': form, 'restaurant': restaurant})
 
 
 def reservation_list(request):
