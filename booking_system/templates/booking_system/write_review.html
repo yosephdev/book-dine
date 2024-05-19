@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container my-5">
     <h1 class="text-center mb-4">Write a Review for {{ restaurant.name }}</h1>
@@ -11,6 +11,7 @@
                     <form method="post" action="{% url 'write_review' restaurant.id %}" novalidate>
                         {% csrf_token %}
                         {% if form.non_field_errors %}
+                        {% crispy form %}
                         <div class="alert alert-danger" role="alert">
                             {% for error in form.non_field_errors %}
                             {{ error }}
