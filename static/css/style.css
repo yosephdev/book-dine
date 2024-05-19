@@ -10,6 +10,8 @@
     /* Dark gray */
     --background-color: #f8f8f8;
     /* Light gray */
+    --background-hover: #f1f1f1;
+    /* Light hover */
 }
 
 /* Reset and base styles */
@@ -64,23 +66,14 @@ h6 {
     color: var(--accent-color);
 }
 
-.red-o {
-    color: var(--accent-color);
-}
-
-.brand {
-    color: var(--primary-color);
-}
-
 /* Form Styles */
 .form-container {
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 2rem auto;
     padding: 2rem;
     background-color: var(--background-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    margin-bottom: 3rem;
 }
 
 .form-group {
@@ -95,12 +88,11 @@ h6 {
 .form-control {
     display: block;
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
     color: var(--text-color);
     background-color: var(--background-color);
-    background-clip: padding-box;
     border: 1px solid var(--secondary-color);
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -111,36 +103,18 @@ h6 {
     background-color: var(--background-color);
     border-color: var(--accent-color);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(var(--accent-color), 0.25);
-}
-
-#div_id_remember {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-#div_id_remember .form-check-input {
-    margin-right: 0.5rem;
-    margin-bottom: 0.4rem;
+    box-shadow: 0 0 0 0.2rem rgba(199, 163, 105, 0.25);
 }
 
 /* Password Requirements List */
 #id_password1_helptext ul {
     display: block;
     list-style-type: disc;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
+    margin: 0.5em 0;
     padding-inline-start: 2rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
 }
 
 #id_password1_helptext li {
-    display: list-item;
-    text-align: left;
     margin-bottom: 0.25rem;
     font-size: 0.9rem;
     color: var(--text-color);
@@ -201,16 +175,36 @@ h6 {
     font-size: 1rem;
     font-weight: 600;
     text-align: center;
-    color: var(--text-color);
+    color: var(--background-color);
     background-color: var(--accent-color);
-    border: var(--accent-color);
+    border: 1px solid var(--accent-color);
     border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--background-color);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
 }
 
 /* Card Styles */
@@ -275,6 +269,7 @@ h6 {
 .restaurant-link {
     color: var(--text-color);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .restaurant-link:hover {
@@ -324,7 +319,6 @@ td {
 
 .cuisine-badge {
     background-color: var(--accent-color);
-
 }
 
 /* Footer Styles */
