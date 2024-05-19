@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
 from django.db.models import Q
 from .models import Restaurant, Reservation, Review, Table
 from .forms import ReservationForm, ReviewForm
@@ -57,30 +58,26 @@ def create_reservation(request, restaurant_id):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
-            table = form.cleaned_data['table']
-            date = form.cleaned_data['date']
-            time = form.cleaned_data['time']
+            table = form.cleaned_data.get('table')
+            reservation_date = form.cleaned_data.get('reservation_date')
+            reservation_time = form.cleaned_data.get('reservation_time')
+            # Adjust the duration as needed
+            duration = timezone.timedelta(hours=2)
 
             if table.restaurant != restaurant:
                 form.add_error(
                     'table', 'Invalid table selection for this restaurant.')
+            elif not table.is_available(reservation_date, reservation_time, duration):
+                form.add_error(
+                    'table', 'The selected table is not available for the chosen date and time.')
             else:
-                existing_reservations = Reservation.objects.filter(
-                    table=table,
-                    date=date,
-                    time=time,
-                )
-
-                if existing_reservations.exists():
-                    form.add_error(
-                        None, 'The selected table is not available for the chosen date and time.')
-                else:
-                    reservation = form.save(commit=False)
-                    reservation.user = request.user
-                    reservation.save()
-                    messages.success(
-                        request, 'Your reservation has been made successfully.')
-                    return redirect('reservation_success')
+                reservation = form.save(commit=False)
+                reservation.user = request.user
+                reservation.restaurant = restaurant
+                reservation.save()
+                messages.success(
+                    request, 'Your reservation has been made successfully.')
+                return redirect('reservation_success')
     else:
         form = ReservationForm()
 
