@@ -3,16 +3,24 @@ from .models import Reservation, Review, Table
 
 
 class ReservationForm(forms.ModelForm):
-    table = forms.ModelChoiceField(queryset=Table.objects.filter(status='available'))
-
     class Meta:
         model = Reservation
-        fields = ['table', 'number_of_guests', 'date', 'time', 'dietary_restrictions', 'childs_chair', 'special_requests']
+        fields = [
+            'dietary_restrictions', 'childs_chair', 'table',
+            'date', 'time', 'number_of_guests', 'special_requests'
+        ]
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
 
     def __init__(self, *args, **kwargs):
+        restaurant = kwargs.pop('restaurant', None)
         super().__init__(*args, **kwargs)
-        self.fields['table'].queryset = Table.objects.filter(status='available')
-   
+        if restaurant:
+            self.fields['table'].queryset = Table.objects.filter(
+                restaurant=restaurant)
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:
