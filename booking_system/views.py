@@ -56,12 +56,11 @@ def create_reservation(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
 
     if request.method == 'POST':
-        form = ReservationForm(request.POST)
+        form = ReservationForm(request.POST, restaurant=restaurant)
         if form.is_valid():
             table = form.cleaned_data.get('table')
-            reservation_date = form.cleaned_data.get('reservation_date')
-            reservation_time = form.cleaned_data.get('reservation_time')
-            # Adjust the duration as needed
+            reservation_date = form.cleaned_data.get('date')
+            reservation_time = form.cleaned_data.get('time')
             duration = timezone.timedelta(hours=2)
 
             if table.restaurant != restaurant:
@@ -79,7 +78,7 @@ def create_reservation(request, restaurant_id):
                     request, 'Your reservation has been made successfully.')
                 return redirect('reservation_success')
     else:
-        form = ReservationForm()
+        form = ReservationForm(restaurant=restaurant)
 
     return render(request, 'booking_system/create_reservation.html', {'form': form, 'restaurant': restaurant})
 
@@ -92,11 +91,11 @@ def reservation_list(request):
 @login_required
 def view_reservations_view(request):
     if request.user.is_authenticated:
-      reservations = Reservation.objects.filter(user=request.user)
-      context = {
-          'reservations': reservations,
-      }
-      return render(request, 'booking_system/view_reservations.html', context)
+        reservations = Reservation.objects.filter(user=request.user)
+        context = {
+            'reservations': reservations,
+        }
+        return render(request, 'booking_system/view_reservations.html', context)
     else:
         return redirect('account_login')
 
