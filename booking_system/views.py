@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models import Q
 from .models import Restaurant, Reservation, Review, Table
 from .forms import ReservationForm, ReviewForm
+import logging
 
 # Create your views here.
 
@@ -50,6 +51,9 @@ def restaurant_list_view(request):
         'search_query': search_query,
     }
     return render(request, 'booking_system/book_table.html', context)
+
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
