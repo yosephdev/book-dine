@@ -11,7 +11,6 @@ from .forms import ReservationForm, ReviewForm
 
 def home_view(request):
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
-    # latest_reservations = Reservation.objects.order_by('-created_at')[:5]
     latest_reservations = Reservation.objects.select_related(
         'restaurant', 'user').order_by('-created_at')[:5]
 
