@@ -5,10 +5,8 @@ from .models import Reservation, Review, Table
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = [
-            'dietary_restrictions', 'childs_chair', 'table',
-            'date', 'time', 'number_of_guests', 'special_requests'
-        ]
+        fields = ['table', 'date', 'time', 'number_of_guests',
+                  'dietary_restrictions', 'childs_chair', 'special_requests']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'time': forms.TimeInput(attrs={'type': 'time'}),

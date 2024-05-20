@@ -63,7 +63,7 @@ class Table(models.Model):
 
 
 def get_midnight():
-    return time(0, 0)
+    return timezone.datetime.combine(timezone.now(), timezone.datetime.min.time()).time()
 
 
 class Reservation(models.Model):
@@ -80,21 +80,22 @@ class Reservation(models.Model):
     )
     date = models.DateField()
     time = models.TimeField()
+    start_time = models.TimeField(default=get_midnight)
+    end_time = models.TimeField(default=get_midnight)
     number_of_guests = models.IntegerField()
     special_requests = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        self.start_time = (timezone.datetime.combine(
+            self.date, self.time) - timedelta(seconds=7)).time()
+        self.end_time = (timezone.datetime.combine(
+            self.date, self.time) + timedelta(seconds=11)).time()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"Reservation for {self.user.get_full_name()} on {self.date} at {self.time}"
-
-    @property
-    def start_time(self):
-        return self.time - timedelta(seconds=7)
-
-    @property
-    def end_time(self):
-        return self.time + timedelta(seconds=11)
 
 
 class Review(models.Model):

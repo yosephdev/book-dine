@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="home-content">
@@ -28,12 +29,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ restaurant.name }}</h5>
                                 <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                {% if restaurant.id %}
                                 <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary">View
                                     Details</a>
-                                {% else %}
-                                <p>Unable to view restaurant details.</p>
-                                {% endif %}
                             </div>
                         </div>
                     </li>
@@ -47,8 +44,8 @@
                     <li class="mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ reservation.user.username }} at {{
-                                    reservation.table.restaurant.name }}</h5>
+                                <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name
+                                    }}</h5>
                                 <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }}
                                     people</p>
                             </div>

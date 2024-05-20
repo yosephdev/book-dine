@@ -11,7 +11,9 @@ from .forms import ReservationForm, ReviewForm
 
 def home_view(request):
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
-    latest_reservations = Reservation.objects.order_by('-created_at')[:5]
+    # latest_reservations = Reservation.objects.order_by('-created_at')[:5]
+    latest_reservations = Reservation.objects.select_related(
+        'restaurant', 'user').order_by('-created_at')[:5]
 
     context = {
         'restaurants': featured_restaurants,
@@ -54,14 +56,16 @@ def restaurant_list_view(request):
 @login_required
 def create_reservation(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-
     if request.method == 'POST':
-        form = ReservationForm(request.POST, restaurant=restaurant)
+        form = ReservationForm(request.POST)
         if form.is_valid():
-            table = form.cleaned_data.get('table')
-            reservation_date = form.cleaned_data.get('date')
-            reservation_time = form.cleaned_data.get('time')
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.restaurant = restaurant
+            table = reservation.table
             duration = timezone.timedelta(hours=2)
+            reservation_date = reservation.date
+            reservation_time = reservation.time
 
             if table.restaurant != restaurant:
                 form.add_error(
@@ -70,15 +74,12 @@ def create_reservation(request, restaurant_id):
                 form.add_error(
                     'table', 'The selected table is not available for the chosen date and time.')
             else:
-                reservation = form.save(commit=False)
-                reservation.user = request.user
-                reservation.restaurant = restaurant
                 reservation.save()
                 messages.success(
                     request, 'Your reservation has been made successfully.')
                 return redirect('reservation_success')
     else:
-        form = ReservationForm(restaurant=restaurant)
+        form = ReservationForm()
 
     return render(request, 'booking_system/create_reservation.html', {'form': form, 'restaurant': restaurant})
 
