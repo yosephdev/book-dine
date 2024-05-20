@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', booking_views.home_view, name='home'),
     path('book-table/', booking_views.book_table_view, name='book_table'),
-    path('view-reservations/', booking_views.view_reservations_view,
+    path('reservations/', booking_views.view_reservations,
          name='view_reservations'),
     path('restaurants/<int:restaurant_id>/write-review/',
          booking_views.write_review_view, name='write_review'),
