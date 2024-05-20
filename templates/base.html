@@ -94,20 +94,6 @@
         <div class="cta-section">
             <a href="{{ book_table_url }}" class="btn btn-primary">Book a Table</a>
         </div>
-
-        <h2>Featured Restaurants</h2>
-        <ul>
-            {% for restaurant in restaurants %}
-            <li>{{ restaurant.name }}</li>
-            {% endfor %}
-        </ul>
-
-        <h2>Latest Reservations</h2>
-        <ul>
-            {% for reservation in latest_reservations %}
-            <li>{{ reservation.user.username }} at {{ reservation.table.restaurant.name }}</li>
-            {% endfor %}
-        </ul>
         {% endblock %}
     </main>
 
