@@ -34,7 +34,7 @@ class Table(models.Model):
     capacity = models.PositiveIntegerField(
         validators=[MinValueValidator(1)]
     )
-    table_number = models.PositiveIntegerField(unique=True)
+    table_number = models.PositiveIntegerField()
     status = models.CharField(
         max_length=20,
         choices=(
