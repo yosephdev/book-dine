@@ -89,7 +89,7 @@ def reservation_list(request):
 
 
 @login_required
-def view_reservations_view(request):
+def view_reservations(request):
     if request.user.is_authenticated:
         reservations = Reservation.objects.filter(user=request.user)
         context = {
