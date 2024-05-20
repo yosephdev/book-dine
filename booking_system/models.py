@@ -1,12 +1,10 @@
 from django.conf import settings
 from django.db import models
-from django.core.validators import MinValueValidator
 from django.utils import timezone
-from datetime import time, datetime, timedelta
+from datetime import time, timedelta
 
 
 # Create your models here.
-
 def get_midnight():
     return time(0, 0)
 
@@ -14,12 +12,12 @@ def get_midnight():
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    cuisine = models.CharField(max_length=100)
+    cuisine = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
-    opening_hours = models.CharField(max_length=100, blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
-    rating = models.FloatField(default=0.0)
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_restaurants'
+    )
 
     def __str__(self):
         return self.name
@@ -27,58 +25,37 @@ class Restaurant(models.Model):
 
 class Table(models.Model):
     restaurant = models.ForeignKey(
-        'Restaurant',
-        on_delete=models.CASCADE,
-        related_name='tables'
-    )
-    capacity = models.PositiveIntegerField(
-        validators=[MinValueValidator(1)]
-    )
-    table_number = models.PositiveIntegerField()
-    status = models.CharField(
-        max_length=20,
-        choices=(
-            ('available', 'Available'),
-            ('reserved', 'Reserved'),
-            ('occupied', 'Occupied'),
-        ),
-        default='available'
-    )
+        Restaurant, on_delete=models.CASCADE, related_name='tables')
+    table_number = models.CharField(max_length=10)
+    capacity = models.IntegerField()
+    status = models.CharField(max_length=20, choices=[(
+        'available', 'Available'), ('occupied', 'Occupied')])
+
+    def is_available(self, date, time, duration):
+        start_time = timezone.datetime.combine(date, time)
+        end_time = start_time + duration
+        reservations = self.reservations.filter(
+            date=date,
+            start_time__lt=end_time.time(),
+            end_time__gt=start_time.time()
+        )
+        return not reservations.exists()
 
     def __str__(self):
-        return f"Table {self.table_number} ({self.capacity} seats)"
-
-    def is_available(self, date, start_time, duration):
-        start_datetime = timezone.datetime.combine(date, start_time)
-        end_datetime = start_datetime + duration
-
-        overlapping_reservations = Reservation.objects.filter(
-            table=self,
-            date=date,
-            time__gte=start_datetime,
-            time__lt=end_datetime
-        )
-
-        if overlapping_reservations.exists():
-            return False
-        return True
-
-
-def get_midnight():
-    return timezone.datetime.combine(timezone.now(), timezone.datetime.min.time()).time()
+        return f"Table {self.table_number} at {self.restaurant.name}"
 
 
 class Reservation(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_reservations'
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations'
     )
     restaurant = models.ForeignKey(
-        'Restaurant', on_delete=models.CASCADE, related_name='restaurant_reservations'
+        Restaurant, on_delete=models.CASCADE, related_name='reservations'
     )
     dietary_restrictions = models.TextField(blank=True, null=True)
     childs_chair = models.BooleanField(default=False)
     table = models.ForeignKey(
-        'Table', on_delete=models.CASCADE, related_name='table_reservations'
+        Table, on_delete=models.CASCADE, related_name='reservations'
     )
     date = models.DateField()
     time = models.TimeField()
@@ -107,10 +84,12 @@ class Reservation(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews"
+    )
     restaurant = models.ForeignKey(
-        Restaurant, on_delete=models.CASCADE, related_name='reviews')
+        Restaurant, on_delete=models.CASCADE, related_name="reviews"
+    )
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
