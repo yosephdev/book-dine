@@ -2,11 +2,13 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils import timezone
-from datetime import timedelta
-from datetime import time
+from datetime import time, datetime, timedelta
 
 
 # Create your models here.
+
+def get_midnight():
+    return time(0, 0)
 
 
 class Restaurant(models.Model):
@@ -80,19 +82,25 @@ class Reservation(models.Model):
     )
     date = models.DateField()
     time = models.TimeField()
-    start_time = models.TimeField(default=get_midnight)
-    end_time = models.TimeField(default=get_midnight)
+    start_time = models.TimeField(default=timezone.datetime.min.time())
+    end_time = models.TimeField(default=timezone.datetime.min.time())
     number_of_guests = models.IntegerField()
     special_requests = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        self.start_time = (timezone.datetime.combine(
-            self.date, self.time) - timedelta(seconds=7)).time()
-        self.end_time = (timezone.datetime.combine(
-            self.date, self.time) + timedelta(seconds=11)).time()
+        if not self.start_time:
+            self.start_time = self.calculate_start_time()
+        if not self.end_time:
+            self.end_time = self.calculate_end_time()
         super().save(*args, **kwargs)
+
+    def calculate_start_time(self):
+        return (timezone.datetime.combine(self.date, self.time) - timedelta(seconds=7)).time()
+
+    def calculate_end_time(self):
+        return (timezone.datetime.combine(self.date, self.time) + timedelta(seconds=11)).time()
 
     def __str__(self):
         return f"Reservation for {self.user.get_full_name()} on {self.date} at {self.time}"
