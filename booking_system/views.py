@@ -56,7 +56,7 @@ def restaurant_list_view(request):
 def create_reservation(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
     if request.method == 'POST':
-        form = ReservationForm(request.POST)
+        form = ReservationForm(request.POST, restaurant=restaurant)
         if form.is_valid():
             reservation = form.save(commit=False)
             reservation.user = request.user
@@ -78,7 +78,7 @@ def create_reservation(request, restaurant_id):
                     request, 'Your reservation has been made successfully.')
                 return redirect('reservation_success')
     else:
-        form = ReservationForm()
+        form = ReservationForm(restaurant=restaurant)
 
     return render(request, 'booking_system/create_reservation.html', {'form': form, 'restaurant': restaurant})
 
