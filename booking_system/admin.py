@@ -9,8 +9,19 @@ from .models import Restaurant, Table, Reservation, Review
 
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'cuisine', 'rating')
-    search_fields = ('name', 'location', 'cuisine')
     list_filter = ('cuisine', 'rating')
+
+    def name(self, obj):
+        return obj.name
+
+    def location(self, obj):
+        return obj.location
+
+    def cuisine(self, obj):
+        return obj.cuisine
+
+    def rating(self, obj):
+        return obj.rating
 
 
 class AvailableFilter(admin.SimpleListFilter):
@@ -33,16 +44,8 @@ class AvailableFilter(admin.SimpleListFilter):
 
 
 class TableAdmin(admin.ModelAdmin):
-    list_display = ('table_number', 'capacity',
-                    'restaurant', 'status', 'available')
-    list_filter = ('restaurant', 'status', AvailableFilter)
-    search_fields = ('table_number', 'restaurant__name')
-
-    def available(self, obj):
-        return obj.status == 'available'
-
-    available.boolean = True
-    available.short_description = 'Available'
+    list_display = ('table_number', 'capacity', 'restaurant', 'status')
+    list_filter = ('restaurant', 'status')
 
 
 class ReservationAdmin(admin.ModelAdmin):
