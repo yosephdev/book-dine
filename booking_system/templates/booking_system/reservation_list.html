@@ -1,14 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<h2>Reservations</h2>
-<ul>
-    {% for reservation in reservations %}
-    <li>
-        {{ reservation.restaurant.name }} - {{ reservation.date }} {{ reservation.time }}
-        ({{ reservation.number_of_guests }} guests)
-        <a href="{% url 'cancel_reservation' reservation.id %}">Cancel</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="container my-5">
+    <h1 class="text-center mb-4"">Your Reservations</h1>
+    <ul class=" list-group">
+        {% for reservation in reservations %}
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5>{{ reservation.restaurant.name }}</h5>
+                    <p>{{ reservation.date }} {{ reservation.time }} ({{ reservation.number_of_guests }} guests)</p>
+                </div>
+                <div>
+                    <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+        </ul>
+        {% if reservations %}
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to cancel this reservation?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger">Cancel Reservation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+</div>
 {% endblock %}
