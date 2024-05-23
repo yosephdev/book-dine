@@ -7,7 +7,7 @@
 {% url 'book_table' as book_table_url %}
 {% url 'view_reservations' as view_reservations_url %}
 {% url 'reservation_list' as reservation_list_url %}
-{% url 'write_review' as write_review_url %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,10 +77,6 @@
                             href="{{ login_url }}">Login</a>
                     </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == write_review_url %}active{% endif %}"
-                            href="{{ write_review_url }}">Write a Review</a>
-                    </li>
                 </ul>
             </div>
         </div>
