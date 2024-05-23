@@ -6,6 +6,8 @@
     /* Green */
     --accent-color: #c7a369;
     /* Gold */
+    --danger-color: #dc3545;
+    /* Bootstrap danger color */
     --text-color: #333333;
     /* Dark gray */
     --background-color: #f8f8f8;
@@ -303,6 +305,12 @@ td {
 .custom-button {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
 .restaurant-item {
