@@ -80,7 +80,7 @@ def create_reservation(request, restaurant_id):
                 reservation.save()
                 messages.success(
                     request, 'Your reservation has been made successfully.')
-                return redirect('reservation_success')
+                return redirect('reservation_list')
     else:
         form = ReservationForm(restaurant=restaurant)
 
