@@ -26,9 +26,14 @@
                     <td>{{ reservation.time|time:"g:i A" }}</td>
                     <td>{{ reservation.number_of_guests }}</td>
                     <td class="text-center">
-                        <a href="{% url 'update_reservation' reservation.id %}" class="btn btn-primary btn-sm me-2"
-                            style="background-color: var(--accent-color); border-color: var(--accent-color);">Update</a>
-                        <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                        <a href="{% url 'update_reservation' reservation.id %}"
+                            class="btn btn-primary custom-button btn-sm me-2">
+                            Update
+                        </a>
+                        <a href="{% url 'cancel_reservation' reservation.id %}"
+                            class="btn btn-danger btn-sm custom-button">
+                            Cancel
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -39,5 +44,4 @@
     <p class="text-center">You have no reservations yet.</p>
     {% endif %}
 </div>
-
 {% endblock %}
