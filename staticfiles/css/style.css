@@ -10,7 +10,7 @@
     /* Bootstrap danger color */
     --text-color: #333333;
     /* Dark gray */
-    --background-color: #f8f8f8;
+    --background-color: #f5f5f5;
     /* Light gray */
     --background-hover: #f1f1f1;
     /* Light hover */
@@ -132,7 +132,7 @@ h6 {
     height: 80vh;
     overflow: hidden;
     padding: 0 1rem;
-    margin: 2rem 0;
+    margin-bottom: 1rem;
 }
 
 .hero-image {
@@ -374,12 +374,12 @@ td {
 
 /* Footer Styles */
 .footer {
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
     padding: 1rem;
     text-align: center;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     padding-top: 2rem;
-    color: var(--text-color);
+    color: var(--background-color);
 }
 
 /* Responsive Styles */
