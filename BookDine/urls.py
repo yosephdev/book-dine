@@ -41,6 +41,8 @@ urlpatterns = [
          booking_views.cancel_reservation, name='cancel_reservation'),
     path('restaurants/', booking_views.restaurant_list_view, name='restaurant_list'),
     path('search/', booking_views.search_restaurants, name='search_restaurants'),
+    path('400/', booking_views.custom_400_view),
+    path('500/', booking_views.custom_500_view),
 ]
 
 if settings.DEBUG:

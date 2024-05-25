@@ -173,6 +173,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Custom error handling views for HTTP status codes 400 and 500
+handler400 = 'booking_system.views.custom_400_view'
+handler500 = 'booking_system.views.custom_500_view'
+
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

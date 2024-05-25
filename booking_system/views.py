@@ -3,11 +3,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
-from .models import Restaurant, Reservation, Review, Table
+from .models import Restaurant, Reservation
 from .forms import ReservationForm, ReviewForm
 import logging
 
 # Create your views here.
+
+logger = logging.getLogger(__name__)
+
+
+def custom_400_view(request, **kwargs):
+    exception = kwargs.get('exception', None)
+    logger.error(f"Bad Request (400): {exception}")
+    return render(request, '400.html', status=400)
+
+
+def custom_500_view(request):
+    logger.error("Server Error (500)")
+    return render(request, '500.html', status=500)
 
 
 def home_view(request):
