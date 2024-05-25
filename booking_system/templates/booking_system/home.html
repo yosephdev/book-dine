@@ -42,14 +42,12 @@
                 <ul class="list-unstyled">
                     {% for reservation in latest_reservations %}
                     <li class="mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name
-                                    }}</h5>
-                                <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }}
-                                    people</p>
-                            </div>
-                        </div>
+                        {% if reservation.restaurant and reservation.restaurant.name %}
+                        <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name }}</h5>
+                        {% else %}
+                        <h5 class="card-title">Reservation details not available</h5>
+                        {% endif %}
+                        <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }} people</p>
                     </li>
                     {% endfor %}
                 </ul>
