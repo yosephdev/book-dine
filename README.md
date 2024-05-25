@@ -1,4 +1,4 @@
-# Restaurant Booking System
+# BookDine Application Documentation
 
 ## Table of Contents
 
@@ -236,17 +236,42 @@ The booking system will include the following security features:
 2. **Booking System**: Users can book a table by selecting the date, time, and number of guests.
 3. **Admin Interface**: Restaurant staff can manage bookings, tables, and customer information through a secure admin interface.
 4. **Email Notifications**: Users receive email confirmations and reminders for their bookings.
+5. **Review System**: Users can leave reviews and ratings for the restaurant.
+6. **Booking Modification and Cancellation**: Users can view, update, and cancel their reservations.
+7. **Responsive Design**: The website is fully responsive and accessible on all devices.
+8. **Advanced Search and Filter**: Users can find available tables based on various criteria.
 
-### Features Partially Implemented
+## Screenshots
 
-1. **Review System**: Users can leave reviews and ratings for the restaurant.
-2. **Booking Modification and Cancellation**: Users can view, update, and cancel their reservations.
+### 1. User Registration and Login
+- **User Registration**: ![User Registration](docs/readme_images/user_registration.png)
+- **User Login**: ![User Login](docs/readme_images/user_login.png)
 
-### Features Left to Implement
+### 2. Booking System
+- **Booking Page**: ![Booking Page](docs/readme_images/booking_page.png)
 
-1. **Reporting Tools**: Generate reports for restaurant staff to analyze booking trends and customer feedback.
-2. **Responsive Design**: Ensure the website is fully responsive and accessible on all devices.
-3. **Advanced Search and Filter**: Implement advanced search and filter options for users to find available tables based on various criteria.
+### 3. Admin Interface
+- **Admin Login**: ![Admin Login](docs/readme_images/admin_login.png)
+- **Admin Dashboard**: ![Admin Dashboard](docs/readme_images/admin_dashboard.png)
+
+### 4. Email Notifications
+- **Email Confirmation**: ![Email Confirmation](docs/readme_images/email_confirmation.png)
+- **Email Reminder**: ![Email Reminder](docs/readme_images/email_reminder.png)
+
+### 5. Review System
+- **Leave a Review**: ![Leave a Review](docs/readme_images/leave_review.png)
+
+### 6. Booking Modification and Cancellation
+- **View Reservations**: ![View Reservations](docs/readme_images/view_reservations.png)
+- **Modify Reservation**: ![Modify Reservation](docs/readme_images/modify_reservation.png)
+- **Cancel Reservation**: ![Cancel Reservation](docs/readme_images/cancel_reservation.png)
+
+### 7. Responsive Design
+- **Responsive Home Page (Mobile)**: ![Home Page Mobile](docs/readme_images/home_mobile.png)
+- **Responsive Booking Page (Tablet)**: ![Booking Page Tablet](docs/readme_images/booking_tablet.png)
+
+### 8. Advanced Search and Filter
+- **Search Page**: ![Search Page](docs/readme_images/search_page.png)
 
 ## Technologies Used
 
@@ -307,6 +332,66 @@ To run tests:
 1. Make sure the virtual environment is activated.
 2. Run the tests: `python manage.py test`
 
+## Manual Testing
+
+Manual testing involves verifying the functionality of the application by simulating user actions and checking if the system behaves as expected. Below are the key manual tests conducted:
+
+### User Registration and Login
+1. **Register New User**:
+   - Navigate to the registration page.
+   - Fill in the registration form with valid details.
+   - Submit the form and verify that the user is registered and redirected appropriately.
+
+2. **Login User**:
+   - Navigate to the login page.
+   - Enter valid login credentials.
+   - Submit the form and verify that the user is logged in and redirected appropriately.
+
+### Booking a Reservation
+1. **Make a Reservation**:
+   - Navigate to the booking page.
+   - Select a date, time, and number of guests.
+   - Submit the form and verify that the reservation is created and confirmation is shown.
+
+2. **View Reservations**:
+   - Log in as a user.
+   - Navigate to the reservations page.
+   - Verify that the list of reservations is displayed correctly.
+
+### Updating and Canceling Reservations
+1. **Update a Reservation**:
+   - Log in as a user.
+   - Navigate to the reservations page.
+   - Select a reservation to update.
+   - Modify the reservation details and submit the form.
+   - Verify that the reservation is updated correctly.
+
+2. **Cancel a Reservation**:
+   - Log in as a user.
+   - Navigate to the reservations page.
+   - Select a reservation to cancel.
+   - Confirm the cancellation and verify that the reservation is removed.
+
+### Reviewing a Restaurant
+1. **Submit a Review**:
+   - Log in as a user.
+   - Navigate to a restaurant's detail page.
+   - Fill in the review form and submit it.
+   - Verify that the review is displayed correctly.
+
+2. **View Reviews**:
+   - Navigate to a restaurant's detail page.
+   - Verify that the list of reviews is displayed correctly.
+
+### Error Pages
+1. **400 Bad Request**:
+   - Trigger a 400 error (e.g., by sending a malformed request).
+   - Verify that the custom 400 error page is displayed.
+
+2. **500 Internal Server Error**:
+   - Trigger a 500 error (e.g., by causing an exception in the code).
+   - Verify that the custom 500 error page is displayed.
+
 ## References
 
 ### Docs
@@ -318,4 +403,9 @@ To run tests:
 - All content was created by the developer.
 
 ### Acknowledgments
-- Thanks to the various online resources and tutorials that helped in the development of this project.
+I would like to acknowledge the following resources and individuals who have contributed to the development of this project:
+- The Django community for their excellent documentation and support
+- The Bootstrap community for providing a powerful and flexible CSS framework
+- The PostgreSQL community for developing a robust and reliable database management system
+- The ElephantSQL, Cloudinary, and Heroku teams for their cloud-based services and support
+- My mentor Mitko Bachvarov for his support and feedback throughout the project developemnt process
