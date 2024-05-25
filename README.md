@@ -403,9 +403,14 @@ Manual testing involves verifying the functionality of the application by simula
 - All content was created by the developer.
 
 ### Acknowledgments
+
 I would like to acknowledge the following resources and individuals who have contributed to the development of this project:
+
+- [Niel McEwen](https://github.com/NielMc)
+- [Matt Rudge](https://github.com/lechien73)
+- [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) for his support and feedback throughout the project developemnt process
 - The Django community for their excellent documentation and support
 - The Bootstrap community for providing a powerful and flexible CSS framework
 - The PostgreSQL community for developing a robust and reliable database management system
 - The ElephantSQL, Cloudinary, and Heroku teams for their cloud-based services and support
-- My mentor Mitko Bachvarov for his support and feedback throughout the project developemnt process
+
