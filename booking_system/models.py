@@ -16,7 +16,8 @@ class Restaurant(models.Model):
     description = models.TextField(blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_restaurants'
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='owned_restaurants'
     )
 
     def __str__(self):
@@ -47,7 +48,8 @@ class Table(models.Model):
 
 class Reservation(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reservations'
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='reservations'
     )
     restaurant = models.ForeignKey(
         Restaurant, on_delete=models.CASCADE, related_name='reservations'
@@ -74,18 +76,24 @@ class Reservation(models.Model):
         super().save(*args, **kwargs)
 
     def calculate_start_time(self):
-        return (timezone.datetime.combine(self.date, self.time) - timedelta(seconds=7)).time()
+        reservation_datetime = timezone.datetime.combine(self.date, self.time)
+        start_time = reservation_datetime - timedelta(seconds=7)
+        return start_time.time()
 
     def calculate_end_time(self):
-        return (timezone.datetime.combine(self.date, self.time) + timedelta(seconds=11)).time()
+        reservation_datetime = timezone.datetime.combine(self.date, self.time)
+        end_time = reservation_datetime + timedelta(seconds=11)
+        return end_time.time()
 
     def __str__(self):
-        return f"Reservation for {self.user.get_full_name()} on {self.date} at {self.time}"
+        user_name = self.user.get_full_name()
+        return f"Reservation for {user_name} on {self.date} at {self.time}"
 
 
 class Review(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name="reviews"
     )
     restaurant = models.ForeignKey(
         Restaurant, on_delete=models.CASCADE, related_name="reviews"

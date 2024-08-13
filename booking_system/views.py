@@ -86,9 +86,13 @@ def create_reservation(request, restaurant_id):
             if table.restaurant != restaurant:
                 form.add_error(
                     'table', 'Invalid table selection for this restaurant.')
-            elif not table.is_available(reservation_date, reservation_time, duration):
+            elif not table.is_available(
+                 reservation_date, reservation_time, duration):
                 form.add_error(
-                    'table', 'The selected table is not available for the chosen date and time.')
+                    'table',
+                    'The selected table is not available for the chosen '
+                    'date and time.'
+                     )
             else:
                 reservation.save()
                 messages.success(
@@ -97,12 +101,18 @@ def create_reservation(request, restaurant_id):
     else:
         form = ReservationForm(restaurant=restaurant)
 
-    return render(request, 'booking_system/create_reservation.html', {'form': form, 'restaurant': restaurant})
+    return render(
+        request,
+        'booking_system/create_reservation.html',
+        {'form': form, 'restaurant': restaurant}
+        )
 
 
 def reservation_list(request):
     reservations = Reservation.objects.all()
-    return render(request, 'booking_system/reservation_list.html', {'reservations': reservations})
+    return render(
+        request, 'booking_system/reservation_list.html',
+        {'reservations': reservations})
 
 
 @login_required
@@ -112,7 +122,8 @@ def view_reservations(request):
         context = {
             'reservations': reservations,
         }
-        return render(request, 'booking_system/view_reservations.html', context)
+        return render(
+             request, 'booking_system/view_reservations.html', context)
     else:
         return redirect('account_login')
 
@@ -130,7 +141,8 @@ def update_reservation(request, reservation_id):
             return redirect('view_reservations')
     else:
         form = ReservationForm(instance=reservation)
-    return render(request, 'booking_system/update_reservation.html', {'form': form})
+    return render(
+        request, 'booking_system/update_reservation.html', {'form': form})
 
 
 @login_required
@@ -141,7 +153,9 @@ def cancel_reservation(request, reservation_id):
         reservation.delete()
         messages.success(request, 'Your reservation has been canceled.')
         return redirect('view_reservations')
-    return render(request, 'booking_system/cancel_reservation.html', {'reservation': reservation})
+    return render(
+        request, 'booking_system/cancel_reservation.html',
+        {'reservation': reservation})
 
 
 @login_required
@@ -159,7 +173,9 @@ def write_review_view(request, restaurant_id):
             return redirect('restaurant_detail', restaurant_id=restaurant_id)
     else:
         form = ReviewForm()
-    return render(request, 'booking_system/write_review.html', {'form': form, 'restaurant': restaurant})
+    return render(
+        request, 'booking_system/write_review.html',
+        {'form': form, 'restaurant': restaurant})
 
 
 def search_restaurants(request):

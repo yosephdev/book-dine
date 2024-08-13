@@ -8,7 +8,6 @@
 {% url 'view_reservations' as view_reservations_url %}
 {% url 'reservation_list' as reservation_list_url %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,9 +36,9 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body d-flex h-100 main-bg>
+<body class="d-flex flex-column h-100 main-bg">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <span class="brand">B<span class="red-o">oo</span>k<span class="thin">|Dine</span></span>
@@ -82,9 +81,8 @@
         </div>
     </nav>
 
-
     <!-- Django Messages -->
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {% for message in messages %}
@@ -97,39 +95,35 @@
         </div>
     </div>
 
-
     <!-- Main Content -->
     <main class="flex-shrink-0 main-bg">
-        {% block content %}
-        <h1>Discover the Best Dining Experiences</h1>
-        <p>Book your table at top-rated restaurants near you.</p>
-        <div class="cta-section">
-            <a href="{{ book_table_url }}" class="btn btn-primary">Book a Table</a>
+        <div class="container">
+            {% block content %}
+            <h1 class="text-center my-5">Discover the Best Dining Experiences</h1>
+            <p class="text-center">Book your table at top-rated restaurants near you.</p>
+            <div class="cta-section text-center mt-4">
+                <a href="{{ book_table_url }}" class="btn btn-primary btn-lg">Book a Table</a>
+            </div>
+            {% endblock %}
         </div>
-
-        {% endblock %}
-
-
     </main>
-
-
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3">
         <div class="container">
-            <p class="text-center">
+            <p class="text-center mb-0">
                 {% block copyright %}
                 &copy; Book|Dine {% now "Y" %}
                 {% endblock %}
             </p>
-            <p class="text-center">
+            <p class="text-center mt-2">
                 Follow us:
-                <a href="#" class="text-white ms-3"><i class="fab fa-facebook-square"></i></a>
-                <a href="#" class="text-white ms-3"><i class="fab fa-twitter-square"></i></a>
-                <a href="#" class="text-white ms-3"><i class="fab fa-instagram-square"></i></a>
+                <a href="#" class="ms-3 social-icon"><i class="fab fa-facebook-square"></i></a>
+                <a href="#" class="ms-3 social-icon"><i class="fab fa-twitter-square"></i></a>
+                <a href="#" class="ms-3 social-icon"><i class="fab fa-instagram-square"></i></a>
             </p>
         </div>
-    </footer>
+    </footer>    
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
