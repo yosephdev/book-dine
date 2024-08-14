@@ -9,20 +9,6 @@ import logging
 
 # Create your views here.
 
-logger = logging.getLogger(__name__)
-
-
-def custom_400_view(request, **kwargs):
-    exception = kwargs.get('exception', None)
-    logger.error(f"Bad Request (400): {exception}")
-    return render(request, '400.html', status=400)
-
-
-def custom_500_view(request):
-    logger.error("Server Error (500)")
-    return render(request, '500.html', status=500)
-
-
 def home_view(request):
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
     latest_reservations = Reservation.objects.select_related(

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-md-6 my-auto">          
+            <h1 class="display-6 logo-font text-black">
+                Oops! The page you're looking for isn't available.
+            </h1>
+            <div class="my-5">                
+                <h4>
+                    <a href="{% url 'home' %}" 
+                        class="btn btn-lg rounded-0 text-uppercase py-3" 
+                        style="background-color: var(--primary-color); color: var(--background-color);">
+                        Return to Home
+                    </a>
+                </h4>
+            </div>
+        </div>
+        <div class="col-md-6 my-auto">        
+            <img src="{% static 'images/404.png' %}" alt="404" style="max-width: 100%; max-height: 75vh;">
+        </div>
+    </div>
+</div>
+{% endblock %}
+

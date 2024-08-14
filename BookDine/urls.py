@@ -21,33 +21,25 @@ from django.contrib import admin
 from django.urls import path, include
 from booking_system import views as booking_views
 
+# Custom error handlers
+handler404 = 'BookDine.views.custom_404_view'
+handler500 = 'BookDine.views.custom_500_view'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', booking_views.home_view, name='home'),
     path('book-table/', booking_views.book_table_view, name='book_table'),
-    path('reservations/', booking_views.view_reservations,
-         name='view_reservations'),
-    path('restaurants/<int:restaurant_id>/write-review/',
-         booking_views.write_review_view, name='write_review'),
-    path('restaurants/<int:restaurant_id>/',
-         booking_views.restaurant_detail, name='restaurant_detail'),
-    path('restaurant/<int:restaurant_id>/create/',
-         booking_views.create_reservation, name='create_reservation'),
-    path('reservations/', booking_views.reservation_list,
-         name='reservation_list'),
-    path('reservations/<int:reservation_id>/update/',
-         booking_views.update_reservation, name='update_reservation'),
-    path('reservations/<int:reservation_id>/cancel/',
-         booking_views.cancel_reservation, name='cancel_reservation'),
-    path('restaurants/', booking_views.restaurant_list_view,
-         name='restaurant_list'),
-    path('search/', booking_views.search_restaurants, 
-         name='search_restaurants'),
-    path('400/', booking_views.custom_400_view),
-    path('500/', booking_views.custom_500_view),
+    path('reservations/', booking_views.view_reservations, name='view_reservations'),
+    path('restaurants/<int:restaurant_id>/write-review/', booking_views.write_review_view, name='write_review'),
+    path('restaurants/<int:restaurant_id>/', booking_views.restaurant_detail, name='restaurant_detail'),
+    path('restaurant/<int:restaurant_id>/create/', booking_views.create_reservation, name='create_reservation'),
+    path('reservations/', booking_views.reservation_list, name='reservation_list'),
+    path('reservations/<int:reservation_id>/update/', booking_views.update_reservation, name='update_reservation'),
+    path('reservations/<int:reservation_id>/cancel/', booking_views.cancel_reservation, name='cancel_reservation'),
+    path('restaurants/', booking_views.restaurant_list_view, name='restaurant_list'),
+    path('search/', booking_views.search_restaurants, name='search_restaurants'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
