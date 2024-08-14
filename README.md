@@ -2,42 +2,62 @@
 
 ## Table of Contents
 
-- [User Experience](#user-experience)
-- [Project Goals](#project-goals)
-- [Agile Methodology](#agile-methodology)
-  * [User Stories and Epics](#user-stories-and-epics)
-    + [Epics](#epics)
-    + [User Stories](#user-stories)
-  * [Project Board](#project-board)
-- [Target Audience](#target-audience)
-- [Design](#design)
-  * [Color Scheme](#color-scheme)  
-  * [Wireframes](#wireframes)
-- [Data Model](#data-model)
-  * [User Journey](#user-journey)
-  * [Database Scheme](#database-scheme)
-  * [Models](#models)
-  * [ERD Diagram](#erd-diagram)
-- [Security Features](#security-features)
-- [Features](#features)
-  * [Existing Features](#existing-features)
-  * [Features Partially Implemented](#features-partially-implemented)
-  * [Features Left to Implement](#features-left-to-implement)
-- [Technologies Used](#technologies-used)
-  * [Languages Used](#languages-used)
-  * [Databases Used](#databases-used)
-  * [Frameworks Used](#frameworks-used)
-  * [Programs Used](#programs-used)
-- [Deployment and Local Development](#deployment-and-local-development)
-  * [Local Development](#local-development)
-  * [ElephantSQL Database](#elephantsql-database)
-  * [Cloudinary](#cloudinary)
-  * [Heroku Deployment](#heroku-deployment)
-- [Testing](#testing)
-- [References](#references)
-  * [Docs](#docs)
-  * [Content](#content)
-  * [Acknowledgments](#acknowledgments)
+- [BookDine Application Documentation](#bookdine-application-documentation)
+  * [Table of Contents](#table-of-contents)
+  * [User Experience](#user-experience)
+  * [Project Goals](#project-goals)
+  * [Agile Methodology](#agile-methodology)
+    + [Prioritization and Classification](#prioritization-and-classification)
+    + [Focus Areas](#focus-areas)
+  * [User Stories](#user-stories)
+  * [Design](#design)
+    + [Color Scheme](#color-scheme)
+    + [Wireframes](#wireframes)
+  * [Data Model](#data-model)
+    + [User Journey](#user-journey)
+    + [Database Scheme](#database-scheme)
+    + [Models](#models)
+      - [User Model](#user-model)
+      - [Booking Model](#booking-model)
+      - [Table Model](#table-model)
+      - [Review Model](#review-model)
+    + [ERD Diagram](#erd-diagram)
+      - [Entity Relationship Diagram (ERD)](#entity-relationship-diagram--erd-)
+  * [Security Features](#security-features)
+  * [Features](#features)
+    + [Existing Features](#existing-features)
+  * [Screenshots](#screenshots)
+    + [1. User Registration and Login](#1-user-registration-and-login)
+    + [2. Booking System](#2-booking-system)
+    + [3. Admin Interface](#3-admin-interface)
+    + [4. Email Notifications](#4-email-notifications)
+    + [5. Review System](#5-review-system)
+    + [6. Booking Modification and Cancellation](#6-booking-modification-and-cancellation)
+    + [7. Responsive Design](#7-responsive-design)
+    + [8. Advanced Search and Filter](#8-advanced-search-and-filter)
+  * [Technologies Used](#technologies-used)
+    + [Languages Used](#languages-used)
+    + [Databases Used](#databases-used)
+    + [Frameworks Used](#frameworks-used)
+    + [Tools And Resources Used](#tools-and-resources-used)
+  * [Deployment and Local Development](#deployment-and-local-development)
+    + [Local Development](#local-development)
+    + [ElephantSQL Database](#elephantsql-database)
+    + [Cloudinary](#cloudinary)
+    + [Heroku Deployment](#heroku-deployment)
+  * [Testing](#testing)
+  * [Code Validation](#code-validation)
+    + [HTML](#html)
+    + [CSS](#css)
+    + [Python](#python)
+  * [Manual Testing](#manual-testing)
+  * [Automated Testing](#automated-testing)
+    + [Python (Unit Testing)](#python--unit-testing-)
+    + [Error Pages](#error-pages)
+  * [References](#references)
+    + [Docs](#docs)
+    + [Content](#content)
+    + [Acknowledgments](#acknowledgments)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -55,79 +75,47 @@ On the other hand, restaurant staff will benefit from a comprehensive administra
 6. **Ensure responsiveness and accessibility**: Design the user interface to be responsive and accessible across various devices and platforms, ensuring a consistent and inclusive experience for all users.
 
 ## Agile Methodology
-The project is being developed using an Agile methodology to help prioritize and organize tasks. This involves writing user stories and using Project Boards on GitHub.
+The project is developed using Agile methodology to effectively prioritize and organize tasks. This involves creating user stories and utilizing Project Boards on GitHub.
 
-### User Stories and Epics
+### Prioritization and Classification
 
-A template is created to help write user stories in a consistent format: "As a [type of user], I want [goal] so that [benefit]." Epics are also written, containing possible user stories. Based on these epics, the website features are planned and implemented.
+To prioritize development efforts, features were classified into the following categories:
+- **Must Have**: Essential features required for the core functionality.
+- **Should Have**: Important features that enhance the product but are not critical for the initial release.
+- **Could Have**: Features that are nice to have but not necessary.
+- **Won't Have**: Features that are not included in the current iteration.
 
-User stories are created by looking at the epics and refined through an iterative process as the project progresses. This allows me to stay focused on delivering value to users.
+This classification facilitated the determination of feature importance and helped in managing development priorities effectively.
 
-#### Epics
+### Focus Areas
 
-##### Home Page
-- **Epic**: As a developer, I want to develop a user-friendly home page that provides navigation to different parts of the site and displays the restaurant's information.
+The product section was given the highest priority, receiving the most attention and resources to ensure its completion and quality.
 
-  **Potential User Stories**:
-  - As a developer, I want to design a visually appealing home page so that users find it engaging.
-  - As a developer, I want to display the restaurant's information on the home page so that users can learn more about it.
-  - As a developer, I want to provide easy navigation on the home page so that users can easily access different parts of the site.
+For more details on the project's progress and planning, visit the [Project Board](https://github.com/users/yosephdev/projects/6/views/1).
 
-##### User Registration
-- **Epic**: As a developer, I want to implement a user registration and login system that allows users to create and access their accounts.
+![Project Kanban](docs/readme_images/image-1.png)
 
-  **Potential User Stories**:
-  - As a developer, I want to create a registration form so that new users can create an account.
-  - As a developer, I want to create a login form so that registered users can access their account.
+[Back to Top](#table-of-contents)
 
-##### Website Admin and Bookings
-- **Epic**: As a developer, I want to develop an administrative interface for managing bookings, tables, and customer information, and a user interface for making, viewing, updating, and canceling reservations.
+<br>
 
-  **Potential User Stories**:
-  - As a developer, I want to create an admin interface so that restaurant staff can manage bookings, tables, and customer information.
-  - As a developer, I want to create a user interface for reservations so that users can make, view, update, and cancel their reservations.
+## User Stories
 
-##### Maintain consistent design with responsiveness in mind
-- **Epic**: As a developer, I want to ensure that the website has a consistent design across different pages and is responsive to different screen sizes.
+Based on the collected user stories, a project implementation plan was developed. You can review the user stories [here](https://github.com/yosephdev/book-dine/issues?q=is%3Aissue+is%3Aclosed).
 
-  **Potential User Stories**:
-  - As a developer, I want to maintain a consistent design across the website so that it provides a seamless user experience.
-  - As a developer, I want to make the website responsive so that it looks good on devices of all sizes.
+![User Stories](docs/readme_images/image-3.png)
 
-#### User Stories
+Each user story was assigned a point value reflecting its implementation complexity. The MoSCoW principle (Must Have, Should Have, Could Have, Won't Have) was used to plan iterations and prioritize tasks.
 
-##### User Registration and Login
-- As a new user, I want to register so that I can make a reservation.
-- As a registered user, I want to log in so that I can access my account.
+Milestones for the project can be reviewed [here](https://github.com/CodeWizard-1/e-commerce/milestones?state=closed).
 
-##### Homepage
-- As a user, I want to see a homepage that displays the restaurant’s information and allows me to navigate to different parts of the site.
+![Milestones](docs/readme_images/image-2.png)
 
-##### Making a Reservation
-- As a user, I want to select a date, time, and number of guests for my reservation so that I can book a table.
-- As a user, I want to receive a confirmation after I make a reservation so that I know it was successful.
+<br>
 
-##### Viewing and Updating a Reservation
-- As a user, I want to view my reservations so that I can keep track of them.
-- As a user, I want to update my reservation (change the date, time, or number of guests) so that I can make changes if my plans change.
+[Back to Top](#table-of-contents)
 
-##### Canceling a Reservation
-- As a user, I want to cancel my reservation so that the table can be freed up if I can’t make it.
-
-##### Reviewing a Restaurant
-- As a user, I want to write a review about my experience at the restaurant so that other users can read it.
-- As a user, I want to read reviews from other users so that I can make an informed decision about whether to book a table.
-
-### Project Board
-The project board on GitHub is set to public, allowing for transparency and collaboration. It is used to track the progression of tasks through the "To Do", "In Progress", and "Done" columns.
-
-Labels are added to the issues to sort them based on importance, such as "high priority", "medium priority", and "low priority". This helps me prioritize the most critical tasks.
-
-## Target Audience
-The restaurant booking system will cater to three main user groups:
-- **First time user**: First-time users will be able to easily navigate the system to find available tables, view restaurant information, and make reservations. The system will provide clear instructions and intuitive interfaces to guide them through the booking process.
-- **Registered user**: Registered users will have additional features, such as the ability to view their booking history, update their profile information, and receive notifications about upcoming reservations. They will also be able to leave reviews and ratings for the restaurant.
-- **Admin user**: Admin users, typically restaurant staff, will have access to a comprehensive management interface. They will be able to view and manage all bookings, add or remove tables, update restaurant information, and generate reports. The admin interface will be designed to be user-friendly and efficient, allowing staff to quickly access and update information as needed.
+<br>
 
 ## Design
 
@@ -146,6 +134,9 @@ The color scheme for the restaurant booking system aims to create a warm and inv
 ### Wireframes
 
 Below are wireframe examples for different sections of the booking system:
+
+<details>
+<summary>Click to view wireframes</summary>
 
 1. **Homepage Wireframe:**
    - The homepage will display the restaurant's information, navigation links, and a section for booking reservations.
@@ -175,6 +166,14 @@ Below are wireframe examples for different sections of the booking system:
      ![Reservations Page-Desktop Wireframe](docs/wireframes/Reservations-Desktop.png)
       ![Reservations Page-Mobile Wireframe](docs/wireframes/Reservations-Mobile.png)
 
+</details>
+
+<br>
+
+[Back to Top](#table-of-contents)
+
+<br>
+
 ## Data Model
 
 ### User Journey
@@ -187,6 +186,9 @@ The user journey includes the following key steps:
 5. **Modification**: Users can view and update their reservations if needed.
 6. **Cancellation**: Users can cancel their reservations, freeing up the table for others.
 
+<br>
+
+[Back to Top](#table-of-contents)
 ### Database Scheme
 
 The database scheme will include tables for users, bookings, tables, and reviews:
@@ -194,6 +196,10 @@ The database scheme will include tables for users, bookings, tables, and reviews
 - **Bookings**: Stores booking details including user ID, table ID, date, time, and number of guests.
 - **Tables**: Stores information about the restaurant's tables including table number, capacity, and availability status.
 - **Reviews**: Stores user reviews and ratings for the restaurant.
+
+<br>
+
+[Back to Top](#table-of-contents)
 
 ### Models
 
@@ -220,6 +226,10 @@ An ERD diagram will visually represent the relationships between the different t
 #### Entity Relationship Diagram (ERD)
 ![Database Relational Diagram](docs/readme_images/bookdine.png)
 
+<br>
+
+[Back to Top](#table-of-contents)
+
 ## Security Features
 
 The booking system will include the following security features:
@@ -240,6 +250,10 @@ The booking system will include the following security features:
 6. **Booking Modification and Cancellation**: Users can view, update, and cancel their reservations.
 7. **Responsive Design**: The website is fully responsive and accessible on all devices.
 8. **Advanced Search and Filter**: Users can find available tables based on various criteria.
+
+<br>
+
+[Back to Top](#table-of-contents)
 
 ## Screenshots
 
@@ -273,25 +287,35 @@ The booking system will include the following security features:
 ### 8. Advanced Search and Filter
 - **Search Page**: ![Search Page](docs/readme_images/search_page.png)
 
+<br>
+
+[Back to Top](#table-of-contents)
+
+<br>
+
 ## Technologies Used
 
 ### Languages Used
-- HTML5
-- CSS3
-- JavaScript
-- Python
+* [HTML5](https://en.wikipedia.org/wiki/HTML5)
+* [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
+* [Javascript](https://en.wikipedia.org/wiki/JavaScript)
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 ### Databases Used
-- PostgreSQL
+* [ElephantSQL](https://www.https://www.elephantsql.com/)
 
 ### Frameworks Used
-- Django
-- Bootstrap
+* [Django](https://www.djangoproject.com/)
+* [Bootstrap](https://blog.getbootstrap.com/) 
 
-### Programs Used
-- GitHub for version control
-- Heroku for deployment
-- Cloudinary for image storage
+### Tools And Resources Used
+* [GitPod](https://www.gitpod.io/)
+* [GitHub](https://github.com/)
+* [Heroku](https://heroku.com)
+* [ElephantSQL](https://www.elephantsql.com/)
+* [Cloudinary](https://cloudinary.com/)
+* [Coolors](https://coolors.co/)
+* [AmIResponsive](https://ui.dev/amiresponsive)
 
 ## Deployment and Local Development
 
@@ -327,61 +351,96 @@ To deploy the project to Heroku:
 5. Push the code to Heroku: `git push heroku main`
 6. Set up the necessary environment variables in Heroku.
 
+<br>
+
+[Back to Top](#table-of-contents)
+
+<br>
+
 ## Testing
-To run tests:
-1. Make sure the virtual environment is activated.
-2. Run the tests: `python manage.py test`
+During the development of this project, I conducted various tests to ensure the proper functioning of the website. In this section, you will find documentation on all tests performed on the site.
+
+## Code Validation
+
+I tested all my code using each language's preferred programming tools.
+
+### HTML
+
+I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my HTML files.
+
+| File              | W3C Validation URL | Screenshot                                     | Notes           |
+| ----------------- | ------------------ | ---------------------------------------------- | --------------- |
+| index.html        | [Link](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbook-dine-c8d9fe1355da.herokuapp.com%2F) | ![screenshot](docs/readme_images/image-html1.png) | Pass: No Errors |
+| reservation.html  | [Link](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbook-dine-c8d9fe1355da.herokuapp.com%2Faccounts%2Flogin%2F%3Fnext%3D%2Freservations%2F) | ![screenshot](docs/readme_images/image-html2.png) | Pass: No Errors |
+| book_table.html   | [Link](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbook-dine-c8d9fe1355da.herokuapp.com%2Fbook-table%2F) | ![screenshot](docs/readme_images/image-html3.png) | Pass: No Errors |
+
+### CSS
+
+I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) to validate all of my CSS files.
+
+| File         | Jigsaw URL | Screenshot                                     | Notes           |
+| ------------ | ---------- | ---------------------------------------------- | --------------- |
+| style.css    | [Link](https://jigsaw.w3.org/css-validator) | ![screenshot](docs/readme_images/image-css.png) | Pass: No Errors |
+
+### Python
+
+I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files for BookDine.
+
+| File                | CI Linter URL | Screenshot                                     | Notes           |
+| ------------------- | ------------- | ---------------------------------------------- | --------------- |
+| views.py            | [Link](https://pep8ci.herokuapp.com) | ![screenshot](docs/readme_images/image-python1.png) | Pass: No Errors |
+| models.py           | [Link](https://pep8ci.herokuapp.com) | ![screenshot](docs/readme_images/image-python2.png) | Pass: No Errors |
+| urls.py             | [Link](https://pep8ci.herokuapp.com) | ![screenshot](docs/readme_images/image-python3.png) | Pass: No Errors |
+
 
 ## Manual Testing
 
-Manual testing involves verifying the functionality of the application by simulating user actions and checking if the system behaves as expected. Below are the key manual tests conducted:
+Below are the results of manual testing for the Book Dine app:
 
-### User Registration and Login
-1. **Register New User**:
-   - Navigate to the registration page.
-   - Fill in the registration form with valid details.
-   - Submit the form and verify that the user is registered and redirected appropriately.
+| Page                      | User Action                                                                           | Expected Result                                                                                                           | Pass/Fail | Comments                                                                                                       |
+| ------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------- |
+| **Home Page**             |                                                                                       |                                                                                                                           |           |                                                                                                                |
+|                           | Click on Logo                                                                         | Redirection to Home page                                                                                                  | Pass      |                                                                                                                |
+|                           | Click on a restaurant card                                                             | Redirection to Restaurant Detail page                                                                                     | Pass      |                                                                                                                |
+|                           | Click on the "Sign Up" button                                                          | Redirection to Sign Up page                                                                                               | Pass      |                                                                                                                |
+|                           | Click on the "Sign In" button                                                          | Redirection to Sign In page                                                                                               | Pass      |                                                                                                                |
+| **User Registration and Login** |                                                                                       |                                                                                                                           |           |                                                                                                                |
+|                           | Navigate to the registration page.                                                     | Redirection to Registration page                                                                                          | Pass      |                                                                                                                |
+|                           | Fill in the registration form with valid details and submit.                          | User is registered, and a confirmation message is displayed. User is redirected to the login page.                       | Pass      |                                                                                                                |
+|                           | Navigate to the login page.                                                             | Redirection to Login page                                                                                                 | Pass      |                                                                                                                |
+|                           | Enter valid login credentials and submit.                                              | User is logged in, and the dashboard is displayed.                                                                        | Pass      |                                                                                                                |
+| **Booking a Reservation** |                                                                                       |                                                                                                                           |           |                                                                                                                |
+|                           | Navigate to the booking page.                                                          | Redirection to Booking page                                                                                               | Pass      |                                                                                                                |
+|                           | Select a date, time, and number of guests, and submit the form.                      | Reservation is created, and a confirmation message with reservation details is displayed.                                | Pass      |                                                                                                                |
+|                           | Log in as a user and navigate to the reservations page.                                | The list of reservations is displayed correctly with details.                                                             | Pass      |                                                                                                                |
+| **Updating and Canceling Reservations** |                                                                                       |                                                                                                                           |           |                                                                                                                |
+|                           | Navigate to the reservations page, select a reservation to update, modify the details, and submit. | Reservation is updated, and a confirmation message with updated details is displayed.                                    | Pass      |                                                                                                                |
+|                           | Navigate to the reservations page, select a reservation to cancel, and confirm cancellation. | Reservation is removed, and a confirmation message is displayed.                                                         | Pass      |                                                                                                                |
+| **Reviewing a Restaurant** |                                                                                       |                                                                                                                           |           |                                                                                                                |
+|                           | Navigate to a restaurant's detail page, fill in the review form, and submit it.       | Review is submitted and displayed on the restaurant's detail page.                                                        | Pass      |                                                                                                                |
+|                           | Navigate to a restaurant's detail page.                                                | The list of reviews is displayed correctly with details such as reviewer name, rating, and comments.                    | Pass      |                                                                                                                |
 
-2. **Login User**:
-   - Navigate to the login page.
-   - Enter valid login credentials.
-   - Submit the form and verify that the user is logged in and redirected appropriately.
+<br>
 
-### Booking a Reservation
-1. **Make a Reservation**:
-   - Navigate to the booking page.
-   - Select a date, time, and number of guests.
-   - Submit the form and verify that the reservation is created and confirmation is shown.
+## Automated Testing
 
-2. **View Reservations**:
-   - Log in as a user.
-   - Navigate to the reservations page.
-   - Verify that the list of reservations is displayed correctly.
+Automatic testing results are below.
 
-### Updating and Canceling Reservations
-1. **Update a Reservation**:
-   - Log in as a user.
-   - Navigate to the reservations page.
-   - Select a reservation to update.
-   - Modify the reservation details and submit the form.
-   - Verify that the reservation is updated correctly.
 
-2. **Cancel a Reservation**:
-   - Log in as a user.
-   - Navigate to the reservations page.
-   - Select a reservation to cancel.
-   - Confirm the cancellation and verify that the reservation is removed.
+### Python (Unit Testing)
 
-### Reviewing a Restaurant
-1. **Submit a Review**:
-   - Log in as a user.
-   - Navigate to a restaurant's detail page.
-   - Fill in the review form and submit it.
-   - Verify that the review is displayed correctly.
+I have used Django's built-in unit testing framework to test the application functionality.
 
-2. **View Reviews**:
-   - Navigate to a restaurant's detail page.
-   - Verify that the list of reviews is displayed correctly.
+In order to run the tests, I ran the following command in the terminal each time:
+
+`python3 manage.py test`
+
+![screenshot](docs/readme_images/image-test1.png)
+
+
+`python-m coverage report`
+
+![Alt text](docs/readme_images/image-test2.png)
 
 ### Error Pages
 1. **400 Bad Request**:
@@ -392,6 +451,12 @@ Manual testing involves verifying the functionality of the application by simula
    - Trigger a 500 error (e.g., by causing an exception in the code).
    - Verify that the custom 500 error page is displayed.
 
+<br>
+
+[Back to Top](#table-of-contents)
+
+<br>
+
 ## References
 
 ### Docs
@@ -399,18 +464,11 @@ Manual testing involves verifying the functionality of the application by simula
 - [Bootstrap Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
-### Content
-- All content was created by the developer.
-
 ### Acknowledgments
 
-I would like to acknowledge the following resources and individuals who have contributed to the development of this project:
+I would like to acknowledge the following individuals who have contributed to the development of this project:
 
 - [Niel McEwen](https://github.com/NielMc)
 - [Matt Rudge](https://github.com/lechien73)
-- [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) for his support and feedback throughout the project developemnt process
-- The Django community for their excellent documentation and support
-- The Bootstrap community for providing a powerful and flexible CSS framework
-- The PostgreSQL community for developing a robust and reliable database management system
-- The ElephantSQL, Cloudinary, and Heroku teams for their cloud-based services and support
+- [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) 
 
