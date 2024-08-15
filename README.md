@@ -121,15 +121,20 @@ Milestones for the project can be reviewed [here](https://github.com/CodeWizard-
 
 ### Color Scheme
 
-The color scheme for the restaurant booking system aims to create a warm and inviting atmosphere. The primary colors are a combination of earthy tones, such as browns and greens, with accents of gold or copper to add a touch of elegance.
+The color scheme for the restaurant booking system has been updated to be bold and modern, utilizing vibrant colors to capture attention and create a lively atmosphere.
 
-![Colour Palette](docs/readme_images/color-palette.png)
-
-- **Primary-color (#8b6a60)**: A warm brown shade used for primary elements like buttons and headings.
-- **Secondary-color (#4d7c5f)**: A natural green shade used for secondary elements like navigation and accents.
-- **Accent-color (#c7a369)**: A golden shade used for highlighting important elements and adding a touch of elegance.
-- **Text-color (#333333)**: A dark gray shade used for body text to ensure good readability.
-- **Background-color (#f8f8f8)**: A light gray shade used for the background to create a clean and modern look.
+  ```css
+/* Color variables */
+:root {
+    --primary-color: #FF5733;           /* Spicy Red */
+    --secondary-color: #FFC300;         /* Bright Yellow */
+    --accent-color: #C70039;            /* Deep Pink */
+    --danger-color: #dc3545;            /* Bootstrap danger color */
+    --text-color: #333333;              /* Dark gray */
+    --background-color: #FFFFFF;        /* White */
+    --background-hover: #F1F1F1;        /* Light hover */
+} 
+```
 
 ### Wireframes
 
