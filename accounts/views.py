@@ -50,7 +50,7 @@ def profile_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('profile')
+            return redirect('accounts:profile')
     else:
         form = CustomUserChangeForm(instance=request.user)
     return render(request, 'accounts/profile.html', {'form': form})

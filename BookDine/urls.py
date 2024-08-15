@@ -28,6 +28,7 @@ handler500 = 'BookDine.views.custom_500_view'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('', booking_views.home_view, name='home'),
     path('book-table/', booking_views.book_table_view, name='book_table'),
     path('reservations/', booking_views.view_reservations, name='view_reservations'),
