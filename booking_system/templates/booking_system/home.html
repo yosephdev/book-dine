@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -19,38 +18,48 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-6">
-                <h2>Featured Restaurants</h2>
-                <ul class="list-unstyled">
-                    {% for restaurant in restaurants %}
-                    <li class="mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ restaurant.name }}</h5>
-                                <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary">View
-                                    Details</a>
+                <div class="featured-restaurants">
+                    <h2>Featured Restaurants</h2>
+                    <ul class="list-unstyled">
+                        {% for restaurant in restaurants %}
+                        <li class="mb-3">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ restaurant.name }}</h5>
+                                    <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
+                                    <a href="{% url 'restaurant_detail' restaurant.id %}" 
+                                    class="btn custom-button view-details-btn">
+                                     View Details
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
             <div class="col-md-6">
-                <h2>Latest Reservations</h2>
-                <ul class="list-unstyled">
-                    {% for reservation in latest_reservations %}
-                    <li class="mb-3">
-                        {% if reservation.restaurant and reservation.restaurant.name %}
-                        <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name }}</h5>
-                        {% else %}
-                        <h5 class="card-title">Reservation details not available</h5>
-                        {% endif %}
-                        <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }} people</p>
-                    </li>
-                    {% endfor %}
-                </ul>
+                <div class="latest-reservations">
+                    <h2>Latest Reservations</h2>
+                    <ul class="list-unstyled">
+                        {% for reservation in latest_reservations %}
+                        <li class="mb-3">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    {% if reservation.restaurant and reservation.restaurant.name %}
+                                    <h5 class="card-title">{{ reservation.user.username }} at {{ reservation.restaurant.name }}</h5>
+                                    {% else %}
+                                    <h5 class="card-title">Reservation details not available</h5>
+                                    {% endif %}
+                                    <p class="card-text">{{ reservation.date }} for {{ reservation.number_of_guests }} people</p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
