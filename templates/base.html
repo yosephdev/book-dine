@@ -25,59 +25,87 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body class="d-flex flex-column h-100 main-bg">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <span class="brand">B<span class="red-o">oo</span>k<span class="thin">|Dine</span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                            href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == book_table_url %}active{% endif %}"
-                            href="{% url 'book_table' %}">Book a Table</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == reservation_list_url %}active{% endif %}"
-                            href="{% url 'reservation_list' %}">View Reservations</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle me-1"></i>My Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            {% if user.is_superuser %}
-                            <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fas fa-cogs me-2"></i>Admin Dashbaord</a></li>
-                            {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-user me-2"></i> My Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}"
-                            href="{% url 'account_signup' %}"><i class="fas fa-user-plus me-1"></i>Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}"
-                            href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+<body>
+    <!-- Header section -->
+<header class="container-fluid sticky-top">
+     <!-- Delivery banner -->
+     <div id="delivery-banner" class="row text-center bg-dark text-white">
+        <div class="col">
+            <h3 id="carousel-text" class="logo-font my-1">
+                Book your table now!&nbsp;&nbsp;
+                <span class="text-primary">
+                    <i class="fa-solid fa-utensils"></i>
+                </span>
+            </h3>
         </div>
-    </nav>
+    </div>
+
+    <!-- Navigation -->
+        <nav class="row navbar navbar-expand-lg navbar-light bg-light shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <span class="brand">
+                        B<span class="red-o">oo</span>k<span class="thin">|Dine</span>
+                    </span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                            href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == book_table_url %}active{% endif %}"
+                            href="{% url 'book_table' %}">Book a Table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == reservation_list_url %}active{% endif %}"
+                            href="{% url 'reservation_list' %}">View Reservations</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i>My Account
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                {% if user.is_superuser %}
+                                <li><a class="dropdown-item" href="{% url 'admin:index' %}">
+                                    <i class="fas fa-cogs me-2"></i>Admin Dashboard
+                                </a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                                    <i class="fas fa-user me-2"></i>My Profile
+                                </a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_logout' %}">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}"
+                            href="{% url 'account_signup' %}">
+                                <i class="fas fa-user-plus me-1"></i>Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %}"
+                            href="{% url 'account_login' %}">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
 
     <!-- Django Messages -->
     <div class="container mt-4">
@@ -95,7 +123,7 @@
 
     <!-- Main Content -->
     <main class="flex-shrink-0 main-bg">
-        <div class="container">
+        <div class="container-fluid">
             {% block content %}
             {% endblock %}
         </div>
