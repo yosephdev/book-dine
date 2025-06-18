@@ -1,14 +1,14 @@
 # BookDine Application Documentation
 
-![Book|Dine Mockup](docs/readme_images/image-mockup.png)
+![Book & Dine Mockup](docs/readme_images/image-mockup.png)
 
-Welcome to Book|Dine, your online restaurant reservation platform. This app allows users to discover, book tables, and review restaurants for a seamless dining experience.
+Welcome to Book & Dine, your online restaurant reservation platform. This app allows users to discover, book tables, and review restaurants for a seamless dining experience.
 
 Some features on the site are available exclusively to registered users, including viewing your reservation history, saving favorite restaurants, and adding restaurant reviews.
 
 Users can search for restaurants, view restaurant details, make reservations, and manage their bookings. There is also a feedback page, a privacy policy, and a section on cancellation and modification of reservations.
 
-[Live link to Book|Dine](https://book-dine-c8d9fe1355da.herokuapp.com/)
+[Live link to Book & Dine](https://book-dine-c8d9fe1355da.herokuapp.com/)
 
 <br>
 
