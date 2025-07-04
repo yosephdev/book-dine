@@ -27,11 +27,11 @@
                     <td>{{ reservation.number_of_guests }}</td>
                     <td class="text-center">
                         <a href="{% url 'update_reservation' reservation.id %}"
-                            class="btn btn-primary btn-sm custom-button">
+                            class="btn btn-primary btn-sm">
                             Update
                         </a>
                         <a href="{% url 'cancel_reservation' reservation.id %}"
-                            class="btn btn-danger btn-sm custom-button">
+                            class="btn btn-danger btn-sm">
                             Cancel
                         </a>
                     </td>
@@ -68,5 +68,11 @@
         </ul>
     </nav>
     {% endif %}
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <a href="{% url 'home' %}" class="btn btn-info">Back to Home</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
