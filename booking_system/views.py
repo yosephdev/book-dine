@@ -43,8 +43,10 @@ def book_table_view(request):
 @login_required
 def restaurant_detail(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    reviews = restaurant.reviews.all().order_by('-created_at')
     context = {
         'restaurant': restaurant,
+        'reviews': reviews,
     }
     return render(request, 'booking_system/restaurant_detail.html', context)
 
