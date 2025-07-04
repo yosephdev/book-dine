@@ -54,7 +54,7 @@ Users can search for restaurants, view restaurant details, make reservations, an
     - [Tools And Resources Used](#tools-and-resources-used)
   - [Deployment and Local Development](#deployment-and-local-development)
     - [Local Development](#local-development)
-    - [ElephantSQL Database](#elephantsql-database)
+    - [Neon PostgreSQL Database](#Neon PostgreSQL-database)
     - [Cloudinary](#cloudinary)
     - [Heroku Deployment](#heroku-deployment)
   - [Testing](#testing)
@@ -375,7 +375,7 @@ The booking system will include the following security features:
 
 ### Databases Used
 
-- [ElephantSQL](https://www.https://www.elephantsql.com/)
+- [Neon PostgreSQL](https://neon.tech/)
 
 ### Frameworks Used
 
@@ -387,7 +387,7 @@ The booking system will include the following security features:
 - [GitPod](https://www.gitpod.io/)
 - [GitHub](https://github.com/)
 - [Heroku](https://heroku.com)
-- [ElephantSQL](https://www.elephantsql.com/)
+- [Neon PostgreSQL](<https://www.Neon> PostgreSQL.com/)
 - [Cloudinary](https://cloudinary.com/)
 - [Coolors](https://coolors.co/)
 - [AmIResponsive](https://ui.dev/amiresponsive)
@@ -408,13 +408,13 @@ To run the project locally:
 6. Create a superuser for the admin interface: `python manage.py createsuperuser`
 7. Run the development server: `python manage.py runserver`
 
-### ElephantSQL Database
+### Neon PostgreSQL Database
 
-To set up the ElephantSQL database:
+To set up the Neon PostgreSQL database:
 
-1. Create an account on ElephantSQL and create a new PostgreSQL instance.
-2. Copy the database URL provided by ElephantSQL.
-3. Update the Django settings file to use the ElephantSQL database URL.
+1. Create an account on Neon PostgreSQL and create a new PostgreSQL instance.
+2. Copy the database URL provided by Neon PostgreSQL.
+3. Update the Django settings file to use the Neon PostgreSQL database URL.
 
 ### Cloudinary
 
