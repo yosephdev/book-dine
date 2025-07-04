@@ -365,3 +365,8 @@ h6 {
     border-color: var(--secondary-color);
     color: var(--background-color);
 }
+
+.main-bg {
+    padding-bottom: 2rem !important;
+    background-color: var(--background-color);
+}
