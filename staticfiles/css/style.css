@@ -1,19 +1,12 @@
 /* Color variables */
 :root {
-    --primary-color: #FF5733;
-    /* Spicy Red */
-    --secondary-color: #FFC300;
-    /* Bright Yellow */
-    --accent-color: #C70039;
-    /* Deep Pink */
-    --danger-color: #dc3545;
-    /* Bootstrap danger color */
-    --text-color: #333333;
-    /* Dark gray */
-    --background-color: #FFFFFF;
-    /* White */
-    --background-hover: #F1F1F1;
-    /* Light hover */
+    --primary-color: #34495e; /* Charcoal Blue */
+    --secondary-color: #e67e22; /* Warm Orange */
+    --accent-color: #2ecc71; /* Fresh Green */
+    --danger-color: #e74c3c; /* Clear Red */
+    --text-color: #333333; /* Dark Gray */
+    --background-color: #f8f9fa; /* Light Gray/Off-White */
+    --background-hover: #ecf0f1; /* Lighter Gray for hover */
 }
 
 /* Reset and base styles */
@@ -27,9 +20,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #f0e6d7;
+    background-color: var(--background-color);
 }
-
 
 h1,
 h2,
@@ -37,16 +29,16 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: bold;
+    font-weight: 700;
     color: var(--primary-color);
 }
 
 /* Navbar Styles */
 .navbar {
-    background-color: #2c3e50 !important;    
+    background-color: var(--primary-color) !important;    
     border-bottom: none;  
     padding: 1rem;   
-    box-shadow: none;    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);    
 }
 
 .navbar-brand {
@@ -65,11 +57,7 @@ h6 {
 }
 
 .navbar-toggler-icon {
-    background-image: url("path-to-your-burger-icon.svg");
-    /* Custom burger icon */
-    background-size: cover;
-    width: 30px;
-    height: 30px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-nav .nav-link {
@@ -82,7 +70,7 @@ h6 {
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link:focus {
-    color: #ffd700;   
+    color: var(--secondary-color);   
 }
 
 .social-icons .nav-link {
@@ -92,23 +80,18 @@ h6 {
 }
 
 .social-icons .nav-link:hover {
-    color: #ffd700 !important;    
+    color: var(--secondary-color) !important;    
 }
 
 .navbar-collapse {
-    background-color: #2c3e50;  
+    background-color: var(--primary-color);  
     padding: 1rem;
     border-radius: 8px;   
 }
 
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 87, 51, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
 .dropdown-menu {
     background-color: var(--background-color);
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--background-hover);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -119,7 +102,7 @@ h6 {
 
 .dropdown-item:hover {
     background-color: var(--background-hover);
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .dropdown-item i {
@@ -130,7 +113,7 @@ h6 {
 }
 
 .brand {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: bold;
 }
 
@@ -139,67 +122,13 @@ h6 {
 }
 
 .thin {
-    color: var(--secondary-color);
+    color: #ffffff;
     font-weight: 300;
 }
 
 /* Carousel Styles */
 #carousel-text {
-    color: var(--accent-color) !important;
-}
-
-/* Form Styles */
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: var(--background-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-color);
-    background-color: var(--background-color);
-    border: 1px solid var(--secondary-color);
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.form-control:focus {
-    color: var(--text-color);
-    background-color: var(--background-color);
-    border-color: var(--accent-color);
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(199, 163, 105, 0.25);
-}
-
-/* Password Requirements List */
-#id_password1_helptext ul {
-    display: block;
-    list-style-type: disc;
-    margin: 0.5em 0;
-    padding-inline-start: 2rem;
-}
-
-#id_password1_helptext li {
-    margin-bottom: 0.25rem;
-    font-size: 0.9rem;
-    color: var(--text-color);
+    color: #ffffff !important;
 }
 
 /* Hero Section Styles */
@@ -207,8 +136,8 @@ h6 {
     position: relative;
     height: 80vh;
     overflow: hidden;
-    padding: 0 1rem;
-    margin-bottom: 1rem;
+    padding: 0;
+    margin-bottom: 2rem;
 }
 
 .hero-image {
@@ -228,7 +157,7 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .hero-content {
@@ -236,18 +165,21 @@ h6 {
     z-index: 1;
     text-align: center;
     padding: 2rem;
-    max-width: 800px;
-    margin: 7rem auto 0;
+    max-width: 900px;
+    margin: 10rem auto 0;
+    color: #ffffff;
 }
 
 .hero-content h1 {
-    font-size: 2rem;
-    color: var(--secondary-color);
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 .hero-content p {
-    font-size: 1rem;
-    color: var(--background-color);
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
 }
 
 /* Button Styles */
@@ -255,6 +187,7 @@ h6 {
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
     white-space: nowrap;
+    border-radius: 0.3rem; /* Slightly rounded corners */
 }
 
 .btn-sm {
@@ -268,17 +201,17 @@ h6 {
     font-size: 1rem;
     font-weight: 600;
     text-align: center;
-    color: var(--background-color);
-    background-color: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    color: #ffffff;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.3rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--background-color);
+    background-color: #e06e1b;
+    border-color: #e06e1b;
+    color: #ffffff;
 }
 
 .btn-secondary {
@@ -287,51 +220,101 @@ h6 {
     font-size: 1rem;
     font-weight: 600;
     text-align: center;
-    color: var(--background-color);
-    background-color: var(--secondary-color);
-    border: 1px solid var(--secondary-color);
-    border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.3rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .btn-secondary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--background-color);
+    background-color: #2c3e50;
+    border-color: #2c3e50;
+    color: #ffffff;
 }
 
 /* Card Styles */
 .card {
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--background-color);
+    border: 1px solid var(--background-hover);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    color: var(--text-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 1rem;
     color: var(--text-color);
 }
 
-.shadow {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+.card .btn {
+    margin-top: 1rem;
 }
 
-.font-weight-bold {
-    font-weight: bold;
+.card .btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #fff;
 }
 
-.btn-block {
-    display: block;
-    width: 100%;
+.card .btn-primary:hover {
+    background-color: #e06e1b;
+    border-color: #e06e1b;
 }
 
-/* Main Content Styles */
-.main-bg {
+/* Custom Card Variation */
+.custom-card {
     background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+.custom-card:hover {
+    background-color: var(--background-hover);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Buttons */
+.custom-button {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--background-color);
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.custom-button.btn-sm {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+}
+
+.custom-button:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--background-color);
+}
+
+/* CTA & List Section */
 .cta-section {
     margin-top: 2rem;
-}
-
-.latest-reservations {
-    margin-top: 4rem !important;
 }
 
 .featured-restaurants h2,
@@ -340,22 +323,6 @@ h6 {
     font-weight: 700;
     margin-bottom: 2rem;
     color: var(--primary-color);
-}
-
-.list-unstyled {
-    list-style: none;
-    padding: 0;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.card-text {
-    font-size: 1rem;
-    color: var(--text-color);
 }
 
 .restaurant-link {
@@ -368,269 +335,28 @@ h6 {
     color: var(--accent-color);
 }
 
-/* Table Style */
-.table-responsive {
-    overflow-x: auto;
-}
-
-th,
-td {
-    text-align: left;
-    padding: 0.75rem;
-}
-
-th {
-    color: var(--primary-color);
-    font-weight: bold;
-}
-
-td {
-    vertical-align: middle;
-}
-
-/* Reservations */
-.primary-color {
-    color: var(--primary-color);
-}
-
-.view-details-btn {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: var(--background-color);
-    transition: all 0.3s ease;
-}
-
-.view-details-btn:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: var(--background-color);
-}
-
-.custom-card {
-    background-color: var(--background-color);
-    border-color: var(--primary-color);
-    border-radius: 10px;
-}
-
-.custom-button {
-    background-color: var(--accent-color) !important;
-    border-color: var(--accent-color) !important;
-    transition: all 0.3s ease;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    white-space: nowrap;
-    text-align: center;
-}
-
-.custom-button.btn-sm {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.75rem;
-}
-
-.custom-button:hover {
-    background-color: var(--secondary-color) !important;
-    border-color: var(--secondary-color) !important;
-}
-
-.d-flex.flex-column.flex-sm-row .btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
-    margin-right: 10px;
-}
-
-.d-flex.flex-column.flex-sm-row .btn:last-child {
-    margin-right: 0;
-}
-
-.restaurant-item {
-    transition: background-color 0.3s;
-}
-
-.restaurant-item:hover {
-    background-color: var(--background-hover);
-}
-
-.restaurant-item a {
-    color: inherit;
-}
-
 .restaurant-location {
     color: var(--secondary-color);
 }
 
 .cuisine-badge {
     background-color: var(--accent-color);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
 }
 
-/* Alert Styles */
-.alert {
-    font-weight: bold;
-}
-
-.alert-success {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.alert-danger {
-    background-color: var(--danger-color);
-    color: white;
-}
-
-.alert-warning {
+/* View Details Button */
+.view-details-btn {
     background-color: var(--accent-color);
-    color: white;
-}
-
-/* Footer Styles */
-.footer {
-    background-color: var(--accent-color);
-    padding: 2rem 0;
+    border-color: var(--accent-color);
     color: var(--background-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.footer-heading {
-    color: var(--secondary-color);
-}
-
-.footer ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.footer ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer a {
+.view-details-btn:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
     color: var(--background-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer a:hover {
-    color: var(--secondary-color);
-}
-
-.footer p {
-    margin-bottom: 1rem;
-    color: var(--background-color);
-}
-
-.footer .social-icons {
-    margin-top: 1rem;
-}
-
-.footer .social-icon {
-    margin-right: 1rem;
-    color: var(--background-color);
-    font-size: 2rem;
-}
-
-.footer .social-icon:hover {
-    color: var(--secondary-color);
-}
-
-.footer hr {
-    border-top: 1px solid var(--background-color);
-    opacity: 0.5;
-}
-
-.footer .copyright {
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    text-align: center;
-    color: var(--background-color);
-}
-
-/* Responsive Styles */
-@media (min-width: 768px) {
-    .btn-primary {
-        display: inline-block;
-        width: auto;
-        padding: 0.75rem 1.5rem;
-        font-size: 1.2rem;
-    }
-
-    .hero-section {
-        padding: 2rem 0;
-    }
-
-    .hero-content {
-        margin: 4rem auto 0;
-    }
-
-    .hero-section h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-
-    .hero-section p {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .featured-restaurants,
-    .latest-reservations {
-        margin-top: 2rem;
-    }
-
-    .featured-restaurants h2,
-    .latest-reservations h2 {
-        font-size: 1.5rem;
-    }
-
-    .table tbody td {
-        display: table-cell;
-        text-align: left;
-        padding-left: 0;
-        position: static;
-    }
-
-    .table tbody td:before {
-        content: none;
-    }
-
-    .table thead {
-        display: table-header-group;
-    }
-
-    .navbar-nav.social-icons {
-        display: flex;
-    }
-}
-
-@media (max-width: 991px) {
-    .navbar-collapse {
-        background-color: var(--accent-color) !important;
-        padding: 1rem;
-        border-radius: 0 0 0.25rem 0.25rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-nav.social-icons {
-        display: none !important;
-    }
-}
-
-@media (max-width: 575.98px) {
-
-    .custom-button,
-    .btn-secondary {
-        width: 100%;
-    }
-
-    .img-fluid {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-    }
-
-    .navbar-nav.social-icons {       
-        display: none !important;
-    }
 }
