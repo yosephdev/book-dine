@@ -10,7 +10,7 @@
         <a class="nav-link {% if request.resolver_match.url_name == 'reservation_list' %}active{% endif %}" href="{% url 'reservation_list' %}">View Reservations</a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'accounts:profile' %}active{% endif %}" href="#" id="userDropdown" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-user-circle me-1"></i>My Account
         </a>
