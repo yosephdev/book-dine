@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
-from .models import Restaurant, Reservation
-from .forms import ReservationForm, ReviewForm
+from .models import Restaurant, Reservation, Review
+from .forms import ReservationForm, ReviewForm, RestaurantFilterForm
 import logging
 
 # Create your views here.
