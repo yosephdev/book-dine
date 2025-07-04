@@ -9,13 +9,25 @@ import logging
 
 # Create your views here.
 
+import random
+
 def home_view(request):
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
     all_restaurants = Restaurant.objects.all()
 
+    messages = [
+        "Book your table now!",
+        "Experience fine dining with us!",
+        "Reserve your spot today!",
+        "Taste the best in town!",
+        "Your culinary journey begins here!",
+    ]
+    random_message = random.choice(messages)
+
     context = {
         'restaurants': featured_restaurants,
         'all_restaurants': all_restaurants,
+        'random_message': random_message,
     }
     return render(request, 'booking_system/home.html', context)
 
