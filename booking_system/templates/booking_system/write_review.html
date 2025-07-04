@@ -10,36 +10,7 @@
                 <div class="card-body">
                     <form method="post" action="{% url 'write_review' restaurant.id %}" novalidate>
                         {% csrf_token %}
-                        {% if form.non_field_errors %}
-                        {% crispy form %}
-                        <div class="alert alert-danger" role="alert">
-                            {% for error in form.non_field_errors %}
-                            {{ error }}
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                        <div class="form-group">
-                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
-                            {{ form.rating }}
-                            {% if form.rating.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.rating.errors %}
-                                {{ error }}
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
-                            {{ form.comment }}
-                            {% if form.comment.errors %}
-                            <div class="invalid-feedback">
-                                {% for error in form.comment.errors %}
-                                {{ error }}
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                        </div>
+                        {{ form|crispy }}
                         <button type="submit" class="btn btn-primary">Submit Review</button>
                     </form>
                 </div>
