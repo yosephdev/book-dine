@@ -51,7 +51,7 @@ def restaurant_detail(request, restaurant_id):
     return render(request, 'booking_system/restaurant_detail.html', context)
 
 
-from .forms import ReservationForm, ReviewForm, RestaurantFilterForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def restaurant_list_view(request):
     restaurants = Restaurant.objects.all()
@@ -68,6 +68,15 @@ def restaurant_list_view(request):
             restaurants = restaurants.filter(cuisine=cuisine)
         if rating:
             restaurants = restaurants.filter(rating__gte=rating)
+
+    paginator = Paginator(restaurants, 6)  # Show 6 restaurants per page
+    page = request.GET.get('page')
+    try:
+        restaurants = paginator.page(page)
+    except PageNotAnInteger:
+        restaurants = paginator.page(1)
+    except EmptyPage:
+        restaurants = paginator.page(paginator.num_pages)
 
     context = {
         'restaurants': restaurants,
