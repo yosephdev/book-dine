@@ -370,3 +370,11 @@ h6 {
     padding-bottom: 2rem !important;
     background-color: var(--background-color);
 }
+
+/* Footer Styles */
+.footer {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 2rem 1rem;
+    text-align: center;
+}

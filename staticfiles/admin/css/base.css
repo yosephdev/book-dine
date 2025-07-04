@@ -14,6 +14,7 @@ html[data-theme="light"],
     --body-bg: #fff;
     --body-quiet-color: #666;
     --body-loud-color: #000;
+    --footer-bg: #264b5d;
 
     --header-color: #ffc;
     --header-branding-color: var(--accent);
@@ -881,6 +882,7 @@ a.deletelink:focus, a.deletelink:hover {
 #footer {
     clear: both;
     padding: 10px;
+    background: var(--footer-bg);
 }
 
 /* COLUMN TYPES */
