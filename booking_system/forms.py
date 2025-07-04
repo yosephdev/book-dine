@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import Reservation, Table, Review
 from datetime import date as today_date
+from django.utils import timezone
 
 
 class ReservationForm(forms.ModelForm):
@@ -15,11 +16,11 @@ class ReservationForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        restaurant = kwargs.pop('restaurant', None)
+        self.restaurant = kwargs.pop('restaurant', None)
         super().__init__(*args, **kwargs)
-        if restaurant:
+        if self.restaurant:
             self.fields['table'].queryset = Table.objects.filter(
-                restaurant=restaurant)
+                restaurant=self.restaurant)
 
     def clean_date(self):
         booking_date = self.cleaned_data.get('date')
@@ -33,6 +34,23 @@ class ReservationForm(forms.ModelForm):
             raise ValidationError(
                 'The number of guests must be a positive number.')
         return number_of_guests
+
+    def clean(self):
+        cleaned_data = super().clean()
+        table = cleaned_data.get('table')
+        reservation_date = cleaned_data.get('date')
+        reservation_time = cleaned_data.get('time')
+
+        if table and reservation_date and reservation_time:
+            duration = timezone.timedelta(hours=2)
+            if table.restaurant != self.restaurant:
+                raise ValidationError(
+                    {'table': 'Invalid table selection for this restaurant.'})
+            if not table.is_available(reservation_date, reservation_time, duration):
+                raise ValidationError(
+                    {'table': 'The selected table is not available for the chosen date and time.'})
+
+        return cleaned_data
 
 
 class ReviewForm(forms.ModelForm):

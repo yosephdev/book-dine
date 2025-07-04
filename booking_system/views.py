@@ -64,26 +64,10 @@ def create_reservation(request, restaurant_id):
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.restaurant = restaurant
-            table = reservation.table
-            duration = timezone.timedelta(hours=2)
-            reservation_date = reservation.date
-            reservation_time = reservation.time
-
-            if table.restaurant != restaurant:
-                form.add_error(
-                    'table', 'Invalid table selection for this restaurant.')
-            elif not table.is_available(
-                 reservation_date, reservation_time, duration):
-                form.add_error(
-                    'table',
-                    'The selected table is not available for the chosen '
-                    'date and time.'
-                     )
-            else:
-                reservation.save()
-                messages.success(
-                    request, 'Your reservation has been made successfully.')
-                return redirect('reservation_list')
+            reservation.save()
+            messages.success(
+                request, 'Your reservation has been made successfully.')
+            return redirect('reservation_list')
     else:
         form = ReservationForm(restaurant=restaurant)
 
