@@ -172,6 +172,34 @@ def write_review_view(request, restaurant_id):
         {'form': form, 'restaurant': restaurant})
 
 
+@login_required
+def update_review_view(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your review has been updated successfully.')
+            return redirect('restaurant_detail', restaurant_id=review.restaurant.id)
+    else:
+        form = ReviewForm(instance=review)
+    return render(
+        request, 'booking_system/update_review.html',
+        {'form': form, 'review': review})
+
+
+@login_required
+def delete_review_view(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, 'Your review has been deleted successfully.')
+        return redirect('restaurant_detail', restaurant_id=review.restaurant.id)
+    return render(
+        request, 'booking_system/delete_review.html',
+        {'review': review})
+
+
 def search_restaurants(request):
     query = request.GET.get('q', '')
     restaurants = Restaurant.objects.filter(
