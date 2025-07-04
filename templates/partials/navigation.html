@@ -27,11 +27,11 @@
     </li>
     {% else %}
     <li class="nav-item">
-        <a class="nav-link {% if request.path == signup_url %}active{% endif %}"
+        <a class="nav-link {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}"
             href="{% url 'account_signup' %}"><i class="fas fa-user-plus me-1"></i>Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {% if request.path == login_url %}active{% endif %}"
+        <a class="nav-link {% if request.resolver_match.url_name == 'account_login' %}active{% endif %}"
             href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
     </li>
     {% endif %}
