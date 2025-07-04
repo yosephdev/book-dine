@@ -121,7 +121,16 @@ def reservation_list(request):
 @login_required
 def view_reservations(request):
     if request.user.is_authenticated:
-        reservations = Reservation.objects.filter(user=request.user)
+        reservations_list = Reservation.objects.filter(user=request.user).order_by('-created_at')
+        paginator = Paginator(reservations_list, 5)  # Show 5 reservations per page
+        page = request.GET.get('page')
+        try:
+            reservations = paginator.page(page)
+        except PageNotAnInteger:
+            reservations = paginator.page(1)
+        except EmptyPage:
+            reservations = paginator.page(paginator.num_pages)
+
         context = {
             'reservations': reservations,
         }
