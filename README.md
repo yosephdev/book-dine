@@ -387,7 +387,7 @@ The booking system will include the following security features:
 - [GitPod](https://www.gitpod.io/)
 - [GitHub](https://github.com/)
 - [Heroku](https://heroku.com)
-- [Neon PostgreSQL](<https://www.Neon> PostgreSQL.com/)
+- [Neon PostgreSQL](https://neon.tech/)
 - [Cloudinary](https://cloudinary.com/)
 - [Coolors](https://coolors.co/)
 - [AmIResponsive](https://ui.dev/amiresponsive)
