@@ -33,6 +33,11 @@ h6 {
     color: var(--primary-color);
 }
 
+.bg-secondary-custom {
+    background-color: var(--secondary-color) !important;
+    color: var(--text-color) !important;
+}
+
 /* Navbar Styles */
 .navbar {
     background-color: var(--primary-color) !important;    
