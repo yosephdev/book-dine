@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Reservation, Table, Review
+from .models import Reservation, Table, Review, Restaurant
 from datetime import date as today_date
 from django.utils import timezone
 
@@ -57,3 +57,14 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'comment']
+
+
+class RestaurantFilterForm(forms.Form):
+    search_query = forms.CharField(max_length=100, required=False, label='Search by Name')
+    cuisine = forms.ChoiceField(choices=[], required=False, label='Cuisine')
+    rating = forms.ChoiceField(choices=[(i, str(i)) for i in range(1, 6)], required=False, label='Minimum Rating')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        cuisines = Restaurant.objects.values_list('cuisine', flat=True).distinct()
+        self.fields['cuisine'].choices = [('', 'All Cuisines')] + [(c, c) for c in cuisines]

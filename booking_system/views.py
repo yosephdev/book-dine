@@ -49,16 +49,27 @@ def restaurant_detail(request, restaurant_id):
     return render(request, 'booking_system/restaurant_detail.html', context)
 
 
-def restaurant_list_view(request):
-    search_query = request.GET.get('search', '')
-    restaurants = Restaurant.objects.all()
+from .forms import ReservationForm, ReviewForm, RestaurantFilterForm
 
-    if search_query:
-        restaurants = restaurants.filter(name__iexact=search_query)
+def restaurant_list_view(request):
+    restaurants = Restaurant.objects.all()
+    form = RestaurantFilterForm(request.GET)
+
+    if form.is_valid():
+        search_query = form.cleaned_data.get('search_query')
+        cuisine = form.cleaned_data.get('cuisine')
+        rating = form.cleaned_data.get('rating')
+
+        if search_query:
+            restaurants = restaurants.filter(name__icontains=search_query)
+        if cuisine:
+            restaurants = restaurants.filter(cuisine=cuisine)
+        if rating:
+            restaurants = restaurants.filter(rating__gte=rating)
 
     context = {
         'restaurants': restaurants,
-        'search_query': search_query,
+        'form': form,
     }
     return render(request, 'booking_system/book_table.html', context)
 

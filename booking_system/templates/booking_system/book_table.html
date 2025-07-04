@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container my-5">
     <h1>Restaurants</h1>
 
     <form method="get" action="{% url 'restaurant_list' %}" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Search restaurants..."
-                value="{{ search_query }}">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 
     {% if restaurants %}
