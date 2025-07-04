@@ -11,12 +11,11 @@ import logging
 
 def home_view(request):
     featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
-    latest_reservations = Reservation.objects.select_related(
-        'restaurant', 'user').order_by('-created_at')[:5]
+    all_restaurants = Restaurant.objects.all()
 
     context = {
         'restaurants': featured_restaurants,
-        'latest_reservations': latest_reservations,
+        'all_restaurants': all_restaurants,
     }
     return render(request, 'booking_system/home.html', context)
 
