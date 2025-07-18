@@ -29,20 +29,27 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', booking_views.home_view, name='home'),
-    path('book-table/', booking_views.book_table_view, name='book_table'),
-    path('reservations/', booking_views.view_reservations, name='view_reservations'),
-    path('restaurants/<int:restaurant_id>/write-review/', booking_views.write_review_view, name='write_review'),
-    path('reviews/<int:review_id>/update/', booking_views.update_review_view, name='update_review'),
-    path('reviews/<int:review_id>/delete/', booking_views.delete_review_view, name='delete_review'),
-    path('restaurants/<int:restaurant_id>/', booking_views.restaurant_detail, name='restaurant_detail'),
-    path('restaurant/<int:restaurant_id>/create/', booking_views.create_reservation, name='create_reservation'),
-    path('reservations/', booking_views.reservation_list, name='reservation_list'),
-    path('reservations/<int:reservation_id>/update/', booking_views.update_reservation, name='update_reservation'),
-    path('reservations/<int:reservation_id>/cancel/', booking_views.cancel_reservation, name='cancel_reservation'),
-    path('restaurants/', booking_views.restaurant_list_view, name='restaurant_list'),
+    path('api/', include('booking_system.api_urls')),
+    path('', booking_views.home, name='home'),
+    path('book-table/', booking_views.book_table, name='book_table'),
+    path('book-table/<uuid:restaurant_id>/', booking_views.book_table, name='book_table_restaurant'),
+    path('reservations/', booking_views.my_reservations, name='my_reservations'),
+    path('reservations/<uuid:reservation_id>/cancel/', booking_views.cancel_reservation, name='cancel_reservation'),
+    path('restaurants/', booking_views.restaurant_list, name='restaurant_list'),
+    path('restaurants/<uuid:restaurant_id>/', booking_views.restaurant_detail, name='restaurant_detail'),
+    path('restaurants/<uuid:restaurant_id>/review/', booking_views.add_review, name='add_review'),
     path('search/', booking_views.search_restaurants, name='search_restaurants'),
+    path('check-availability/', booking_views.check_availability_view, name='check_availability'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+    # Add debug toolbar URLs in development
+    try:
+        import debug_toolbar
+        urlpatterns = [
+            path('__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns
+    except ImportError:
+        pass
