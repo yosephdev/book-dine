@@ -1,0 +1,61 @@
+/* CSS Performance Optimizations */
+
+/* Critical rendering path optimization */
+.above-fold {
+    contain: layout style paint;
+}
+
+/* Optimize expensive properties */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Reduce paint operations */
+.no-paint-on-scroll {
+    will-change: scroll-position;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Font loading optimization */
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+}
+
+/* Lazy loading for non-critical images */
+img.lazy {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img.lazy.loaded {
+    opacity: 1;
+}
+
+/* Optimize for mobile performance */
+@media (max-width: 768px) {
+    .card:hover {
+        transform: none; /* Disable hover effects on mobile */
+    }
+    
+    .btn:hover {
+        transform: none;
+    }
+    
+    /* Reduce shadow complexity on mobile */
+    .card {
+        box-shadow: var(--shadow-sm);
+    }
+}

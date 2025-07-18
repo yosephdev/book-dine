@@ -1,0 +1,167 @@
+
+/* Custom CSS for BookDine - Optimized and Consolidated */
+
+/* Only keep unique styles not in style.css */
+
+/* Restaurant-specific components */
+.restaurant-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition-normal);
+}
+
+.restaurant-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.cuisine-badge {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Rating Stars - Optimized */
+.rating-stars {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+.rating-stars .star {
+    color: #ddd;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 1.1rem;
+    /* Performance optimization */
+    will-change: color;
+}
+
+.rating-stars .star.active,
+.rating-stars .star.hover {
+    color: var(--accent-color);
+}
+
+/* Status Badges - Consolidated */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.status-pending { background: #fff3cd; color: #856404; }
+.status-confirmed { background: #d1edff; color: #0c5460; }
+.status-completed { background: #d4edda; color: #155724; }
+.status-cancelled { background: #f8d7da; color: #721c24; }
+
+/* Loading States - Optimized */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Performance optimization */
+    backdrop-filter: blur(5px);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-dark);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    /* GPU acceleration */
+    transform: translateZ(0);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg) translateZ(0); }
+    100% { transform: rotate(360deg) translateZ(0); }
+}
+
+/* Optimized animations */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px) translateZ(0); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) translateZ(0); 
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Critical CSS for above-the-fold content */
+.hero-section {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)),
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    /* Performance optimization */
+    contain: layout style paint;
+}
+
+/* Remove all duplicate styles that are now in style.css */
+
+/* Critical Error Overlay */
+.critical-error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.critical-error-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    text-align: center;
+    max-width: 500px;
+    margin: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced loading states */
+.loading-toast .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Error state animations */
+.alert {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
