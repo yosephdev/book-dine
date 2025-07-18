@@ -26,10 +26,12 @@
                     <td>{{ reservation.time|time:"g:i A" }}</td>
                     <td>{{ reservation.number_of_guests }}</td>
                     <td class="text-center">
+                        {% comment %}
                         <a href="{% url 'update_reservation' reservation.id %}"
                             class="btn btn-primary btn-sm">
                             Update
                         </a>
+                        {% endcomment %}
                         <a href="{% url 'cancel_reservation' reservation.id %}"
                             class="btn btn-danger btn-sm">
                             Cancel
