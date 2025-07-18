@@ -13,6 +13,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+# Ensure ROOT_URLCONF is always set before any validation
+ROOT_URLCONF = 'BookDine.urls'
+
 # Validate core environment variables
 SECRET_KEY = env_validator.require_var('SECRET_KEY')
 DEBUG = env_validator.require_var('DEBUG', bool, False)
@@ -73,8 +76,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
-
-ROOT_URLCONF = 'BookDine.urls'
 
 TEMPLATES = [
     {

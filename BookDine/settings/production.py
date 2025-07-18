@@ -2,7 +2,9 @@ from .base import *
 from ..utils.env_validator import env_validator
 import dj_database_url
 
+# Ensure critical settings are set first
 DEBUG = False
+ROOT_URLCONF = 'BookDine.urls'
 
 # Validate production-specific variables
 ALLOWED_HOSTS = env_validator.require_var('ALLOWED_HOSTS', default='.herokuapp.com').split(',')
