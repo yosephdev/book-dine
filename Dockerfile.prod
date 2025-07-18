@@ -1,0 +1,109 @@
+# syntax=docker/dockerfile:1
+# Multi-stage build for production - Optimized
+
+# Frontend build stage with cache optimization
+FROM node:18-alpine AS frontend-builder
+
+WORKDIR /app/frontend
+
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Use cache mount for npm to speed up builds
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --only=production --no-audit --no-fund
+
+# Copy frontend source
+COPY static/ ./static/
+COPY webpack.config.js ./
+
+# Build frontend assets
+RUN npm run build
+
+# Python dependencies stage with cache optimization
+FROM python:3.10-slim AS python-builder
+
+# Set environment variables for build optimization
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies in single layer
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Use cache mount for pip to speed up builds
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Production stage - minimal and secure
+FROM python:3.10-slim AS production
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    DJANGO_SETTINGS_MODULE=BookDine.settings.production
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    nginx \
+    supervisor \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Copy virtual environment from builder
+COPY --from=python-builder /opt/venv /opt/venv
+
+# Create non-root user for security
+RUN groupadd -r app && useradd -r -g app app
+
+# Set work directory
+WORKDIR /app
+
+# Copy application code with proper ownership
+COPY --chown=app:app . .
+
+# Copy built frontend assets
+COPY --from=frontend-builder /app/frontend/static/dist/ ./static/dist/
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/staticfiles /app/mediafiles /var/log/gunicorn /var/log/nginx && \
+    chown -R app:app /app /var/log/gunicorn && \
+    chmod -R 755 /app
+
+# Copy configuration files
+COPY docker/nginx.conf /etc/nginx/sites-available/default
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/gunicorn.conf.py /app/
+
+# Collect static files as app user
+USER app
+RUN python manage.py collectstatic --noinput
+
+# Switch back to root for supervisor
+USER root
+
+# Health check with timeout
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8000/health/ || exit 1
+
+# Expose port
+EXPOSE 8000
+
+# Start supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
