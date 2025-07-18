@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load navigation_tags %}
 <!DOCTYPE html>
@@ -6,149 +7,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Book & Dine is a platform that allows you to discover and book top-rated restaurants near you.">
-    <meta name="keywords" content="Restaurant, Booking, Table, Reservation, Dining, Cuisine">
+    <meta name="description" content="BookDine - The ultimate restaurant booking platform. Discover and reserve tables at the finest restaurants with real-time availability.">
+    <meta name="keywords" content="Restaurant, Booking, Table, Reservation, Dining, Cuisine, Fine Dining">
     <meta name="robots" content="index, follow">
-    <title>{% block title %}Book & Dine{% endblock %}</title>
+    <title>{% block title %}BookDine - Premium Restaurant Reservations{% endblock %}</title>
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Optimized CSS loading -->
+    <link rel="preload" href="{% static 'css/style.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{% static 'css/style.css' %}"></noscript>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Load custom CSS after main styles -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Performance optimizations CSS -->
+    <link rel="stylesheet" href="{% static 'css/performance.css' %}">
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Meta tags for social sharing -->
+    <meta property="og:title" content="BookDine - Premium Restaurant Reservations">
+    <meta property="og:description" content="Discover and reserve tables at the finest restaurants with real-time availability.">
+    <meta property="og:image" content="{% static 'images/og-image.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
-    <!-- Header section -->
-    <header class="container-fluid sticky-top">
-        <!-- Delivery banner -->
-        <div id="delivery-banner" class="row text-center bg-secondary-custom text-dark">
-            <div class="col">
-                <h3 id="carousel-text" class="logo-font my-1">
-                    {% block banner_message %}Book your table now!{% endblock %}&nbsp;&nbsp;
-                    <span class="text-secondary">
-                        <i class="fa-solid fa-utensils"></i>
-                    </span>
-                </h3>
+    <!-- Modern Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-utensils me-2"></i>Book & Dine
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'restaurant_list' %}active{% endif %}" href="{% url 'restaurant_list' %}">
+                            <i class="fas fa-search me-1"></i>Restaurants
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'my_reservations' %}active{% endif %}" href="{% url 'my_reservations' %}">
+                            <i class="fas fa-calendar-check me-1"></i>My Reservations
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2"></i>Our Story</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-handshake me-2"></i>Partner With Us</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Contact</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-question-circle me-2"></i>Help Center</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                                <div class="avatar me-2">
+                                    <i class="fas fa-user-circle fa-lg"></i>
+                                </div>
+                                <span>{{ user.get_full_name|default:user.username }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'my_reservations' %}"><i class="fas fa-calendar me-2"></i>My Reservations</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'book_table' %}" class="btn btn-primary ms-2">
+                            <i class="fas fa-plus me-1"></i>Book Table
+                        </a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="btn btn-outline-primary me-2">
+                            <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                        </a>
+                        <a href="{% url 'account_signup' %}" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-1"></i>Sign Up
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <nav class="row navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    <span class="brand">
-                        <span class="bold">Book</span><span class="amp">&amp;</span><span class="thin">Dine</span>
-                    </span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                {% load navigation_tags %}
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    {% main_navigation %}
-                </div>
-            </div>
-        </nav>
-    </header>
+    </nav>
 
     <!-- Main Content -->
-    <main class="flex-shrink-0 main-bg">
-        {% block content %}
-        {% endblock %}
+    <main>
+        <!-- Messages -->
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-triangle{% elif message.tags == 'warning' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
     </main>
 
-    <br>
-    <br>
-
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3">
-        <div class="container-fluid">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h5 class="footer-heading">About Us</h5>
-                    <p>Book & Dine is your go-to platform for discovering and booking the best restaurants in town.</p>
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>
+                        <i class="fas fa-utensils me-2"></i>Book & Dine
+                    </h5>
+                    <p class="mb-4">The ultimate platform for discovering and booking premium dining experiences. Connect with the finest restaurants and create unforgettable memories.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5 class="footer-heading">Quick Links</h5>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Discover</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'book_table' %}">Book a Table</a></li>
-                        <li><a href="{% url 'reservation_list' %}">View Reservations</a></li>
+                        <li><a href="{% url 'restaurant_list' %}"><i class="fas fa-chevron-right me-2"></i>Restaurants</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Cuisines</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Top Rated</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>New Openings</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Special Offers</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5 class="footer-heading">Follow Us</h5>
-                    <a href="https://www.facebook.com/" class="me-3 social-icon"><i
-                            class="fab fa-facebook-square fa-1x"></i></a>
-                    <a href="https://twitter.com/" class="me-3 social-icon"><i
-                            class="fab fa-twitter-square fa-1x"></i></a>
-                    <a href="https://www.instagram.com/" class="me-3 social-icon"><i
-                            class="fab fa-instagram-square fa-1x"></i></a>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Account</h5>
+                    <ul class="list-unstyled">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'my_reservations' %}"><i class="fas fa-chevron-right me-2"></i>My Reservations</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Favorites</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Reviews</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account_login' %}"><i class="fas fa-chevron-right me-2"></i>Sign In</a></li>
+                            <li><a href="{% url 'account_signup' %}"><i class="fas fa-chevron-right me-2"></i>Sign Up</a></li>
+                        {% endif %}
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Business</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Partner With Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Restaurant Owners</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>API Access</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Affiliate Program</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Accessibility</a></li>
+                    </ul>
                 </div>
             </div>
-            <hr>
-            <p class="text-center mb-0">
-                {% block copyright %}
-                &copy; Book & Dine {% now "Y" %}. All rights reserved.
-                {% endblock %}
-            </p>
+            
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 Book & Dine. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> for food lovers</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Django Messages -->
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- BookDine API Client -->
+    <script src="{% static 'js/api-client.js' %}"></script>
+    
+    <!-- BookDine Booking System -->
+    <script src="{% static 'js/booking.js' %}"></script>
+
+    <!-- Navbar scroll effect -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.type === 'submit' || this.classList.contains('loading-btn')) {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                    }, 2000);
+                }
+            });
+        });
+    </script>
 
     {% block extras %}{% endblock %}
-
-    <!-- Back to Top Button -->
-    <button onclick="topFunction()" id="backToTopBtn" title="Go to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script>
-        // Get the button
-        let mybutton = document.getElementById("backToTopBtn");
-
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () { scrollFunction() };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        }
-    </script>
 </body>
-
 </html>

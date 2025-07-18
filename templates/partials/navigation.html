@@ -7,7 +7,7 @@
         <a class="nav-link {% if request.resolver_match.url_name == 'book_table' %}active{% endif %}" href="{% url 'book_table' %}">Book a Table</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {% if request.resolver_match.url_name == 'reservation_list' %}active{% endif %}" href="{% url 'reservation_list' %}">View Reservations</a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'my_reservations' %}active{% endif %}" href="{% url 'my_reservations' %}">View Reservations</a>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'accounts:profile' %}active{% endif %}" href="#" id="userDropdown" role="button"
