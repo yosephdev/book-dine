@@ -1,232 +1,251 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.cache import cache_page
+from django.core.paginator import Paginator
+from django.db.models import Q, Count, Avg
 from django.utils import timezone
-from django.db.models import Q
-from .models import Restaurant, Reservation, Review
-from .forms import ReservationForm, ReviewForm, RestaurantFilterForm
-import logging
+from datetime import datetime, timedelta
 
-# Create your views here.
+from .models import Restaurant, Reservation, Review, Table
+from .forms import ReservationForm, ReviewForm
 
-import random
+@cache_page(60 * 15)  # Cache for 15 minutes
+def home(request):
+    """Enhanced home view with featured restaurants and statistics"""
+    return render(request, 'booking_system/home.html')
 
-def home_view(request):
-    featured_restaurants = Restaurant.objects.order_by('-rating')[:5]
-    all_restaurants = Restaurant.objects.all()
+def restaurant_list(request):
+    """Restaurant list view with filtering and search"""
+    return render(request, 'booking_system/restaurant_list.html')
 
-    messages = [
-        "Book your table now!",
-        "Experience fine dining with us!",
-        "Reserve your spot today!",
-        "Taste the best in town!",
-        "Your culinary journey begins here!",
-    ]
-    random_message = random.choice(messages)
-
-    context = {
-        'restaurants': featured_restaurants,
-        'all_restaurants': all_restaurants,
-        'random_message': random_message,
-    }
-    return render(request, 'booking_system/home.html', context)
-
-
-def book_table_view(request):
-    restaurants = Restaurant.objects.all()
-    context = {
-        'restaurants': restaurants,
-    }
-    return render(request, 'booking_system/book_table.html', context)
-
-
-@login_required
 def restaurant_detail(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    """Restaurant detail view with reviews and booking form"""
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id, is_active=True)
+    
+    # Get reviews with pagination
     reviews = restaurant.reviews.all().order_by('-created_at')
+    paginator = Paginator(reviews, 10)
+    page_number = request.GET.get('page')
+    page_reviews = paginator.get_page(page_number)
+    
+    # Calculate average rating
+    avg_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+    
     context = {
         'restaurant': restaurant,
-        'reviews': reviews,
+        'reviews': page_reviews,
+        'avg_rating': round(avg_rating, 1),
+        'total_reviews': reviews.count(),
     }
+    
     return render(request, 'booking_system/restaurant_detail.html', context)
 
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-def restaurant_list_view(request):
-    restaurants = Restaurant.objects.all()
-    form = RestaurantFilterForm(request.GET)
-
-    if form.is_valid():
-        search_query = form.cleaned_data.get('search_query')
-        cuisine = form.cleaned_data.get('cuisine')
-        rating = form.cleaned_data.get('rating')
-
-        if search_query:
-            restaurants = restaurants.filter(name__icontains=search_query)
-        if cuisine:
-            restaurants = restaurants.filter(cuisine=cuisine)
-        if rating:
-            restaurants = restaurants.filter(rating__gte=rating)
-
-    paginator = Paginator(restaurants, 6)  # Show 6 restaurants per page
-    page = request.GET.get('page')
-    try:
-        restaurants = paginator.page(page)
-    except PageNotAnInteger:
-        restaurants = paginator.page(1)
-    except EmptyPage:
-        restaurants = paginator.page(paginator.num_pages)
-
-    context = {
-        'restaurants': restaurants,
-        'form': form,
-    }
-    return render(request, 'booking_system/book_table.html', context)
-
-
-logger = logging.getLogger(__name__)
-
-
 @login_required
-def create_reservation(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+def book_table(request, restaurant_id=None):
+    """Book table view - can be for specific restaurant or general booking"""
+    restaurant = None
+    if restaurant_id:
+        restaurant = get_object_or_404(Restaurant, id=restaurant_id, is_active=True)
+    
     if request.method == 'POST':
-        form = ReservationForm(request.POST, restaurant=restaurant)
+        form = ReservationForm(request.POST)
         if form.is_valid():
             reservation = form.save(commit=False)
             reservation.user = request.user
-            reservation.restaurant = restaurant
-            reservation.save()
-            messages.success(
-                request, 'Your reservation has been made successfully.')
-            return redirect('reservation_list')
+            
+            # Find available table
+            available_tables = Table.objects.filter(
+                restaurant=reservation.restaurant,
+                capacity__gte=reservation.number_of_guests,
+                is_active=True
+            ).exclude(
+                reservations__date=reservation.date,
+                reservations__time=reservation.time,
+                reservations__status__in=['confirmed', 'pending']
+            )
+            
+            if available_tables.exists():
+                reservation.table = available_tables.first()
+                reservation.save()
+                messages.success(request, 'Your reservation has been confirmed!')
+                return redirect('my_reservations')
+            else:
+                messages.error(request, 'No tables available for the selected time.')
     else:
-        form = ReservationForm(restaurant=restaurant)
-
-    return render(
-        request,
-        'booking_system/create_reservation.html',
-        {'form': form, 'restaurant': restaurant}
-        )
-
-
-def reservation_list(request):
-    reservations = Reservation.objects.all()
-    return render(
-        request, 'booking_system/reservation_list.html',
-        {'reservations': reservations})
-
+        initial_data = {}
+        if restaurant:
+            initial_data['restaurant'] = restaurant
+        form = ReservationForm(initial=initial_data)
+    
+    context = {
+        'form': form,
+        'restaurant': restaurant,
+        'restaurants': Restaurant.objects.filter(is_active=True) if not restaurant else None,
+    }
+    
+    return render(request, 'booking_system/book_table.html', context)
 
 @login_required
-def view_reservations(request):
-    if request.user.is_authenticated:
-        reservations_list = Reservation.objects.filter(user=request.user).order_by('-created_at')
-        paginator = Paginator(reservations_list, 5)  # Show 5 reservations per page
-        page = request.GET.get('page')
-        try:
-            reservations = paginator.page(page)
-        except PageNotAnInteger:
-            reservations = paginator.page(1)
-        except EmptyPage:
-            reservations = paginator.page(paginator.num_pages)
-
-        context = {
-            'reservations': reservations,
-        }
-        return render(
-             request, 'booking_system/view_reservations.html', context)
-    else:
-        return redirect('account_login')
-
-
-@login_required
-def update_reservation(request, reservation_id):
-    reservation = get_object_or_404(
-        Reservation, pk=reservation_id, user=request.user)
-    if request.method == 'POST':
-        form = ReservationForm(request.POST, instance=reservation)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, 'Your reservation has been updated successfully.')
-            return redirect('view_reservations')
-    else:
-        form = ReservationForm(instance=reservation)
-    return render(
-        request, 'booking_system/update_reservation.html', {'form': form})
-
+def my_reservations(request):
+    """User's reservations view"""
+    upcoming_reservations = Reservation.objects.filter(
+        user=request.user,
+        date__gte=timezone.now().date(),
+        status__in=['confirmed', 'pending']
+    ).order_by('date', 'time')
+    
+    past_reservations = Reservation.objects.filter(
+        user=request.user,
+        date__lt=timezone.now().date()
+    ).order_by('-date', '-time')
+    
+    context = {
+        'upcoming_reservations': upcoming_reservations,
+        'past_reservations': past_reservations,
+    }
+    
+    return render(request, 'booking_system/my_reservations.html', context)
 
 @login_required
 def cancel_reservation(request, reservation_id):
-    reservation = get_object_or_404(
-        Reservation, id=reservation_id, user=request.user)
-    if request.method == 'POST':
-        reservation.delete()
-        messages.success(request, 'Your reservation has been canceled.')
-        return redirect('view_reservations')
-    return render(
-        request, 'booking_system/cancel_reservation.html',
-        {'reservation': reservation})
-
+    """Cancel a reservation"""
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    
+    # Check if cancellation is allowed (24 hours before)
+    reservation_datetime = timezone.datetime.combine(reservation.date, reservation.time)
+    if timezone.now() > reservation_datetime - timedelta(hours=24):
+        messages.error(request, 'Cannot cancel within 24 hours of reservation.')
+        return redirect('my_reservations')
+    
+    if reservation.status in ['confirmed', 'pending']:
+        reservation.status = 'cancelled'
+        reservation.save()
+        messages.success(request, 'Your reservation has been cancelled.')
+    else:
+        messages.error(request, 'This reservation cannot be cancelled.')
+    
+    return redirect('my_reservations')
 
 @login_required
-def write_review_view(request, restaurant_id):
+def add_review(request, restaurant_id):
+    """Add a review for a restaurant"""
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    
+    # Check if user has completed reservation at this restaurant
+    completed_reservations = Reservation.objects.filter(
+        user=request.user,
+        restaurant=restaurant,
+        status='completed'
+    )
+    
+    if not completed_reservations.exists():
+        messages.error(request, 'You can only review restaurants where you have completed reservations.')
+        return redirect('restaurant_detail', restaurant_id=restaurant_id)
+    
+    # Check if user already reviewed this restaurant
+    existing_review = Review.objects.filter(user=request.user, restaurant=restaurant).first()
+    if existing_review:
+        messages.error(request, 'You have already reviewed this restaurant.')
+        return redirect('restaurant_detail', restaurant_id=restaurant_id)
+    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
             review.restaurant = restaurant
+            review.reservation = completed_reservations.first()  # Link to first completed reservation
             review.save()
-            messages.success(
-                request, 'Your review has been submitted successfully.')
+            messages.success(request, 'Your review has been added!')
             return redirect('restaurant_detail', restaurant_id=restaurant_id)
     else:
         form = ReviewForm()
-    return render(
-        request, 'booking_system/write_review.html',
-        {'form': form, 'restaurant': restaurant})
+    
+    context = {
+        'form': form,
+        'restaurant': restaurant,
+    }
+    
+    return render(request, 'booking_system/add_review.html', context)
 
-
-@login_required
-def update_review_view(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your review has been updated successfully.')
-            return redirect('restaurant_detail', restaurant_id=review.restaurant.id)
-    else:
-        form = ReviewForm(instance=review)
-    return render(
-        request, 'booking_system/update_review.html',
-        {'form': form, 'review': review})
-
-
-@login_required
-def delete_review_view(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)
-    if request.method == 'POST':
-        review.delete()
-        messages.success(request, 'Your review has been deleted successfully.')
-        return redirect('restaurant_detail', restaurant_id=review.restaurant.id)
-    return render(
-        request, 'booking_system/delete_review.html',
-        {'review': review})
+def check_availability_view(request):
+    """AJAX view to check table availability"""
+    if request.method == 'GET':
+        restaurant_id = request.GET.get('restaurant_id')
+        date_str = request.GET.get('date')
+        time_str = request.GET.get('time')
+        guests = request.GET.get('guests')
+        
+        if not all([restaurant_id, date_str, time_str, guests]):
+            return JsonResponse({'error': 'Missing required parameters'}, status=400)
+        
+        try:
+            restaurant = Restaurant.objects.get(id=restaurant_id, is_active=True)
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+            time = datetime.strptime(time_str, '%H:%M').time()
+            guests = int(guests)
+        except (Restaurant.DoesNotExist, ValueError):
+            return JsonResponse({'error': 'Invalid parameters'}, status=400)
+        
+        # Check availability
+        available_tables = Table.objects.filter(
+            restaurant=restaurant,
+            capacity__gte=guests,
+            is_active=True
+        ).exclude(
+            reservations__date=date,
+            reservations__time=time,
+            reservations__status__in=['confirmed', 'pending']
+        )
+        
+        return JsonResponse({
+            'available': available_tables.exists(),
+            'count': available_tables.count(),
+            'message': f"{'Available' if available_tables.exists() else 'Not available'} for {guests} guests"
+        })
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 def search_restaurants(request):
-    query = request.GET.get('q', '')
-    restaurants = Restaurant.objects.filter(
-        Q(name__icontains=query) |
-        Q(cuisine__icontains=query) |
-        Q(description__icontains=query)
-    )
+    """Search restaurants by name, cuisine, or location"""
+    query = request.GET.get('q', '').strip()
+    cuisine = request.GET.get('cuisine', '')
+    location = request.GET.get('location', '')
+    
+    restaurants = Restaurant.objects.filter(is_active=True)
+    
+    if query:
+        restaurants = restaurants.filter(
+            Q(name__icontains=query) | 
+            Q(description__icontains=query)
+        )
+    
+    if cuisine:
+        restaurants = restaurants.filter(cuisine=cuisine)
+    
+    if location:
+        restaurants = restaurants.filter(location__icontains=location)
+    
+    # Add rating and review count
+    restaurants = restaurants.annotate(
+        review_count=Count('reviews'),
+        avg_rating=Avg('reviews__rating')
+    ).order_by('-avg_rating', '-review_count')
+    
+    # Pagination
+    paginator = Paginator(restaurants, 12)
+    page_number = request.GET.get('page')
+    page_restaurants = paginator.get_page(page_number)
+    
     context = {
-        'restaurants': restaurants,
+        'restaurants': page_restaurants,
         'query': query,
+        'cuisine': cuisine,
+        'location': location,
+        'total_results': restaurants.count(),
     }
+    
     return render(request, 'booking_system/search_results.html', context)
