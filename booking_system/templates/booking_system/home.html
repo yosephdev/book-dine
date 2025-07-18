@@ -1,65 +1,418 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
-    <div class="hero-section">
-        <div class="hero-image"></div>
-        <div class="hero-overlay"></div>
-        <div class="container d-flex align-items-center justify-content-center h-100">
-            <div class="hero-content text-center">
-                <h1>Discover the Best Dining Experiences</h1>
-                <p>Book your table at top-rated restaurants near you.</p>
-                <div class="cta-section">
-                    <a href="{% url 'book_table' %}" class="btn btn-primary">Book a Table</a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Floating Elements -->
+        <div class="floating-element">
+            <i class="fas fa-utensils fa-3x"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-wine-glass fa-2x"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-star fa-2x"></i>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Extraordinary <span class="text-gradient">Dining</span></h1>
+                <p>Book premium tables at the world's finest restaurants with real-time availability and instant confirmation.</p>
+                <div class="hero-cta">
+                    <a href="{% url 'book_table' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-calendar-plus me-2"></i>Book Your Table
+                    </a>
+                    <a href="{% url 'restaurant_list' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-compass me-2"></i>Explore Restaurants
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <div class="featured-restaurants">
-                    <h2>Featured Restaurants</h2>
-                    <ul class="list-unstyled">
-                        {% for restaurant in restaurants %}
-                        <li class="mb-3">
-                            <div class="card custom-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ restaurant.name }}</h5>
-                                    <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                    <a href="{% url 'restaurant_detail' restaurant.id %}" 
-                                    class="btn custom-button view-details-btn">
-                                     View Details
-                                    </a>
-                                </div>
+    <!-- Quick Search Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card shadow-soft border-0">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-4">
+                                <h3 class="gradient-text">Find Your Perfect Dining Experience</h3>
+                                <p class="text-muted">Search from thousands of premium restaurants</p>
                             </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="all-restaurants">
-                    <h2>All Restaurants</h2>
-                    <ul class="list-unstyled">
-                        {% for restaurant in all_restaurants %}
-                        <li class="mb-3">
-                            <div class="card custom-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ restaurant.name }}</h5>
-                                    <p class="card-text">{{ restaurant.description|truncatechars:100 }}</p>
-                                    <a href="{% url 'restaurant_detail' restaurant.id %}" 
-                                    class="btn custom-button view-details-btn">
-                                     View Details
-                                    </a>
+                            <form id="quick-search-form" class="row g-3">
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="search-location" class="form-label">
+                                        <i class="fas fa-map-marker-alt me-1"></i>Location
+                                    </label>
+                                    <input type="text" class="form-control" id="search-location" placeholder="City or neighborhood">
                                 </div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="search-cuisine" class="form-label">
+                                        <i class="fas fa-utensils me-1"></i>Cuisine
+                                    </label>
+                                    <select class="form-select" id="search-cuisine">
+                                        <option value="">Any Cuisine</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="search-date" class="form-label">
+                                        <i class="fas fa-calendar me-1"></i>Date
+                                    </label>
+                                    <input type="date" class="form-control" id="search-date">
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label for="search-guests" class="form-label">
+                                        <i class="fas fa-users me-1"></i>Guests
+                                    </label>
+                                    <select class="form-select" id="search-guests">
+                                        <option value="">Guests</option>
+                                        <option value="1">1 Guest</option>
+                                        <option value="2">2 Guests</option>
+                                        <option value="3">3 Guests</option>
+                                        <option value="4">4 Guests</option>
+                                        <option value="5">5 Guests</option>
+                                        <option value="6">6+ Guests</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-search me-2"></i>Search Restaurants
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Featured Restaurants Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold gradient-text">Featured Restaurants</h2>
+                <p class="lead text-muted">Handpicked dining destinations for unforgettable experiences</p>
+                <div class="d-inline-block">
+                    <div style="width: 60px; height: 4px; background: var(--primary-gradient); border-radius: 2px;"></div>
+                </div>
+            </div>
+            
+            <div class="row featured-restaurants">
+                <!-- Loading State -->
+                <div class="col-12 text-center py-5">
+                    <div class="loading-skeleton rounded-circle mx-auto mb-3" style="width: 60px; height: 60px;"></div>
+                    <div class="loading-skeleton rounded mx-auto" style="width: 200px; height: 20px;"></div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="{% url 'restaurant_list' %}" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>View All Restaurants
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5 position-relative overflow-hidden" style="background: var(--primary-gradient);">
+        <div class="container position-relative">
+            <div class="row text-center text-white">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="glass-effect rounded-3 p-4 h-100">
+                        <i class="fas fa-store fa-3x mb-3 text-white"></i>
+                        <h3 class="display-4 fw-bold mb-2" id="stat-restaurants">0</h3>
+                        <p class="mb-0 opacity-90">Partner Restaurants</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="glass-effect rounded-3 p-4 h-100">
+                        <i class="fas fa-calendar-check fa-3x mb-3 text-white"></i>
+                        <h3 class="display-4 fw-bold mb-2" id="stat-reservations">0</h3>
+                        <p class="mb-0 opacity-90">Reservations Made</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="glass-effect rounded-3 p-4 h-100">
+                        <i class="fas fa-smile fa-3x mb-3 text-white"></i>
+                        <h3 class="display-4 fw-bold mb-2" id="stat-customers">0</h3>
+                        <p class="mb-0 opacity-90">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="glass-effect rounded-3 p-4 h-100">
+                        <i class="fas fa-globe fa-3x mb-3 text-white"></i>
+                        <h3 class="display-4 fw-bold mb-2" id="stat-cuisines">0</h3>
+                        <p class="mb-0 opacity-90">Cuisine Types</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold gradient-text">How BookDine Works</h2>
+                <p class="lead text-muted">Three simple steps to your perfect dining experience</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center h-100">
+                        <div class="position-relative d-inline-block mb-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                                 style="width: 100px; height: 100px; background: var(--primary-gradient); color: white;">
+                                <i class="fas fa-search fa-2x"></i>
+                            </div>
+                            <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                1
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mb-3">Discover & Search</h4>
+                        <p class="text-muted">Browse our curated collection of premium restaurants. Filter by cuisine, location, price range, and special features to find your perfect match.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center h-100">
+                        <div class="position-relative d-inline-block mb-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                                 style="width: 100px; height: 100px; background: var(--secondary-gradient); color: white;">
+                                <i class="fas fa-calendar-plus fa-2x"></i>
+                            </div>
+                            <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                2
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mb-3">Book Instantly</h4>
+                        <p class="text-muted">Select your preferred date, time, and party size. Our real-time availability system ensures instant confirmation with no waiting.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center h-100">
+                        <div class="position-relative d-inline-block mb-4">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                                 style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--accent-color), var(--accent-dark)); color: white;">
+                                <i class="fas fa-utensils fa-2x"></i>
+                            </div>
+                            <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                3
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mb-3">Dine & Enjoy</h4>
+                        <p class="text-muted">Arrive at your reserved time and enjoy an exceptional dining experience. Share your experience with our community through reviews.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold gradient-text">What Our Customers Say</h2>
+                <p class="lead text-muted">Join thousands of satisfied diners</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-soft h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex mb-3">
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="mb-4">"BookDine made it so easy to find and book a table at my favorite restaurant. The interface is intuitive and the confirmation was instant!"</p>
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Sarah Johnson</h6>
+                                    <small class="text-muted">Food Enthusiast</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-soft h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex mb-3">
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="mb-4">"The selection of restaurants is amazing, and I love how I can see real-time availability. BookDine has become my go-to for special occasions."</p>
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Michael Chen</h6>
+                                    <small class="text-muted">Business Executive</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-soft h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex mb-3">
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="mb-4">"As a restaurant owner, BookDine has streamlined our reservation process. The platform is professional and our customers love the convenience."</p>
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Emma Rodriguez</h6>
+                                    <small class="text-muted">Restaurant Owner</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 position-relative overflow-hidden" style="background: var(--secondary-gradient);">
+        <div class="container position-relative text-center text-white">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="display-4 fw-bold mb-4">Ready to Discover Your Next Favorite Restaurant?</h2>
+                    <p class="lead mb-5 opacity-90">Join the BookDine community and unlock access to exclusive dining experiences at premium restaurants worldwide.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="{% url 'book_table' %}" class="btn btn-light btn-lg px-5">
+                            <i class="fas fa-calendar-plus me-2"></i>Start Booking Now
+                        </a>
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'account_signup' %}" class="btn btn-outline-light btn-lg px-5">
+                            <i class="fas fa-user-plus me-2"></i>Create Free Account
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extras %}
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load cuisines for search dropdown
+    try {
+        const cuisinesData = await bookdineAPI.getCuisines();
+        const cuisineSelect = document.getElementById('search-cuisine');
+        cuisinesData.cuisines.forEach(cuisine => {
+            const option = document.createElement('option');
+            option.value = cuisine;
+            option.textContent = cuisine;
+            cuisineSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading cuisines:', error);
+    }
+
+    // Set default date to today
+    document.getElementById('search-date').valueAsDate = new Date();
+
+    // Handle quick search form
+    document.getElementById('quick-search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const location = document.getElementById('search-location').value;
+        const cuisine = document.getElementById('search-cuisine').value;
+        const date = document.getElementById('search-date').value;
+        const guests = document.getElementById('search-guests').value;
+        
+        const params = new URLSearchParams();
+        if (location) params.append('location', location);
+        if (cuisine) params.append('cuisine', cuisine);
+        if (date) params.append('date', date);
+        if (guests) params.append('guests', guests);
+        
+        window.location.href = `/restaurants/?${params.toString()}`;
+    });
+
+    // Animate statistics with intersection observer
+    function animateStats() {
+        const stats = [
+            { id: 'stat-restaurants', target: 250, suffix: '+' },
+            { id: 'stat-reservations', target: 50000, suffix: '+' },
+            { id: 'stat-customers', target: 25000, suffix: '+' },
+            { id: 'stat-cuisines', target: 35, suffix: '+' }
+        ];
+
+        stats.forEach(stat => {
+            const element = document.getElementById(stat.id);
+            let current = 0;
+            const increment = stat.target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= stat.target) {
+                    current = stat.target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString() + (stat.suffix || '');
+            }, 30);
+        });
+    }
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (entry.target.querySelector('#stat-restaurants')) {
+                    animateStats();
+                }
+                entry.target.classList.add('animate-fade-in-up');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // Observe sections for animation
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero-section');
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+});
+</script>
 {% endblock %}
