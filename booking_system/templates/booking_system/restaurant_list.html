@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Restaurants - BookDine{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold">Find Your Perfect Restaurant</h1>
+            <p class="lead text-muted">Discover amazing dining experiences near you</p>
+        </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form id="restaurant-filters" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="restaurant-search" class="form-label">Search</label>
+                            <input type="text" class="form-control" id="restaurant-search" 
+                                   placeholder="Restaurant name, cuisine, or location...">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cuisine-filter" class="form-label">Cuisine</label>
+                            <select class="form-select" id="cuisine-filter">
+                                <option value="">All Cuisines</option>
+                                <!-- Options populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="location-filter" class="form-label">Location</label>
+                            <select class="form-select" id="location-filter">
+                                <option value="">All Locations</option>
+                                <!-- Options populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="sort-filter" class="form-label">Sort By</label>
+                            <select class="form-select" id="sort-filter">
+                                <option value="-rating">Highest Rated</option>
+                                <option value="name">Name A-Z</option>
+                                <option value="-name">Name Z-A</option>
+                                <option value="-created_at">Newest</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Count -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="text-muted mb-0" id="results-count">Loading restaurants...</p>
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="view-mode" id="grid-view" checked>
+                    <label class="btn btn-outline-secondary" for="grid-view">
+                        <i class="fas fa-th-large"></i>
+                    </label>
+                    <input type="radio" class="btn-check" name="view-mode" id="list-view">
+                    <label class="btn btn-outline-secondary" for="list-view">
+                        <i class="fas fa-list"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant List -->
+    <div class="row restaurant-list">
+        <!-- Restaurants will be loaded here by JavaScript -->
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 text-muted">Loading restaurants...</p>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <nav id="pagination-nav" style="display: none;">
+                <ul class="pagination justify-content-center" id="pagination">
+                    <!-- Pagination will be populated by JavaScript -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extras %}
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    let currentPage = 1;
+    let currentFilters = {};
+
+    // Load initial data
+    await loadFiltersData();
+    await loadRestaurants();
+
+    // Event listeners
+    document.getElementById('restaurant-search').addEventListener('input', debounce(handleSearch, 300));
+    document.getElementById('cuisine-filter').addEventListener('change', handleFilterChange);
+    document.getElementById('location-filter').addEventListener('change', handleFilterChange);
+    document.getElementById('sort-filter').addEventListener('change', handleFilterChange);
+
+    async function loadFiltersData() {
+        try {
+            // Load cuisines
+            const cuisinesData = await bookdineAPI.getCuisines();
+            const cuisineSelect = document.getElementById('cuisine-filter');
+            cuisinesData.cuisines.forEach(cuisine => {
+                const option = document.createElement('option');
+                option.value = cuisine;
+                option.textContent = cuisine;
+                cuisineSelect.appendChild(option);
+            });
+
+            // Load locations (from restaurants)
+            const restaurantsData = await bookdineAPI.getRestaurants();
+            const locations = [...new Set(restaurantsData.results.map(r => r.location))];
+            const locationSelect = document.getElementById('location-filter');
+            locations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location;
+                option.textContent = location;
+                locationSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error loading filter data:', error);
+            // Don't show error toast for filter data loading
+        }
+    }
+
+    async function loadRestaurants(page = 1) {
+        try {
+            const params = {
+                page: page,
+                ...currentFilters
+            };
+
+            const data = await bookdineAPI.getRestaurants(params);
+            
+            // Update results count
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+                resultsCount.textContent = `Showing ${data.results.length} of ${data.count} restaurants`;
+            }
+
+            // Render restaurants
+            if (window.bookingSystem) {
+                window.bookingSystem.renderRestaurantList(data.results);
+            }
+
+            // Update pagination
+            updatePagination(data);
+
+        } catch (error) {
+            console.error('Error loading restaurants:', error);
+            const restaurantList = document.querySelector('.restaurant-list');
+            if (restaurantList) {
+                restaurantList.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <div class="alert alert-danger">
+                            <h4>Error Loading Restaurants</h4>
+                            <p>Please try again later or refresh the page.</p>
+                            <button class="btn btn-primary" onclick="location.reload()">
+                                <i class="fas fa-refresh me-2"></i>Refresh Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function handleSearch(query) {
+        currentFilters.search = query;
+        currentPage = 1;
+        loadRestaurants(currentPage);
+    }
+
+    function handleFilterChange() {
+        currentFilters = {
+            cuisine: document.getElementById('cuisine-filter').value,
+            location: document.getElementById('location-filter').value,
+            sort: document.getElementById('sort-filter').value
+        };
+        
+        // Remove empty filters
+        Object.keys(currentFilters).forEach(key => {
+            if (!currentFilters[key]) {
+                delete currentFilters[key];
+            }
+        });
+        
+        currentPage = 1;
+        loadRestaurants(currentPage);
+    }
+
+    function updatePagination(data) {
+        const paginationNav = document.getElementById('pagination-nav');
+        const pagination = document.getElementById('pagination');
+        
+        if (!paginationNav || !pagination) return;
+        
+        if (data.count <= (data.results?.length || 0)) {
+            paginationNav.style.display = 'none';
+            return;
+        }
+        
+        paginationNav.style.display = 'block';
+        
+        const totalPages = Math.ceil(data.count / (data.results?.length || 10));
+        let paginationHTML = '';
+        
+        // Previous button
+        if (data.previous) {
+            paginationHTML += `<li class="page-item">
+                <a class="page-link" href="#" onclick="loadRestaurants(${currentPage - 1}); return false;">Previous</a>
+            </li>`;
+        }
+        
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                paginationHTML += `<li class="page-item active">
+                    <span class="page-link">${i}</span>
+                </li>`;
+            } else {
+                paginationHTML += `<li class="page-item">
+                    <a class="page-link" href="#" onclick="loadRestaurants(${i}); return false;">${i}</a>
+                </li>`;
+            }
+        }
+        
+        // Next button
+        if (data.next) {
+            paginationHTML += `<li class="page-item">
+                <a class="page-link" href="#" onclick="loadRestaurants(${currentPage + 1}); return false;">Next</a>
+            </li>`;
+        }
+        
+        pagination.innerHTML = paginationHTML;
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Make functions available globally
+    window.loadRestaurants = loadRestaurants;
+});
+</script>
+{% endblock %}
