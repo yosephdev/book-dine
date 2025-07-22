@@ -38,7 +38,21 @@ class EnvironmentValidator:
             self.missing_vars.append(var_name)
             return None
         
-        if value and not (value.startswith('http://') or value.startswith('https://') or value.startswith('redis://')):
+        if not value:
+            return None
+        
+        # Accept common URL schemes for different services
+        valid_schemes = [
+            'http://', 'https://',  # Web URLs
+            'postgres://', 'postgresql://',  # PostgreSQL
+            'mysql://', 'sqlite://',  # Other databases  
+            'redis://', 'rediss://',  # Redis
+            'cloudinary://',  # Cloudinary
+            'mongodb://',  # MongoDB
+            'ftp://', 'ftps://',  # FTP
+        ]
+        
+        if not any(value.startswith(scheme) for scheme in valid_schemes):
             self.invalid_vars.append(f"{var_name} (invalid URL format)")
             return None
         
