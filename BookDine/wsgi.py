@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-# Set default to production for deployed environments
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BookDine.settings.production')
+# Set default to heroku settings for deployed environments
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BookDine.settings.heroku')
 
 application = get_wsgi_application()
