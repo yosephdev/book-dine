@@ -18,19 +18,32 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
 from booking_system import views as booking_views
+from .health import system_health
 
 # Custom error handlers
 handler404 = 'BookDine.views.custom_404_view'
 handler500 = 'BookDine.views.custom_500_view'
+
+def home(request):
+    return HttpResponse("""
+    <h1>BookDine Emergency Mode</h1>
+    <p>App is running in emergency mode</p>
+    <ul>
+        <li><a href="/health/">Health Check</a></li>
+        <li><a href="/admin/">Admin (if available)</a></li>
+    </ul>
+    """, content_type="text/html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
     path('api/', include('booking_system.api_urls')),
-    path('', booking_views.home, name='home'),
+    path('', home, name='home'),
+    path('health/', system_health, name='health'),
     path('book-table/', booking_views.book_table, name='book_table'),
     path('book-table/<uuid:restaurant_id>/', booking_views.book_table, name='book_table_restaurant'),
     path('reservations/', booking_views.my_reservations, name='my_reservations'),
