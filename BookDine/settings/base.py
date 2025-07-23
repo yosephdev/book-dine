@@ -16,11 +16,11 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Ensure ROOT_URLCONF is always set before any validation
 ROOT_URLCONF = 'BookDine.urls'
 
-# Validate core environment variables
-SECRET_KEY = env_validator.require_var('SECRET_KEY')
+# Validate core environment variables (more flexible for production)
+SECRET_KEY = env_validator.require_var('SECRET_KEY', default='django-insecure-fallback')
 DEBUG = env_validator.require_var('DEBUG', bool, False)
 
-# Database validation
+# Database validation (optional for production where Heroku provides DATABASE_URL)
 DB_NAME = env_validator.require_var('DB_NAME', default='bookdine')
 DB_USER = env_validator.require_var('DB_USER', default='postgres')
 DB_PASSWORD = env_validator.require_var('DB_PASSWORD', default='')

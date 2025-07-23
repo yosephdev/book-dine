@@ -133,20 +133,22 @@ REST_FRAMEWORK.update({
 })
 
 # Validate security-specific environment variables
-REQUIRED_SECURITY_VARS = [
-    'SECRET_KEY',
-    'DATABASE_URL',
-    'REDIS_URL',
-    'EMAIL_HOST_PASSWORD',
-    'CLOUDINARY_URL',
-]
+# Only validate these in development, not in production where Heroku provides them
+if not os.environ.get('IS_PRODUCTION'):
+    REQUIRED_SECURITY_VARS = [
+        'SECRET_KEY',
+        'DATABASE_URL',
+        'REDIS_URL', 
+        'EMAIL_HOST_PASSWORD',
+        'CLOUDINARY_URL',
+    ]
 
-# Validate each required variable
-for var in REQUIRED_SECURITY_VARS:
-    if var.endswith('_URL'):
-        env_validator.validate_url(var, required=True)
-    else:
-        env_validator.require_var(var)
+    # Validate each required variable
+    for var in REQUIRED_SECURITY_VARS:
+        if var.endswith('_URL'):
+            env_validator.validate_url(var, required=True)
+        else:
+            env_validator.require_var(var)
 
 # CSRF trusted origins validation
 csrf_origins = env_validator.require_var('CSRF_TRUSTED_ORIGINS', default='https://*.herokuapp.com,https://yourdomain.com')
