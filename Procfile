@@ -1,1 +1,1 @@
-web: gunicorn BookDine.wsgi --log-file -
+web: gunicorn BookDine.wsgi --env DJANGO_SETTINGS_MODULE=BookDine.settings.heroku --log-file -
