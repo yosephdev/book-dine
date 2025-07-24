@@ -4,7 +4,7 @@ WSGI config for BookDine project.
 import os
 from django.core.wsgi import get_wsgi_application
 
-# Use emergency settings to avoid dependency issues
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BookDine.settings.emergency')
+# Use production settings for Heroku
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BookDine.settings.heroku')
 
 application = get_wsgi_application()
